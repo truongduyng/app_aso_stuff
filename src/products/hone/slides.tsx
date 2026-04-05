@@ -73,16 +73,16 @@ export function HoneSlide3({ theme: T, base, copy }: SlideProps) {
       theme={T} base={base}
       gradient={T.gradients.accent}
       orbs={[
-        { size: 800, top: "-15%", right: "-30%", color: "rgba(249,115,22,0.18)" },
+        { size: 800, top: "-5%", right: "-30%", color: "rgba(249,115,22,0.18)" },
       ]}
       decoration={<GridPattern opacity={0.02} />}
       label={copy.label}
       headline={copy.headline}
       subtitle={copy.subtitle}
-      captionMt={0.08}
+      captionMt={0.05}
       subtitleMaxW={0.7}
       phones={<>
-        <div style={{ position: "absolute", bottom: 0, left: "-4%", transform: "translateY(10%) rotate(-3deg)", width: "78%", zIndex: 2, opacity: 0.45, filter: "brightness(0.7)" }}>
+        <div style={{ position: "absolute", bottom: 0, left: "-4%", transform: "translateY(0%) rotate(-3deg)", width: "78%", zIndex: 2, opacity: 0.45, filter: "brightness(0.7)" }}>
           <PhoneFrame platform="iphone" src={`${base}/sc2.png`} alt="Act background" />
         </div>
         <div style={{ position: "absolute", bottom: 0, right: "-4%", transform: "translateY(10%)", width: "84%", zIndex: 3 }}>
@@ -108,9 +108,9 @@ export function HoneSlide4({ theme: T, base, copy }: SlideProps) {
       headline={copy.headline}
       subtitle={copy.subtitle}
       screenshot="sc3.png" alt="Track"
-      captionMt={0.08}
+      captionMt={0.05}
       subtitleMaxW={0.78}
-      phoneTy="12%"
+      phoneTy="5%"
     />
   );
 }
@@ -134,9 +134,9 @@ export function HoneSlide5({ theme: T, base, copy }: SlideProps) {
       headline={copy.headline}
       subtitle={copy.subtitle}
       screenshot="sc4.png" alt="Profile"
-      captionMt={0.08}
+      captionMt={0.05}
       subtitleMaxW={0.78}
-      phoneWidth="82%" phoneTy="13%"
+      phoneWidth="82%" phoneTy="0%"
       fadeH="6%"
       extras={<AccentLine canvasW={W} accentColor={T.accent} opacity={0.4} />}
     />
