@@ -34,4 +34,19 @@ export const HONE: ProductConfig = {
       { id: "journey", label: "Journey", Component: HoneSlide5 },
     ],
   },
+  featureGraphic: {
+    tagline: "Hone",
+    subtitle: "Sharpen your edge. Every day.",
+  },
+  socialOg: {
+    tagline: "Hone — Sharpen Your Edge",
+    subtitle: "Daily protocols, AI coaching, and progress tracking for peak performance.",
+  },
+  metadata: {
+    subtitle: "Daily Protocols · AI Coach",
+    promoText: "Meet your AI Sensei — personalized daily protocols to sharpen body, mind, and spirit.",
+    shortDescription: "Daily protocols and AI coaching for peak performance and personal growth.",
+    keywords: "daily protocol,ai coach,habit tracker,self improvement,biohacking,wellness,journal",
+    description: "Hone — your daily edge. Personalized protocols, AI coaching, and progress tracking designed for people who refuse to plateau.\n\n🎯 Daily Protocols: Science-backed routines for body, mind, and spirit. Tailored to your goals.\n\n🤖 AI Sensei: Your personal coach. Ask anything about performance, recovery, nutrition — get instant guidance.\n\n📈 Progress Tracking: See your streak, track your growth, and never lose momentum.\n\n🧘 Journey: A visual timeline of your transformation. Every step counts.",
+  },
 };

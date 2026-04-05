@@ -17,6 +17,22 @@ export const ANDROID_SIZES = [
   { label: 'Android Phone', w: 1080, h: 1920 },
 ] as const;
 
+/* Feature Graphic — Google Play (1024×500) */
+export const FG_W = 1024;
+export const FG_H = 500;
+
+export const FG_SIZES = [
+  { label: "Feature Graphic", w: 1024, h: 500 },
+] as const;
+
+/* Social / OG Preview — Open Graph & Twitter Cards */
+export const OG_W = 1200;
+export const OG_H = 630;
+
+export const OG_SIZES = [
+  { label: "OG Image", w: 1200, h: 630 },
+] as const;
+
 /* iPhone mockup measurements */
 export const MK_W = 1022;
 export const MK_H = 2082;

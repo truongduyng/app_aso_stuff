@@ -1,11 +1,17 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import { MK_W, MK_H, SC_L, SC_T, SC_W, SC_H, SC_RX, SC_RY, IPHONE_W, IPHONE_H, ANDROID_W, ANDROID_H } from "@/lib/constants";
+import {
+  MK_W, MK_H, SC_L, SC_T, SC_W, SC_H, SC_RX, SC_RY,
+  IPHONE_W, IPHONE_H, ANDROID_W, ANDROID_H,
+  FG_W, FG_H, OG_W, OG_H,
+  IPHONE_SIZES, ANDROID_SIZES, FG_SIZES, OG_SIZES,
+} from "@/lib/constants";
 import { img } from "@/lib/images";
 import { exportSingle } from "@/lib/export";
-import { IPHONE_SIZES, ANDROID_SIZES } from "@/lib/constants";
 import type { ThemeTokens } from "@/lib/types";
+
+type DeviceType = "iphone" | "android" | "feature-graphic" | "social-og";
 
 /* ── Phone ──────────────────────────────────────────────── */
 export function Phone({
@@ -210,6 +216,25 @@ export function DiagonalLine({
   );
 }
 
+/* ── Helper to get canvas dimensions by device type ────── */
+function getCanvasDimsForDevice(device: DeviceType) {
+  switch (device) {
+    case "android":         return { cW: ANDROID_W, cH: ANDROID_H };
+    case "feature-graphic": return { cW: FG_W,      cH: FG_H };
+    case "social-og":       return { cW: OG_W,      cH: OG_H };
+    default:                return { cW: IPHONE_W,  cH: IPHONE_H };
+  }
+}
+
+function getSizesForDevice(device: DeviceType) {
+  switch (device) {
+    case "android":         return ANDROID_SIZES;
+    case "feature-graphic": return FG_SIZES;
+    case "social-og":       return OG_SIZES;
+    default:                return IPHONE_SIZES;
+  }
+}
+
 /* ── ScreenshotPreview ─────────────────────────── */
 export function ScreenshotPreview({
   children,
@@ -229,14 +254,13 @@ export function ScreenshotPreview({
   theme: ThemeTokens;
   productId: string;
   multiProduct: boolean;
-  device?: "iphone" | "android";
+  device?: DeviceType;
   selectedSize?: number;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.2);
-  const canvasW = device === "android" ? ANDROID_W : IPHONE_W;
-  const canvasH = device === "android" ? ANDROID_H : IPHONE_H;
-  const sizes = device === "android" ? ANDROID_SIZES : IPHONE_SIZES;
+  const { cW: canvasW, cH: canvasH } = getCanvasDimsForDevice(device);
+  const sizes = getSizesForDevice(device);
 
   useEffect(() => {
     if (!containerRef.current) return;

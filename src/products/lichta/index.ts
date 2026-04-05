@@ -60,4 +60,19 @@ export const LICHTA: ProductConfig = {
       { id: "widgets", label: "Widget", Component: LichtaAndroid7 },
     ],
   },
+  featureGraphic: {
+    tagline: "Lịch Ta",
+    subtitle: "Lịch âm, Can Chi, Tiết Khí — tất cả ở một chỗ.",
+  },
+  socialOg: {
+    tagline: "Lịch Ta — Lịch Âm Việt Nam",
+    subtitle: "Âm lịch, Can Chi, Hoàng Đạo, Tử Vi AI và hơn thế nữa.",
+  },
+  metadata: {
+    subtitle: "Lịch Âm · Can Chi · Hoàng Đạo",
+    promoText: "Hỏi Thầy AI về tử vi, phong thủy, phong tục Việt Nam — trả lời ngay trong app!",
+    shortDescription: "Lịch âm Việt Nam với Can Chi, Tiết Khí, Hoàng Đạo và Thầy AI tử vi.",
+    keywords: "lịch âm,lịch ta,can chi,tiết khí,hoàng đạo,tử vi,phong thủy,âm lịch,lịch việt nam",
+    description: "Lịch Ta — ứng dụng lịch âm Việt Nam đẹp nhất, với đầy đủ thông tin Can Chi, Tiết Khí, giờ Hoàng Đạo và Thầy AI tử vi.\n\n✨ Xem ngày hôm nay: Âm lịch, Can Chi, Tiết Khí, Thần Sát — tất cả hiển thị rõ ràng.\n\n📅 Sự kiện âm lịch: Không bao giờ bỏ lỡ giỗ chạp, sinh nhật, ngày cưới theo âm lịch. Nhắc nhở tự động.\n\n🤖 Thầy AI: Hỏi bất cứ điều gì về tử vi, phong thủy, phong tục Việt Nam — AI trả lời ngay.\n\n🎨 Giao diện đẹp: Hình nền thành phố Việt Nam, màu chủ đạo tùy chỉnh.\n\n📱 Widget: Thêm widget vào màn hình chính, xem lịch âm ngay không cần mở app.",
+  },
 };

@@ -3,9 +3,32 @@ import JSZip from "jszip";
 import {
   IPHONE_W, IPHONE_H, IPHONE_SIZES,
   ANDROID_W, ANDROID_H, ANDROID_SIZES,
+  FG_W, FG_H, FG_SIZES,
+  OG_W, OG_H, OG_SIZES,
 } from "./constants";
 
 type AnySize = { label: string; w: number; h: number };
+type DeviceType = "iphone" | "android" | "feature-graphic" | "social-og";
+
+/** Get canvas dimensions for a given device type */
+export function getCanvasDims(device: DeviceType) {
+  switch (device) {
+    case "android":        return { w: ANDROID_W, h: ANDROID_H };
+    case "feature-graphic": return { w: FG_W,      h: FG_H };
+    case "social-og":       return { w: OG_W,      h: OG_H };
+    default:               return { w: IPHONE_W,  h: IPHONE_H };
+  }
+}
+
+/** Get export sizes for a given device type */
+export function getExportSizes(device: DeviceType): readonly AnySize[] {
+  switch (device) {
+    case "android":        return ANDROID_SIZES;
+    case "feature-graphic": return FG_SIZES;
+    case "social-og":       return OG_SIZES;
+    default:               return IPHONE_SIZES;
+  }
+}
 
 /* ── Single export (click-to-download one slide) ─────────── */
 export async function exportSingle(
@@ -15,15 +38,14 @@ export async function exportSingle(
   size?: AnySize,
   productId?: string,
   multiProduct = false,
-  device: "iphone" | "android" = "iphone"
+  device: DeviceType = "iphone"
 ) {
   const el = container.children[index] as HTMLElement;
   if (!el) return;
 
-  const canvasW = device === "android" ? ANDROID_W : IPHONE_W;
-  const canvasH = device === "android" ? ANDROID_H : IPHONE_H;
-  const defaultSize = device === "android" ? ANDROID_SIZES[0] : IPHONE_SIZES[0];
-  const exportSize = size ?? defaultSize;
+  const { w: canvasW, h: canvasH } = getCanvasDims(device);
+  const sizes = getExportSizes(device);
+  const exportSize = size ?? sizes[0];
 
   el.style.left = "0px";
   el.style.opacity = "1";
@@ -40,7 +62,7 @@ export async function exportSingle(
   el.style.zIndex = "";
 
   const prefix = multiProduct && productId ? `${productId}-` : "";
-  const deviceTag = device === "android" ? "android-" : "";
+  const deviceTag = device === "iphone" ? "" : `${device}-`;
   const slug = label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
   if (exportSize.w !== canvasW || exportSize.h !== canvasH) {
@@ -58,7 +80,7 @@ export type ZipExportOptions = {
   sizes: AnySize[];
   productId: string;
   multiProduct: boolean;
-  device: "iphone" | "android";
+  device: DeviceType;
   onProgress?: (done: number, total: number) => void;
 };
 
@@ -71,12 +93,11 @@ export async function exportAllToZip({
   device,
   onProgress,
 }: ZipExportOptions): Promise<void> {
-  const canvasW = device === "android" ? ANDROID_W : IPHONE_W;
-  const canvasH = device === "android" ? ANDROID_H : IPHONE_H;
+  const { w: canvasW, h: canvasH } = getCanvasDims(device);
 
   const zip = new JSZip();
   const prefix = multiProduct ? `${productId}-` : "";
-  const deviceTag = device === "android" ? "android-" : "";
+  const deviceTag = device === "iphone" ? "" : `${device}-`;
   const total = slides.length * sizes.length;
   let done = 0;
 
