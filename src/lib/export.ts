@@ -1,0 +1,163 @@
+import { toPng } from "html-to-image";
+import JSZip from "jszip";
+import {
+  IPHONE_W, IPHONE_H, IPHONE_SIZES,
+  ANDROID_W, ANDROID_H, ANDROID_SIZES,
+} from "./constants";
+
+type AnySize = { label: string; w: number; h: number };
+
+/* ── Single export (click-to-download one slide) ─────────── */
+export async function exportSingle(
+  container: HTMLElement,
+  index: number,
+  label: string,
+  size?: AnySize,
+  productId?: string,
+  multiProduct = false,
+  device: "iphone" | "android" = "iphone"
+) {
+  const el = container.children[index] as HTMLElement;
+  if (!el) return;
+
+  const canvasW = device === "android" ? ANDROID_W : IPHONE_W;
+  const canvasH = device === "android" ? ANDROID_H : IPHONE_H;
+  const defaultSize = device === "android" ? ANDROID_SIZES[0] : IPHONE_SIZES[0];
+  const exportSize = size ?? defaultSize;
+
+  el.style.left = "0px";
+  el.style.opacity = "1";
+  el.style.zIndex = "-1";
+
+  const opts = { width: canvasW, height: canvasH, pixelRatio: 1, cacheBust: true };
+
+  // Double-call trick — first warms up fonts/images, second produces clean output
+  await toPng(el, opts);
+  const dataUrl = await toPng(el, opts);
+
+  el.style.left = "-9999px";
+  el.style.opacity = "";
+  el.style.zIndex = "";
+
+  const prefix = multiProduct && productId ? `${productId}-` : "";
+  const deviceTag = device === "android" ? "android-" : "";
+  const slug = label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+  if (exportSize.w !== canvasW || exportSize.h !== canvasH) {
+    const resizedUrl = await resizeDataUrl(dataUrl, exportSize.w, exportSize.h);
+    downloadDataUrl(resizedUrl, `${prefix}${deviceTag}${pad(index)}-${slug}-${exportSize.w}x${exportSize.h}.png`);
+  } else {
+    downloadDataUrl(dataUrl, `${prefix}${deviceTag}${pad(index)}-${slug}-${exportSize.w}x${exportSize.h}.png`);
+  }
+}
+
+/* ── Batch ZIP export ──────────────────────────────────────── */
+export type ZipExportOptions = {
+  container: HTMLElement;
+  slides: { label: string }[];
+  sizes: AnySize[];
+  productId: string;
+  multiProduct: boolean;
+  device: "iphone" | "android";
+  onProgress?: (done: number, total: number) => void;
+};
+
+export async function exportAllToZip({
+  container,
+  slides,
+  sizes,
+  productId,
+  multiProduct,
+  device,
+  onProgress,
+}: ZipExportOptions): Promise<void> {
+  const canvasW = device === "android" ? ANDROID_W : IPHONE_W;
+  const canvasH = device === "android" ? ANDROID_H : IPHONE_H;
+
+  const zip = new JSZip();
+  const prefix = multiProduct ? `${productId}-` : "";
+  const deviceTag = device === "android" ? "android-" : "";
+  const total = slides.length * sizes.length;
+  let done = 0;
+
+  for (let i = 0; i < slides.length; i++) {
+    const el = container.children[i] as HTMLElement;
+    if (!el) continue;
+
+    const slug = slides[i].label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+    // Bring element into render position
+    el.style.left = "0px";
+    el.style.opacity = "1";
+    el.style.zIndex = "-1";
+
+    const opts = { width: canvasW, height: canvasH, pixelRatio: 1, cacheBust: true };
+
+    // Warm-up pass then capture
+    await toPng(el, opts);
+    const dataUrl = await toPng(el, opts);
+
+    el.style.left = "-9999px";
+    el.style.opacity = "";
+    el.style.zIndex = "";
+
+    // Add one PNG per requested export size
+    for (const size of sizes) {
+      const finalUrl =
+        size.w !== canvasW || size.h !== canvasH
+          ? await resizeDataUrl(dataUrl, size.w, size.h)
+          : dataUrl;
+
+      const filename = `${prefix}${deviceTag}${pad(i + 1)}-${slug}-${size.w}x${size.h}.png`;
+      zip.file(filename, dataUrlToBlob(finalUrl));
+
+      done++;
+      onProgress?.(done, total);
+    }
+
+    // Small yield so the browser stays responsive
+    await tick();
+  }
+
+  const blob = await zip.generateAsync({ type: "blob", compression: "DEFLATE", compressionOptions: { level: 6 } });
+  const zipName = `${prefix}${deviceTag}screenshots.zip`;
+  downloadDataUrl(URL.createObjectURL(blob), zipName);
+}
+
+/* ── Helpers ───────────────────────────────────────────────── */
+function pad(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+async function resizeDataUrl(dataUrl: string, w: number, h: number): Promise<string> {
+  const image = new Image();
+  image.src = dataUrl;
+  await new Promise((r) => (image.onload = r));
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  canvas.getContext("2d")!.drawImage(image, 0, 0, w, h);
+  return canvas.toDataURL("image/png");
+}
+
+function dataUrlToBlob(dataUrl: string): Blob {
+  const [header, data] = dataUrl.split(",");
+  const mime = header.match(/:(.*?);/)![1];
+  const bytes = atob(data);
+  const arr = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+
+function downloadDataUrl(url: string, filename: string) {
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function tick() {
+  return new Promise<void>((r) => setTimeout(r, 0));
+}

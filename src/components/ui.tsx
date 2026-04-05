@@ -1,0 +1,312 @@
+"use client";
+
+import React, { useRef, useEffect, useState } from "react";
+import { MK_W, MK_H, SC_L, SC_T, SC_W, SC_H, SC_RX, SC_RY, IPHONE_W, IPHONE_H, ANDROID_W, ANDROID_H } from "@/lib/constants";
+import { img } from "@/lib/images";
+import { exportSingle } from "@/lib/export";
+import { IPHONE_SIZES, ANDROID_SIZES } from "@/lib/constants";
+import type { ThemeTokens } from "@/lib/types";
+
+/* ── Phone ──────────────────────────────────────────────── */
+export function Phone({
+  src,
+  alt,
+  style,
+  mockupPath = "/mockup.png",
+}: {
+  src: string;
+  alt: string;
+  style?: React.CSSProperties;
+  mockupPath?: string;
+}) {
+  return (
+    <div style={{ aspectRatio: `${MK_W}/${MK_H}`, position: "relative", ...style }}>
+      <img
+        src={img(mockupPath)}
+        alt=""
+        style={{ display: "block", width: "100%", height: "100%" }}
+        draggable={false}
+      />
+      <div
+        style={{
+          position: "absolute",
+          zIndex: 10,
+          overflow: "hidden",
+          left: `${SC_L}%`,
+          top: `${SC_T}%`,
+          width: `${SC_W}%`,
+          height: `${SC_H}%`,
+          borderRadius: `${SC_RX}% / ${SC_RY}%`,
+        }}
+      >
+        <img
+          src={img(src)}
+          alt={alt}
+          style={{
+            display: "block",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "top",
+          }}
+          draggable={false}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* ── AndroidPhone (CSS-only) ────────────────────── */
+export function AndroidPhone({ src, alt, style }: { src: string; alt: string; style?: React.CSSProperties }) {
+  return (
+    <div style={{ position: "relative", aspectRatio: "9/19.5", ...style }}>
+      <div style={{
+        width: "100%", height: "100%",
+        borderRadius: "8% / 4%",
+        background: "linear-gradient(160deg, #2a2a2e 0%, #18181b 100%)",
+        boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 40px rgba(0,0,0,0.55)",
+        position: "relative", overflow: "hidden",
+      }}>
+        {/* Punch-hole camera */}
+        <div style={{
+          position: "absolute", top: "1.5%", left: "50%",
+          transform: "translateX(-50%)", width: "3%", height: "1.4%",
+          borderRadius: "50%", background: "#0d0d0f",
+          border: "1px solid rgba(255,255,255,0.06)", zIndex: 20,
+        }} />
+        {/* Screen */}
+        <div style={{
+          position: "absolute", left: "3.5%", top: "2%",
+          width: "93%", height: "96%",
+          borderRadius: "5.5% / 2.6%", overflow: "hidden", background: "#000",
+        }}>
+          <img src={img(src)} alt={alt} style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} draggable={false} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Caption ────────────────────────────────────────────── */
+export function Caption({
+  label,
+  headline,
+  canvasW,
+  align = "center",
+  style,
+  theme,
+}: {
+  label: string;
+  headline: React.ReactNode;
+  canvasW: number;
+  align?: "center" | "left";
+  style?: React.CSSProperties;
+  theme: ThemeTokens;
+}) {
+  return (
+    <div style={{ textAlign: align, ...style }}>
+      <div
+        style={{
+          fontSize: canvasW * 0.03,
+          fontWeight: 600,
+          color: theme.accent,
+          letterSpacing: "0.15em",
+          textTransform: "uppercase",
+          marginBottom: canvasW * 0.02,
+        }}
+      >
+        {label}
+      </div>
+      <div
+        style={{
+          fontSize: canvasW * 0.088,
+          fontWeight: 700,
+          color: theme.fg,
+          lineHeight: 1.05,
+          letterSpacing: "-0.02em",
+        }}
+      >
+        {headline}
+      </div>
+    </div>
+  );
+}
+
+/* ── OrbGlow ────────────────────────────────────────────── */
+export function OrbGlow({
+  color,
+  size = 600,
+  top,
+  left,
+  right,
+  bottom,
+}: {
+  color: string;
+  size?: number;
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
+}) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        width: size,
+        height: size,
+        borderRadius: "50%",
+        background: `radial-gradient(circle, ${color} 0%, transparent 70%)`,
+        filter: "blur(80px)",
+        top,
+        left,
+        right,
+        bottom,
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
+    />
+  );
+}
+
+/* ── GridPattern ────────────────────────────────────────── */
+export function GridPattern({ opacity = 0.03 }: { opacity?: number }) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        backgroundImage: `
+          linear-gradient(rgba(255,255,255,${opacity}) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,${opacity}) 1px, transparent 1px)
+        `,
+        backgroundSize: "60px 60px",
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
+    />
+  );
+}
+
+/* ── DiagonalLine ───────────────────────────────────────── */
+export function DiagonalLine({
+  top,
+  left,
+  width = 400,
+  rotate = -30,
+  opacity = 0.08,
+  accentColor,
+}: {
+  top: string;
+  left: string;
+  width?: number;
+  rotate?: number;
+  opacity?: number;
+  accentColor: string;
+}) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top,
+        left,
+        width,
+        height: 2,
+        background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)`,
+        opacity,
+        transform: `rotate(${rotate}deg)`,
+        transformOrigin: "left center",
+        zIndex: 0,
+        pointerEvents: "none",
+      }}
+    />
+  );
+}
+
+/* ── ScreenshotPreview ─────────────────────────── */
+export function ScreenshotPreview({
+  children,
+  index,
+  label,
+  exportRef,
+  theme,
+  productId,
+  multiProduct,
+  device = "iphone",
+  selectedSize = 0,
+}: {
+  children: React.ReactNode;
+  index: number;
+  label: string;
+  exportRef: React.RefObject<HTMLDivElement | null>;
+  theme: ThemeTokens;
+  productId: string;
+  multiProduct: boolean;
+  device?: "iphone" | "android";
+  selectedSize?: number;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.2);
+  const canvasW = device === "android" ? ANDROID_W : IPHONE_W;
+  const canvasH = device === "android" ? ANDROID_H : IPHONE_H;
+  const sizes = device === "android" ? ANDROID_SIZES : IPHONE_SIZES;
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const obs = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setScale(entry.contentRect.width / canvasW);
+      }
+    });
+    obs.observe(containerRef.current);
+    return () => obs.disconnect();
+  }, [canvasW]);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <div
+        ref={containerRef}
+        style={{
+          width: "100%",
+          aspectRatio: `${canvasW}/${canvasH}`,
+          position: "relative",
+          overflow: "hidden",
+          borderRadius: 12,
+          border: "1px solid rgba(255,255,255,0.08)",
+          cursor: "pointer",
+          background: theme.bg,
+        }}
+        onClick={async () => {
+          if (!exportRef.current) return;
+          // Use the selected size; fall back to index 0 if selectedSize is -1 ("all sizes")
+          const sizeEntry = sizes[Math.max(0, selectedSize)];
+          await exportSingle(exportRef.current, index, label, sizeEntry, productId, multiProduct, device);
+        }}
+        title={`Click to export "${label}"`}
+      >
+        <div
+          style={{
+            width: canvasW,
+            height: canvasH,
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
+        >
+          {children}
+        </div>
+      </div>
+      <div
+        style={{
+          textAlign: "center",
+          fontSize: 13,
+          color: theme.fgMuted,
+          fontWeight: 500,
+        }}
+      >
+        {String(index + 1).padStart(2, "0")} — {label}
+      </div>
+    </div>
+  );
+}
