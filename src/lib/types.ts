@@ -38,6 +38,7 @@ export type MetadataField = {
 
 /** Product-level metadata defaults */
 export type MetadataConfig = {
+  name: string;               // Both — 30 chars
   subtitle: string;           // Apple — 30 chars
   promoText: string;          // Apple — 170 chars
   shortDescription: string;   // Google — 80 chars

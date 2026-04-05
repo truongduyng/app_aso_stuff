@@ -13,6 +13,7 @@ type FieldDef = {
 };
 
 const FIELDS: FieldDef[] = [
+  { id: "name",             label: "App Name",                       platform: "Both",   maxLength: 30,   multiline: false, placeholder: "e.g. Lịch Ta" },
   { id: "subtitle",         label: "App Store Subtitle",             platform: "Apple",  maxLength: 30,   multiline: false, placeholder: "e.g. Vietnamese Lunar Calendar" },
   { id: "promoText",        label: "Promotional Text",               platform: "Apple",  maxLength: 170,  multiline: true,  placeholder: "Current promo or highlight — can be updated without new release" },
   { id: "shortDescription", label: "Short Description",              platform: "Google", maxLength: 80,   multiline: false, placeholder: "One-line summary shown in search results" },

@@ -27,10 +27,10 @@ export const AMFO: ProductConfig = {
   theme: AMFO_THEME,
   slides: {
     iphone: [
-      { id: "calm",  label: "Sound Library", Component: AmfoSlide1 },
-      { id: "mix",   label: "Sound Mixer",   Component: AmfoSlide2 },
-      { id: "timer", label: "Focus Timer",   Component: AmfoSlide3 },
-      { id: "focus", label: "Focus Mode",    Component: AmfoSlide4 },
+      { id: "calm", label: "Sound Library", Component: AmfoSlide1 },
+      { id: "mix", label: "Sound Mixer", Component: AmfoSlide2 },
+      { id: "timer", label: "Focus Timer", Component: AmfoSlide3 },
+      { id: "focus", label: "Focus Mode", Component: AmfoSlide4 },
     ],
   },
   featureGraphic: {
@@ -42,10 +42,11 @@ export const AMFO: ProductConfig = {
     subtitle: "Curated ambient sounds and custom mixes for deep focus and restful sleep.",
   },
   metadata: {
+    name: "Amfo",
     subtitle: "Ambient Sounds · Focus · Sleep",
     promoText: "50+ curated ambient sounds — mix rain, café, and nature for your perfect focus session.",
     shortDescription: "Ambient sounds and custom mixes for focus, sleep, and relaxation.",
     keywords: "ambient sounds,white noise,focus,sleep sounds,nature sounds,rain sounds,sound mixer,relaxation",
-    description: "Amfo — curated ambient sounds for focus, sleep, and flow.\n\n🎵 Sound Library: 50+ handpicked ambient sounds — rain, café, nature, city, and more.\n\n🎚️ Sound Mixer: Layer multiple sounds to create your perfect atmosphere. Every session, uniquely yours.\n\n⏱️ Focus Timer: Built-in timer fades the UI so nothing breaks your focus.\n\n🧘 Focus Mode: Auto-hide controls during sessions. Only the sound remains.",
+    description: "Amfo — curated ambient sounds for focus, sleep, and flow.\n\nSound Library: 50+ handpicked ambient sounds — rain, café, nature, city, and more.\n\nSound Mixer: Layer multiple sounds to create your perfect atmosphere. Every session, uniquely yours.\n\nFocus Timer: Built-in timer fades the UI so nothing breaks your focus.\n\nFocus Mode: Auto-hide controls during sessions. Only the sound remains.",
   },
 };
