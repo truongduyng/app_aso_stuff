@@ -107,18 +107,6 @@ export function Caption({
     <div style={{ textAlign: align, ...style }}>
       <div
         style={{
-          fontSize: canvasW * 0.03,
-          fontWeight: 600,
-          color: theme.accent,
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
-          marginBottom: canvasW * 0.02,
-        }}
-      >
-        {label}
-      </div>
-      <div
-        style={{
           fontSize: canvasW * 0.088,
           fontWeight: 700,
           color: theme.fg,
