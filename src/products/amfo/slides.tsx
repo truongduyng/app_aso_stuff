@@ -79,7 +79,7 @@ export function AmfoSlide3({ theme: T, base }: SlideProps) {
       subtitle={<>Built-in timer fades the UI<br />so nothing breaks your focus.</>}
       screenshot="sc2.png" alt="Focus timer"
       captionMt={0.08}
-      phoneWidth="83%" phoneTy="8%"
+      phoneWidth="83%" phoneTy="3%"
     />
   );
 }

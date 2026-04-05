@@ -12,7 +12,11 @@ export default function ScreenshotsPage() {
   const [selectedSize, setSelectedSize] = useState(0); // -1 = all sizes
   const [exporting, setExporting] = useState(false);
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
-  const [productId, setProductId] = useState(PRODUCTS[0].id);
+  const [productId, setProductId] = useState(() => {
+    if (typeof window === "undefined") return PRODUCTS[0].id;
+    const saved = localStorage.getItem("selectedProductId");
+    return PRODUCTS.find((p) => p.id === saved) ? saved! : PRODUCTS[0].id;
+  });
   const [ready, setReady] = useState(false);
   const [device, setDevice] = useState<"iphone" | "android">("iphone");
   const [productMenuOpen, setProductMenuOpen] = useState(false);
@@ -166,7 +170,7 @@ export default function ScreenshotsPage() {
                 return (
                   <button
                     key={p.id}
-                    onClick={() => { setProductId(p.id); setProductMenuOpen(false); }}
+                    onClick={() => { setProductId(p.id); localStorage.setItem("selectedProductId", p.id); setProductMenuOpen(false); }}
                     style={{
                       display: "flex", alignItems: "center", gap: 10,
                       background: active ? "rgba(255,255,255,0.08)" : "transparent",

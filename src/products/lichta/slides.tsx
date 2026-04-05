@@ -45,8 +45,8 @@ function Slide2({ theme: T, base, platform }: SlideProps & { platform: Platform 
   const isIP = platform === "iphone";
   const bpw = isIP ? "76%" : "50%";
   const fpw = isIP ? "83%" : "58%";
-  const bty = isIP ? "10%" : "8%";
-  const fty = isIP ? "10%" : "6%";
+  const bty = isIP ? "4%" : "3%";
+  const fty = isIP ? "4%" : "2%";
 
   return (
     <SideSlide
@@ -90,7 +90,7 @@ function Slide3({ theme: T, base, platform }: SlideProps & { platform: Platform 
       subtitle={<>Tiết khí, Thần Sát, giờ Hoàng Đạo<br />hiển thị ngay khi chọn ngày.</>}
       screenshot="sc3.png" alt="Lịch âm chi tiết"
       captionMt={isIP ? 0.08 : 0.06}
-      phoneTy={isIP ? "12%" : "6%"}
+      phoneTy={isIP ? "4%" : "2%"}
     />
   );
 }
@@ -114,7 +114,7 @@ function Slide4({ theme: T, base, platform }: SlideProps & { platform: Platform 
       subtitle={<>Tử vi, phong thủy, phong tục<br />Việt Nam — AI trả lời ngay.</>}
       screenshot="sc5.png" alt="Thầy Lịch Ta AI"
       captionMt={isIP ? 0.08 : 0.06}
-      phoneTy={isIP ? "12%" : "6%"}
+      phoneTy={isIP ? "4%" : "2%"}
     />
   );
 }
@@ -136,11 +136,14 @@ function Slide5({ theme: T, base, platform }: SlideProps & { platform: Platform 
       headline={<>Màu sắc<br /><span style={{ color: T.accent }}>theo ý bạn.</span></>}
       subtitle={<>Hình nền thành phố Việt Nam,<br />màu chủ đạo tùy chỉnh thoải mái.</>}
       subtitleMaxW={isIP ? 0.65 : 0.62}
-      phones={
-        <div style={{ position: "absolute", bottom: 0, right: isIP ? "-4%" : "-3%", transform: `translateY(${isIP ? "10%" : "6%"})`, width: isIP ? "80%" : "58%", zIndex: 3 }}>
+      phones={<>
+        <div style={{ position: "absolute", bottom: 0, left: isIP ? "-4%" : "-3%", transform: `translateY(${isIP ? "4%" : "2%"}) rotate(-3deg)`, width: isIP ? "74%" : "50%", zIndex: 2, opacity: 0.35, filter: "brightness(0.65)" }}>
+          <PhoneFrame platform={platform} src={`${base}/sc4.png`} alt="" />
+        </div>
+        <div style={{ position: "absolute", bottom: 0, right: isIP ? "-4%" : "-3%", transform: `translateY(${isIP ? "4%" : "2%"})`, width: isIP ? "80%" : "58%", zIndex: 3 }}>
           <PhoneFrame platform={platform} src={`${base}/sc4.png`} alt="Tùy chỉnh giao diện" />
         </div>
-      }
+      </>}
     />
   );
 }
@@ -166,7 +169,7 @@ function Slide6({ theme: T, base, platform }: SlideProps & { platform: Platform 
       screenshot="sc6.png" alt="Trò chuyện Thầy AI"
       captionMt={isIP ? 0.08 : 0.06}
       phoneWidth={isIP ? "82%" : "58%"}
-      phoneTy={isIP ? "13%" : "6%"}
+      phoneTy={isIP ? "4%" : "2%"}
       fadeH="6%"
       extras={<AccentLine canvasW={W} accentColor={T.accent} />}
     />

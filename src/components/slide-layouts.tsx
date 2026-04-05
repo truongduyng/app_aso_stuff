@@ -183,8 +183,8 @@ export function CenteredSlide({
   const isIP = platform === "iphone";
   const scaled = scaleOrbs(orbs, platform);
   const pw = phoneWidth ?? (isIP ? "84%" : "58%");
-  const ty = phoneTy ?? (isIP ? "2%" : "-2%");
-  const mt = captionMt ?? (isIP ? 0.07 : 0.06);
+  const ty = phoneTy ?? (isIP ? "4%" : "-2%");
+  const mt = 0.05;
 
   return (
     <div
@@ -319,7 +319,7 @@ export function SideSlide({
         style={{
           zIndex: 5,
           position: "relative",
-          marginTop: H * (captionMt ?? (isIP ? 0.07 : 0.06)),
+          marginTop: H * (captionMt ?? (isIP ? 0.05 : 0.05)),
           paddingLeft: px,
           paddingRight: px,
         }}
