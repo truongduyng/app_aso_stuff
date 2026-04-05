@@ -278,11 +278,6 @@ export default function ScreenshotsPage() {
         ))}
       </div>
 
-      {/* ── Hint ─────────────────────────────────────────── */}
-      <div style={{ textAlign: "center", padding: "12px 0 32px", fontSize: 13, color: T.fgMuted }}>
-        Click any screenshot to export individually · &quot;Export ZIP&quot; bundles all into one file
-      </div>
-
       {/* ── Offscreen Export Container ────────────────────── */}
       <div ref={offscreenRef} style={{ position: "absolute", left: -9999, top: 0, fontFamily: "inherit" }}>
         {slides.map((slide) => (

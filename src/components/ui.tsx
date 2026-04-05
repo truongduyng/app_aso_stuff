@@ -272,16 +272,8 @@ export function ScreenshotPreview({
           overflow: "hidden",
           borderRadius: 12,
           border: "1px solid rgba(255,255,255,0.08)",
-          cursor: "pointer",
           background: theme.bg,
         }}
-        onClick={async () => {
-          if (!exportRef.current) return;
-          // Use the selected size; fall back to index 0 if selectedSize is -1 ("all sizes")
-          const sizeEntry = sizes[Math.max(0, selectedSize)];
-          await exportSingle(exportRef.current, index, label, sizeEntry, productId, multiProduct, device);
-        }}
-        title={`Click to export "${label}"`}
       >
         <div
           style={{
@@ -297,15 +289,51 @@ export function ScreenshotPreview({
           {children}
         </div>
       </div>
+      {/* Label + export button row */}
       <div
         style={{
-          textAlign: "center",
-          fontSize: 13,
-          color: theme.fgMuted,
-          fontWeight: 500,
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          gap: 8, paddingInline: 2,
         }}
       >
-        {String(index + 1).padStart(2, "0")} — {label}
+        <div
+          style={{
+            fontSize: 13,
+            color: theme.fgMuted,
+            fontWeight: 500,
+          }}
+        >
+          {String(index + 1).padStart(2, "0")} — {label}
+        </div>
+        <button
+          onClick={async () => {
+            if (!exportRef.current) return;
+            const sizeEntry = sizes[Math.max(0, selectedSize)];
+            await exportSingle(exportRef.current, index, label, sizeEntry, productId, multiProduct, device);
+          }}
+          title={`Export "${label}"`}
+          style={{
+            display: "flex", alignItems: "center", gap: 5,
+            background: "rgba(255,255,255,0.06)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: 6, padding: "4px 10px",
+            fontSize: 12, fontWeight: 600, color: theme.fgMuted,
+            cursor: "pointer", transition: "all 0.15s", flexShrink: 0,
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.1)";
+            (e.currentTarget as HTMLButtonElement).style.color = theme.fg;
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.06)";
+            (e.currentTarget as HTMLButtonElement).style.color = theme.fgMuted;
+          }}
+        >
+          <svg width={12} height={12} viewBox="0 0 12 12" fill="none">
+            <path d="M6 1v7M3 5l3 3 3-3M1 10h10" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Export
+        </button>
       </div>
     </div>
   );
