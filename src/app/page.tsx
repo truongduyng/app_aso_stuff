@@ -15,10 +15,11 @@ export default function ScreenshotsPage() {
   const [productId, setProductId] = useState(PRODUCTS[0].id);
   const [ready, setReady] = useState(false);
   const [device, setDevice] = useState<"iphone" | "android">("iphone");
+  const [productMenuOpen, setProductMenuOpen] = useState(false);
+  const productMenuRef = useRef<HTMLDivElement>(null);
 
   const product = PRODUCTS.find((p) => p.id === productId)!;
   const T = product.theme;
-  const multiProduct = PRODUCTS.length > 1;
 
   const hasAndroid = Boolean(product.slides.android?.length);
   const activeDevice = hasAndroid ? device : "iphone";
@@ -32,6 +33,18 @@ export default function ScreenshotsPage() {
     setReady(false);
     preloadImages(getImagePathsForProduct(product)).then(() => setReady(true));
   }, [productId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Close product menu when clicking outside
+  useEffect(() => {
+    if (!productMenuOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (productMenuRef.current && !productMenuRef.current.contains(e.target as Node)) {
+        setProductMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [productMenuOpen]);
 
   // Reset selected size when device changes
   useEffect(() => {
@@ -53,14 +66,14 @@ export default function ScreenshotsPage() {
       slides,
       sizes: exportSizes,
       productId: product.id,
-      multiProduct,
+      multiProduct: PRODUCTS.length > 1,
       device: activeDevice,
       onProgress: (done, total) => setProgress({ done, total }),
     });
 
     setExporting(false);
     setProgress(null);
-  }, [selectedSize, exporting, slides, product.id, multiProduct, activeDevice, sizes]);
+  }, [selectedSize, exporting, slides, product.id, activeDevice, sizes]);
 
   if (!ready) {
     return (
@@ -105,19 +118,83 @@ export default function ScreenshotsPage() {
           flexWrap: "wrap",
         }}
       >
-        {/* Left: product selector + title */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          {multiProduct && (
-            <select
-              value={productId}
-              onChange={(e) => setProductId(e.target.value)}
-              style={{ background: "rgba(255,255,255,0.06)", color: T.fg, border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, padding: "8px 12px", fontSize: 13, fontWeight: 700, cursor: "pointer", outline: "none" }}
+        {/* Left: product dropdown trigger (icon + name acts as the button) */}
+        <div ref={productMenuRef} style={{ position: "relative" }}>
+          {/* Trigger */}
+          <button
+            onClick={() => setProductMenuOpen((o) => !o)}
+            style={{
+              display: "flex", alignItems: "center", gap: 10,
+              background: productMenuOpen ? "rgba(255,255,255,0.08)" : "transparent",
+              border: "1px solid",
+              borderColor: productMenuOpen ? "rgba(255,255,255,0.14)" : "transparent",
+              borderRadius: 10, padding: "6px 10px 6px 6px",
+              cursor: "pointer", transition: "all 0.15s",
+            }}
+          >
+            <img
+              src={img(product.iconPath)}
+              alt={product.name}
+              style={{ width: 32, height: 32, borderRadius: 8, flexShrink: 0 }}
+              onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+            />
+            <span style={{ fontWeight: 700, fontSize: 16, color: T.fg, whiteSpace: "nowrap" }}>
+              {product.name}
+            </span>
+            {/* Chevron */}
+            <svg
+              width={14} height={14}
+              viewBox="0 0 14 14" fill="none"
+              style={{ marginLeft: 2, opacity: 0.5, flexShrink: 0, transform: productMenuOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
             >
-              {PRODUCTS.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
-            </select>
+              <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          {/* Dropdown menu */}
+          {productMenuOpen && (
+            <div style={{
+              position: "absolute", top: "calc(100% + 8px)", left: 0, zIndex: 200,
+              background: "rgba(24,24,28,0.97)", backdropFilter: "blur(20px)",
+              border: "1px solid rgba(255,255,255,0.1)", borderRadius: 12,
+              padding: 6, minWidth: 220,
+              boxShadow: "0 16px 60px rgba(0,0,0,0.6)",
+              display: "flex", flexDirection: "column", gap: 2,
+            }}>
+              {PRODUCTS.map((p) => {
+                const active = p.id === productId;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => { setProductId(p.id); setProductMenuOpen(false); }}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 10,
+                      background: active ? "rgba(255,255,255,0.08)" : "transparent",
+                      border: "none", borderRadius: 8, padding: "8px 10px",
+                      cursor: "pointer", transition: "background 0.12s", width: "100%", textAlign: "left",
+                    }}
+                    onMouseEnter={(e) => { if (!active) (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.05)"; }}
+                    onMouseLeave={(e) => { if (!active) (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}
+                  >
+                    <img
+                      src={img(p.iconPath)}
+                      alt={p.name}
+                      style={{ width: 28, height: 28, borderRadius: 6, flexShrink: 0 }}
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                    />
+                    <span style={{ fontSize: 14, fontWeight: active ? 700 : 500, color: active ? T.fg : "#9999a8", flex: 1 }}>
+                      {p.name}
+                    </span>
+                    {active && (
+                      <svg width={14} height={14} viewBox="0 0 14 14" fill="none">
+                        <path d="M3 7l3 3 5-5" stroke={T.accent} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           )}
-          <img src={img(product.iconPath)} alt={product.name} style={{ width: 32, height: 32, borderRadius: 8 }} onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
-          <span style={{ fontWeight: 700, fontSize: 16 }}>{product.name} — Screenshots</span>
         </div>
 
         {/* Center: device tabs (only shown when product has Android slides) */}
@@ -192,7 +269,7 @@ export default function ScreenshotsPage() {
             exportRef={offscreenRef}
             theme={T}
             productId={product.id}
-            multiProduct={multiProduct}
+            multiProduct={PRODUCTS.length > 1}
             device={activeDevice}
             selectedSize={selectedSize}
           >
