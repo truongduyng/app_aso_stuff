@@ -1,3 +1,4 @@
+import React from "react";
 import type { ProductConfig, ThemeTokens } from "@/lib/types";
 import { AmfoSlide1, AmfoSlide2, AmfoSlide3, AmfoSlide4 } from "./slides";
 
@@ -19,6 +20,8 @@ export const AMFO_THEME: ThemeTokens = {
   },
 };
 
+const T = AMFO_THEME;
+
 export const AMFO: ProductConfig = {
   id: "amfo",
   name: "Amfo",
@@ -27,10 +30,42 @@ export const AMFO: ProductConfig = {
   theme: AMFO_THEME,
   slides: {
     iphone: [
-      { id: "calm", label: "Sound Library", Component: AmfoSlide1 },
-      { id: "mix", label: "Sound Mixer", Component: AmfoSlide2 },
-      { id: "timer", label: "Focus Timer", Component: AmfoSlide3 },
-      { id: "focus", label: "Focus Mode", Component: AmfoSlide4 },
+      {
+        id: "calm",
+        copy: {
+          label: "AMBIENT SOUNDS",
+          headline: <>Find<br /><span style={{ color: T.accent }}>your calm.</span></>,
+          subtitle: <>50+ curated ambient sounds<br />for focus, sleep, and flow.</>,
+        },
+        Component: AmfoSlide1,
+      },
+      {
+        id: "mix",
+        copy: {
+          label: "SOUND MIXER",
+          headline: <>Layer sounds.<br /><span style={{ color: T.accent }}>Enter flow.</span></>,
+          subtitle: <>Mix rain, café, and nature.<br />Every session, uniquely yours.</>,
+        },
+        Component: AmfoSlide2,
+      },
+      {
+        id: "timer",
+        copy: {
+          label: "FOCUS TIMER",
+          headline: <>Set a timer.<br /><span style={{ color: T.accent }}>Disappear.</span></>,
+          subtitle: <>Built-in timer fades the UI<br />so nothing breaks your focus.</>,
+        },
+        Component: AmfoSlide3,
+      },
+      {
+        id: "focus",
+        copy: {
+          label: "FOCUS MODE",
+          headline: <>Silence<br /><span style={{ color: T.accent }}>the noise.</span></>,
+          subtitle: <>Auto-hide controls during sessions.<br />Only the sound remains.</>,
+        },
+        Component: AmfoSlide4,
+      },
     ],
   },
   featureGraphic: {

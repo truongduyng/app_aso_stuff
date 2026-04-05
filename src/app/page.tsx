@@ -138,7 +138,7 @@ export default function ScreenshotsPage() {
 
     await exportAllToZip({
       container: ssOffscreenRef.current,
-      slides,
+      slides: slides.map((s) => ({ label: s.copy.label || s.id })),
       sizes: exportSizes,
       productId: product.id,
       multiProduct: PRODUCTS.length > 1,
@@ -344,7 +344,7 @@ export default function ScreenshotsPage() {
           <ScreenshotPreview
             key={`${product.id}-${activeDevice}-${slide.id}`}
             index={i}
-            label={slide.label}
+            label={slide.copy.label || slide.id}
             exportRef={ssOffscreenRef}
             theme={T}
             productId={product.id}
@@ -352,7 +352,7 @@ export default function ScreenshotsPage() {
             device={activeDevice}
             selectedSize={selectedSize}
           >
-            <slide.Component theme={T} base={product.screenshotBase} />
+            <slide.Component theme={T} base={product.screenshotBase} copy={slide.copy} />
           </ScreenshotPreview>
         ))}
       </div>
@@ -364,7 +364,7 @@ export default function ScreenshotsPage() {
             key={`export-${product.id}-${activeDevice}-${slide.id}`}
             style={{ width: canvasW, height: canvasH, position: "absolute", left: -9999, fontFamily: "inherit" }}
           >
-            <slide.Component theme={T} base={product.screenshotBase} />
+            <slide.Component theme={T} base={product.screenshotBase} copy={slide.copy} />
           </div>
         ))}
       </div>

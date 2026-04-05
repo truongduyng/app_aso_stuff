@@ -16,10 +16,20 @@ export type ThemeTokens = {
   };
 };
 
+/** Localizable copy for one slide */
+export type SlideCopy = {
+  label: string;
+  headline: React.ReactNode;
+  subtitle: React.ReactNode;
+};
+
 export type SlideDef = {
   id: string;
-  label: string;
-  Component: React.FC<{ theme: ThemeTokens; base: string }>;
+  /** Default (en) copy — required */
+  copy: SlideCopy;
+  /** Optional per-locale overrides, e.g. { vi: { label: "…", headline: … } } */
+  copyByLocale?: Record<string, SlideCopy>;
+  Component: React.FC<{ theme: ThemeTokens; base: string; copy: SlideCopy }>;
 };
 
 /** Asset categories the generator produces */

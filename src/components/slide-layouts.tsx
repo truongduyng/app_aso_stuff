@@ -7,7 +7,11 @@ import type { ThemeTokens } from "@/lib/types";
 
 /* ── Shared types ─────────────────────────────────────────── */
 export type Platform = "iphone" | "android";
-export type SlideProps = { theme: ThemeTokens; base: string };
+export type SlideProps = {
+  theme: ThemeTokens;
+  base: string;
+  copy: import("@/lib/types").SlideCopy;
+};
 export type OrbDef = {
   size: number;
   top?: string;

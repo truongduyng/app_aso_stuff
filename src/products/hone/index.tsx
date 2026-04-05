@@ -1,3 +1,4 @@
+import React from "react";
 import type { ProductConfig, ThemeTokens } from "@/lib/types";
 import { HoneSlide1, HoneSlide2, HoneSlide3, HoneSlide4, HoneSlide5 } from "./slides";
 
@@ -19,6 +20,8 @@ export const HONE_THEME: ThemeTokens = {
   },
 };
 
+const T = HONE_THEME;
+
 export const HONE: ProductConfig = {
   id: "hone",
   name: "Hone",
@@ -27,11 +30,51 @@ export const HONE: ProductConfig = {
   theme: HONE_THEME,
   slides: {
     iphone: [
-      { id: "hero", label: "Hero", Component: HoneSlide1 },
-      { id: "journal", label: "AI Sensei", Component: HoneSlide2 },
-      { id: "protocol", label: "Daily Protocol", Component: HoneSlide3 },
-      { id: "progress", label: "Progress", Component: HoneSlide4 },
-      { id: "journey", label: "Journey", Component: HoneSlide5 },
+      {
+        id: "hero",
+        copy: {
+          label: "THE 10K ITERATION PROTOCOL",
+          headline: <>Track Repetitions.<br /><span style={{ color: T.accent }}>Not Results.</span></>,
+          subtitle: "Master any skill, one rep at a time.",
+        },
+        Component: HoneSlide1,
+      },
+      {
+        id: "journal",
+        copy: {
+          label: "AI SENSEI",
+          headline: <>Reflect. Refine.<br /><span style={{ color: T.accent }}>Repeat.</span></>,
+          subtitle: <>Journal every rep. Your AI coach analyzes<br />each iteration and delivers tactical micro-adjustments.</>,
+        },
+        Component: HoneSlide2,
+      },
+      {
+        id: "protocol",
+        copy: {
+          label: "DAILY PROTOCOL",
+          headline: <>Execute.<br />Log. <span style={{ color: T.accent }}>Repeat.</span></>,
+          subtitle: <>Define concrete daily actions.<br />Check them off. Build the streak.</>,
+        },
+        Component: HoneSlide3,
+      },
+      {
+        id: "progress",
+        copy: {
+          label: "PROGRESS",
+          headline: <>Consistency<br /><span style={{ color: T.accent }}>Compounds</span></>,
+          subtitle: <>Mood flow. Streaks. Consistency heatmap.<br />See every dimension of your progress.</>,
+        },
+        Component: HoneSlide4,
+      },
+      {
+        id: "journey",
+        copy: {
+          label: "THE JOURNEY",
+          headline: <>10,000 Reps<br /><span style={{ color: T.accent }}>To Mastery</span></>,
+          subtitle: <>1% better every single day.<br />Watch your effect compound over time.</>,
+        },
+        Component: HoneSlide5,
+      },
     ],
   },
   featureGraphic: {

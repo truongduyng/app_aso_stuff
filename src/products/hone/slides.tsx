@@ -13,11 +13,11 @@ import {
 import { GridPattern, DiagonalLine } from "@/components/ui";
 
 /* ─────────────────────────────────────────────────────────────────
-   HONE SLIDES (iPhone only)
+   HONE SLIDES — layout/visual only, all copy comes from props.copy
 ───────────────────────────────────────────────────────────────── */
 
 /* ── Slide 1: Hero ──────────────────────────────────────── */
-export function HoneSlide1({ theme: T, base }: SlideProps) {
+export function HoneSlide1({ theme: T, base, copy }: SlideProps) {
   return (
     <CenteredSlide
       theme={T} base={base}
@@ -31,9 +31,9 @@ export function HoneSlide1({ theme: T, base }: SlideProps) {
         <DiagonalLine top="15%" left="-5%" width={500} rotate={-25} opacity={0.06} accentColor={T.accent} />
         <DiagonalLine top="18%" left="-5%" width={400} rotate={-25} opacity={0.04} accentColor={T.accent} />
       </>}
-      label="THE 10K ITERATION PROTOCOL"
-      headline={<>Track Repetitions.<br /><span style={{ color: T.accent }}>Not Results.</span></>}
-      subtitle="Master any skill, one rep at a time."
+      label={copy.label}
+      headline={copy.headline}
+      subtitle={copy.subtitle}
       screenshot="sc1.png" alt="Journal"
       captionMt={0.04}
     />
@@ -41,7 +41,7 @@ export function HoneSlide1({ theme: T, base }: SlideProps) {
 }
 
 /* ── Slide 2: AI Sensei ─────────────────────────────────── */
-export function HoneSlide2({ theme: T, base }: SlideProps) {
+export function HoneSlide2({ theme: T, base, copy }: SlideProps) {
   const { W, H } = dims("iphone");
   return (
     <CenteredSlide
@@ -51,9 +51,9 @@ export function HoneSlide2({ theme: T, base }: SlideProps) {
         { size: 700, top: "5%", left: "50%", color: "rgba(249,115,22,0.12)" },
         { size: 500, bottom: "-10%", left: "-20%", color: "rgba(249,115,22,0.08)" },
       ]}
-      label="AI SENSEI"
-      headline={<>Reflect. Refine.<br /><span style={{ color: T.accent }}>Repeat.</span></>}
-      subtitle={<>Journal every rep. Your AI coach analyzes<br />each iteration and delivers tactical micro-adjustments.</>}
+      label={copy.label}
+      headline={copy.headline}
+      subtitle={copy.subtitle}
       screenshot="sc1.png" alt="Journal"
       captionMt={0.05}
       subtitleMaxW={0.78}
@@ -67,7 +67,7 @@ export function HoneSlide2({ theme: T, base }: SlideProps) {
 }
 
 /* ── Slide 3: Daily Protocol ────────────────────────────── */
-export function HoneSlide3({ theme: T, base }: SlideProps) {
+export function HoneSlide3({ theme: T, base, copy }: SlideProps) {
   return (
     <SideSlide
       theme={T} base={base}
@@ -76,9 +76,9 @@ export function HoneSlide3({ theme: T, base }: SlideProps) {
         { size: 800, top: "-15%", right: "-30%", color: "rgba(249,115,22,0.18)" },
       ]}
       decoration={<GridPattern opacity={0.02} />}
-      label="DAILY PROTOCOL"
-      headline={<>Execute.<br />Log. <span style={{ color: T.accent }}>Repeat.</span></>}
-      subtitle={<>Define concrete daily actions.<br />Check them off. Build the streak.</>}
+      label={copy.label}
+      headline={copy.headline}
+      subtitle={copy.subtitle}
       captionMt={0.08}
       subtitleMaxW={0.7}
       phones={<>
@@ -94,7 +94,7 @@ export function HoneSlide3({ theme: T, base }: SlideProps) {
 }
 
 /* ── Slide 4: Progress ──────────────────────────────────── */
-export function HoneSlide4({ theme: T, base }: SlideProps) {
+export function HoneSlide4({ theme: T, base, copy }: SlideProps) {
   return (
     <CenteredSlide
       theme={T} base={base}
@@ -104,9 +104,9 @@ export function HoneSlide4({ theme: T, base }: SlideProps) {
         { size: 500, top: "-10%", right: "-15%", color: "rgba(249,115,22,0.1)" },
       ]}
       decoration={<DotGrid color="rgba(249,115,22,0.06)" gap="40px" />}
-      label="PROGRESS"
-      headline={<>Consistency<br /><span style={{ color: T.accent }}>Compounds</span></>}
-      subtitle={<>Mood flow. Streaks. Consistency heatmap.<br />See every dimension of your progress.</>}
+      label={copy.label}
+      headline={copy.headline}
+      subtitle={copy.subtitle}
       screenshot="sc3.png" alt="Track"
       captionMt={0.08}
       subtitleMaxW={0.78}
@@ -116,7 +116,7 @@ export function HoneSlide4({ theme: T, base }: SlideProps) {
 }
 
 /* ── Slide 5: Journey ───────────────────────────────────── */
-export function HoneSlide5({ theme: T, base }: SlideProps) {
+export function HoneSlide5({ theme: T, base, copy }: SlideProps) {
   const { W } = dims("iphone");
   return (
     <CenteredSlide
@@ -130,9 +130,9 @@ export function HoneSlide5({ theme: T, base }: SlideProps) {
         <DiagonalLine top="12%" left="60%" width={350} rotate={35} opacity={0.08} accentColor={T.accent} />
         <DiagonalLine top="14%" left="62%" width={250} rotate={35} opacity={0.05} accentColor={T.accent} />
       </>}
-      label="THE JOURNEY"
-      headline={<>10,000 Reps<br /><span style={{ color: T.accent }}>To Mastery</span></>}
-      subtitle={<>1% better every single day.<br />Watch your effect compound over time.</>}
+      label={copy.label}
+      headline={copy.headline}
+      subtitle={copy.subtitle}
       screenshot="sc4.png" alt="Profile"
       captionMt={0.08}
       subtitleMaxW={0.78}
