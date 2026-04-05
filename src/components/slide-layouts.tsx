@@ -183,7 +183,7 @@ export function CenteredSlide({
   const isIP = platform === "iphone";
   const scaled = scaleOrbs(orbs, platform);
   const pw = phoneWidth ?? (isIP ? "84%" : "58%");
-  const ty = phoneTy ?? (isIP ? "14%" : "6%");
+  const ty = phoneTy ?? (isIP ? "2%" : "-2%");
   const mt = captionMt ?? (isIP ? 0.07 : 0.06);
 
   return (
@@ -212,7 +212,7 @@ export function CenteredSlide({
         style={{
           zIndex: 2,
           position: "relative",
-          marginTop: H * 0.025,
+          marginTop: H * 0.012,
           fontSize: W * (isIP ? 0.035 : 0.038),
           color: T.fgMuted,
           textAlign: "center",
@@ -319,7 +319,7 @@ export function SideSlide({
         style={{
           zIndex: 5,
           position: "relative",
-          marginTop: H * (captionMt ?? (isIP ? 0.09 : 0.07)),
+          marginTop: H * (captionMt ?? (isIP ? 0.07 : 0.06)),
           paddingLeft: px,
           paddingRight: px,
         }}
@@ -336,7 +336,7 @@ export function SideSlide({
         style={{
           zIndex: 5,
           position: "relative",
-          marginTop: H * (subtitleMt ?? (isIP ? 0.028 : 0.025)),
+          marginTop: H * (subtitleMt ?? (isIP ? 0.013 : 0.012)),
           paddingLeft: px,
           fontSize: W * (isIP ? 0.035 : 0.038),
           color: T.fgMuted,

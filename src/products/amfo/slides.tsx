@@ -55,7 +55,7 @@ export function AmfoSlide2({ theme: T, base }: SlideProps) {
         <div style={{ position: "absolute", bottom: 0, left: "-4%", transform: "translateY(10%) rotate(-3deg)", width: "76%", zIndex: 2, opacity: 0.4, filter: "brightness(0.65)" }}>
           <PhoneFrame platform="iphone" src={`${base}/sc1.png`} alt="Sound list background" />
         </div>
-        <div style={{ position: "absolute", bottom: 0, right: "-4%", transform: "translateY(10%)", width: "83%", zIndex: 3 }}>
+        <div style={{ position: "absolute", bottom: 0, right: "-4%", transform: "translateY(8%)", width: "83%", zIndex: 3 }}>
           <PhoneFrame platform="iphone" src={`${base}/sc1.png`} alt="Active mix" />
         </div>
       </>}
@@ -79,7 +79,7 @@ export function AmfoSlide3({ theme: T, base }: SlideProps) {
       subtitle={<>Built-in timer fades the UI<br />so nothing breaks your focus.</>}
       screenshot="sc2.png" alt="Focus timer"
       captionMt={0.08}
-      phoneWidth="83%" phoneTy="12%"
+      phoneWidth="83%" phoneTy="8%"
     />
   );
 }
@@ -101,7 +101,7 @@ export function AmfoSlide4({ theme: T, base }: SlideProps) {
       headline={<>Silence<br /><span style={{ color: T.accent }}>the noise.</span></>}
       subtitle={<>Auto-hide controls during sessions.<br />Only the sound remains.</>}
       screenshot="sc3.png" alt="Focus mode settings"
-      phoneWidth="82%" phoneTy="13%"
+      phoneWidth="82%" phoneTy="3%"
       fadeH="6%"
       extras={<AccentLine canvasW={W} accentColor={T.accent} opacity={0.5} />}
     />
