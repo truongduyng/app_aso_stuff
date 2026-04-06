@@ -91,21 +91,18 @@ export const AMFO: ProductConfig = {
     promoText: "50+ curated ambient sounds - mix rain, café, and nature for your perfect focus session.",
     shortDescription: "Ambient sounds and custom mixes for focus, sleep, and relaxation.",
     keywords: "ambient sounds,white noise,focus,sleep sounds,nature sounds,rain sounds,sound mixer,relaxation",
-    description: `Mix 52+ ambient sounds to create your perfect focus environment.
+    description: `Find your calm and enter deep flow with Amfo.
 
-Layer rain, nature, white noise, and binaural beats with independent volume
-controls. Set a focus timer and let Amfo help you work, study, or sleep deeper.
+Mix 50+ curated ambient sounds to create your perfect environment. Whether you need deep focus for work, a calming atmosphere for study, or peaceful background noise to fall asleep, Amfo gives you the tools to silence distractions.
 
-MIX YOUR PERFECT SOUNDSCAPE
-
-Amfo is the beautiful, no-fuss sound mixer designed for people who need to
-focus, study, or sleep -- without distractions.
-
-Layer any combination of 52+ handcrafted ambient sounds with individual volume
-controls. From gentle rain on a tin roof to deep brown noise and binaural focus
-beats -- create the exact atmosphere your brain needs.
-
---------------------
+FEATURES
+- Mix unlimited sounds with independent volumes
+- Save your favorite mixes as custom Presets
+- Beautiful distraction-free Focus Timer
+- Auto-hide UI during active timer sessions
+- Sleep Fade Out for bedtime routines
+- Background audio: Keeps playing when you switch apps
+- Absolutely zero intrusive ads
 
 SOUNDS LIBRARY
 
