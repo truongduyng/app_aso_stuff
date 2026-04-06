@@ -70,6 +70,13 @@ export type ProductConfig = {
   screenshotBase: string;
   mockupPath?: string;
   theme: ThemeTokens;
+  /**
+   * Supported locales for this product.
+   * Controls both slide copy (copyByLocale) and store metadata (metadataByLocale).
+   * A single language picker in the toolbar switches all content at once.
+   * The first locale is the default (maps to the primary `copy` / `metadata` fields).
+   */
+  locales?: LocaleDef[];
   slides: {
     iphone: SlideDef[];
     android?: SlideDef[];
@@ -84,10 +91,8 @@ export type ProductConfig = {
     tagline: string;
     subtitle?: string;
   };
-  /** Store metadata defaults (primary locale) */
+  /** Store metadata defaults (primary / first locale) */
   metadata?: MetadataConfig;
   /** Per-locale metadata overrides. Key is locale code (e.g. "vi", "de") */
   metadataByLocale?: Record<string, MetadataConfig>;
-  /** Available locales for this product's metadata */
-  metadataLocales?: LocaleDef[];
 };

@@ -33,6 +33,10 @@ export const LICHTA: ProductConfig = {
   iconPath: "/products/lichta/icon.png",
   screenshotBase: "/products/lichta/screenshots",
   theme: LICHTA_THEME,
+  locales: [
+    { code: "vi", label: "Tiếng Việt", flag: "🇻🇳" },
+    { code: "en", label: "English", flag: "🇺🇸" },
+  ],
   slides: {
     iphone: [
       {
@@ -41,6 +45,13 @@ export const LICHTA: ProductConfig = {
           label: "LỊCH ÂM VIỆT NAM",
           headline: <>Ngày hôm nay<br /><span style={{ color: T.accent }}>trong tầm tay.</span></>,
           subtitle: <>Âm lịch, Can Chi, Tiết Khí,<br />Hoàng Đạo - tất cả ở một chỗ.</>,
+        },
+        copyByLocale: {
+          en: {
+            label: "LUNAR CALENDAR",
+            headline: <>Today's date,<br /><span style={{ color: T.accent }}>at a glance.</span></>,
+            subtitle: <>Lunar date, Can Chi, Solar Terms,<br />Auspicious Hours — all in one place.</>,
+          },
         },
         Component: LichtaSlide1,
       },
@@ -51,6 +62,13 @@ export const LICHTA: ProductConfig = {
           headline: <>Không bao giờ<br /><span style={{ color: T.accent }}>bỏ lỡ giỗ.</span></>,
           subtitle: <>Giỗ chạp, sinh nhật, ngày cưới<br />theo âm lịch - nhắc tự động.</>,
         },
+        copyByLocale: {
+          en: {
+            label: "LUNAR EVENTS",
+            headline: <>Never miss<br /><span style={{ color: T.accent }}>an anniversary.</span></>,
+            subtitle: <>Death anniversaries, birthdays,<br />weddings by lunar date — auto-reminded.</>,
+          },
+        },
         Component: LichtaSlide2,
       },
       {
@@ -59,6 +77,13 @@ export const LICHTA: ProductConfig = {
           label: "LỊCH ÂM CHI TIẾT",
           headline: <>Can Chi,<br /><span style={{ color: T.accent }}>Hoàng Đạo.</span></>,
           subtitle: <>Tiết khí, Thần Sát, giờ Hoàng Đạo<br />hiển thị ngay khi chọn ngày.</>,
+        },
+        copyByLocale: {
+          en: {
+            label: "DETAILED LUNAR",
+            headline: <>Can Chi &<br /><span style={{ color: T.accent }}>Auspicious Hours.</span></>,
+            subtitle: <>Solar terms, Lucky Gods, Auspicious Hours<br />shown the moment you pick a date.</>,
+          },
         },
         Component: LichtaSlide3,
       },
@@ -69,6 +94,13 @@ export const LICHTA: ProductConfig = {
           headline: <>Thầy Tử Vi AI<br /><span style={{ color: T.accent }}>bất cứ lúc nào.</span></>,
           subtitle: <>Tử vi, phong thủy, phong tục<br />Việt Nam - AI trả lời ngay.</>,
         },
+        copyByLocale: {
+          en: {
+            label: "LICH TA AI MASTER",
+            headline: <>Your AI Astrologer,<br /><span style={{ color: T.accent }}>anytime.</span></>,
+            subtitle: <>Horoscopes, feng shui, Vietnamese<br />customs — AI answers instantly.</>,
+          },
+        },
         Component: LichtaSlide4,
       },
       {
@@ -77,6 +109,13 @@ export const LICHTA: ProductConfig = {
           label: "GIAO DIỆN CÁ NHÂN",
           headline: <>Màu sắc<br /><span style={{ color: T.accent }}>theo ý bạn.</span></>,
           subtitle: <>Hình nền thành phố Việt Nam,<br />màu chủ đạo tùy chỉnh thoải mái.</>,
+        },
+        copyByLocale: {
+          en: {
+            label: "PERSONAL THEMES",
+            headline: <>Colors<br /><span style={{ color: T.accent }}>your way.</span></>,
+            subtitle: <>Vietnamese city wallpapers,<br />custom accent colors to your taste.</>,
+          },
         },
         Component: LichtaSlide5,
       },
@@ -87,6 +126,13 @@ export const LICHTA: ProductConfig = {
           headline: <>Vận mệnh.<br /><span style={{ color: T.accent }}>Rõ từng ngày.</span></>,
           subtitle: <>Chat với AI về tình duyên, công việc,<br />sức khỏe - theo lá số của bạn.</>,
         },
+        copyByLocale: {
+          en: {
+            label: "ASTROLOGY & FENG SHUI",
+            headline: <>Your destiny.<br /><span style={{ color: T.accent }}>Day by day.</span></>,
+            subtitle: <>Chat with AI about love, career,<br />health — based on your birth chart.</>,
+          },
+        },
         Component: LichtaSlide6,
       },
       {
@@ -95,6 +141,13 @@ export const LICHTA: ProductConfig = {
           label: "",
           headline: <>Widget đẹp<br /><span style={{ color: T.accent }}>mỗi ngày.</span></>,
           subtitle: <>Thêm widget vào màn hình chính,<br />xem lịch âm ngay không cần mở app.</>,
+        },
+        copyByLocale: {
+          en: {
+            label: "",
+            headline: <>Beautiful widgets<br /><span style={{ color: T.accent }}>every day.</span></>,
+            subtitle: <>Add a widget to your home screen,<br />check the lunar date without opening the app.</>,
+          },
         },
         Component: LichtaSlide7,
       },
@@ -107,6 +160,13 @@ export const LICHTA: ProductConfig = {
           headline: <>Ngày hôm nay<br /><span style={{ color: T.accent }}>trong tầm tay.</span></>,
           subtitle: <>Âm lịch, Can Chi, Tiết Khí,<br />Hoàng Đạo - tất cả ở một chỗ.</>,
         },
+        copyByLocale: {
+          en: {
+            label: "LUNAR CALENDAR",
+            headline: <>Today's date,<br /><span style={{ color: T.accent }}>at a glance.</span></>,
+            subtitle: <>Lunar date, Can Chi, Solar Terms,<br />Auspicious Hours — all in one place.</>,
+          },
+        },
         Component: LichtaAndroid1,
       },
       {
@@ -115,6 +175,13 @@ export const LICHTA: ProductConfig = {
           label: "SỰ KIỆN ÂM LỊCH",
           headline: <>Không bao giờ<br /><span style={{ color: T.accent }}>bỏ lỡ giỗ.</span></>,
           subtitle: <>Giỗ chạp, sinh nhật, ngày cưới<br />theo âm lịch - nhắc tự động.</>,
+        },
+        copyByLocale: {
+          en: {
+            label: "LUNAR EVENTS",
+            headline: <>Never miss<br /><span style={{ color: T.accent }}>an anniversary.</span></>,
+            subtitle: <>Death anniversaries, birthdays,<br />weddings by lunar date — auto-reminded.</>,
+          },
         },
         Component: LichtaAndroid2,
       },
@@ -125,6 +192,13 @@ export const LICHTA: ProductConfig = {
           headline: <>Can Chi,<br /><span style={{ color: T.accent }}>Hoàng Đạo.</span></>,
           subtitle: <>Tiết khí, Thần Sát, giờ Hoàng Đạo<br />hiển thị ngay khi chọn ngày.</>,
         },
+        copyByLocale: {
+          en: {
+            label: "DETAILED LUNAR",
+            headline: <>Can Chi &<br /><span style={{ color: T.accent }}>Auspicious Hours.</span></>,
+            subtitle: <>Solar terms, Lucky Gods, Auspicious Hours<br />shown the moment you pick a date.</>,
+          },
+        },
         Component: LichtaAndroid3,
       },
       {
@@ -133,6 +207,13 @@ export const LICHTA: ProductConfig = {
           label: "THẦY LỊCH TA AI",
           headline: <>Thầy Tử Vi AI<br /><span style={{ color: T.accent }}>bất cứ lúc nào.</span></>,
           subtitle: <>Tử vi, phong thủy, phong tục<br />Việt Nam - AI trả lời ngay.</>,
+        },
+        copyByLocale: {
+          en: {
+            label: "LICH TA AI MASTER",
+            headline: <>Your AI Astrologer,<br /><span style={{ color: T.accent }}>anytime.</span></>,
+            subtitle: <>Horoscopes, feng shui, Vietnamese<br />customs — AI answers instantly.</>,
+          },
         },
         Component: LichtaAndroid4,
       },
@@ -143,6 +224,13 @@ export const LICHTA: ProductConfig = {
           headline: <>Màu sắc<br /><span style={{ color: T.accent }}>theo ý bạn.</span></>,
           subtitle: <>Hình nền thành phố Việt Nam,<br />màu chủ đạo tùy chỉnh thoải mái.</>,
         },
+        copyByLocale: {
+          en: {
+            label: "PERSONAL THEMES",
+            headline: <>Colors<br /><span style={{ color: T.accent }}>your way.</span></>,
+            subtitle: <>Vietnamese city wallpapers,<br />custom accent colors to your taste.</>,
+          },
+        },
         Component: LichtaAndroid5,
       },
       {
@@ -152,6 +240,13 @@ export const LICHTA: ProductConfig = {
           headline: <>Vận mệnh.<br /><span style={{ color: T.accent }}>Rõ từng ngày.</span></>,
           subtitle: <>Chat với AI về tình duyên, công việc,<br />sức khỏe - theo lá số của bạn.</>,
         },
+        copyByLocale: {
+          en: {
+            label: "ASTROLOGY & FENG SHUI",
+            headline: <>Your destiny.<br /><span style={{ color: T.accent }}>Day by day.</span></>,
+            subtitle: <>Chat with AI about love, career,<br />health — based on your birth chart.</>,
+          },
+        },
         Component: LichtaAndroid6,
       },
       {
@@ -160,6 +255,13 @@ export const LICHTA: ProductConfig = {
           label: "",
           headline: <>Widget đẹp<br /><span style={{ color: T.accent }}>mỗi ngày.</span></>,
           subtitle: <>Thêm widget vào màn hình chính,<br />xem lịch âm ngay không cần mở app.</>,
+        },
+        copyByLocale: {
+          en: {
+            label: "",
+            headline: <>Beautiful widgets<br /><span style={{ color: T.accent }}>every day.</span></>,
+            subtitle: <>Add a widget to your home screen,<br />check the lunar date without opening the app.</>,
+          },
         },
         Component: LichtaAndroid7,
       },
@@ -173,10 +275,7 @@ export const LICHTA: ProductConfig = {
     tagline: "Lịch Ta - Lịch Âm & Tử Vi AI",
     subtitle: "Âm lịch, Can Chi, Hoàng Đạo, Tử Vi AI và hơn thế nữa.",
   },
-  metadataLocales: [
-    { code: "vi", label: "Tiếng Việt", flag: "🇻🇳" },
-    { code: "en", label: "English", flag: "🇺🇸" },
-  ],
+
   metadata: {
     name: "Lịch Ta - Lịch Âm & Tử Vi AI",
     subtitle: "Lịch Âm · Can Chi · Hoàng Đạo",

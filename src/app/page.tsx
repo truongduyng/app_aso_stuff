@@ -23,13 +23,12 @@ function buildMetadataMap(): Record<string, Record<string, MetadataConfig>> {
 
   for (const p of PRODUCTS) {
     const localeMap: Record<string, MetadataConfig> = {};
-    const locales = p.metadataLocales ?? [{ code: "en", label: "English", flag: "🇺🇸" }];
+    const locales = p.locales ?? [{ code: "en", label: "English", flag: "🇺🇸" }];
 
     for (const loc of locales) {
       if (p.metadataByLocale?.[loc.code]) {
         localeMap[loc.code] = p.metadataByLocale[loc.code];
       } else if (loc.code === locales[0].code && p.metadata) {
-        // First locale gets the primary metadata
         localeMap[loc.code] = p.metadata;
       } else {
         localeMap[loc.code] = { ...empty, name: p.name };
@@ -43,7 +42,7 @@ function buildMetadataMap(): Record<string, Record<string, MetadataConfig>> {
 
 /** Get locale defs for a product, defaulting to [en] */
 function getProductLocales(product: typeof PRODUCTS[number]): LocaleDef[] {
-  return product.metadataLocales ?? [{ code: "en", label: "English", flag: "🇺🇸" }];
+  return product.locales ?? [{ code: "en", label: "English", flag: "🇺🇸" }];
 }
 
 /* ── Section header ────────────────────────────────────────── */
@@ -108,11 +107,10 @@ export default function ScreenshotsPage() {
   const [productMenuOpen, setProductMenuOpen] = useState(false);
   const productMenuRef = useRef<HTMLDivElement>(null);
 
-  // Per-product, per-locale metadata state
+  // Per-product, per-locale state (single locale controls both slides + metadata)
   const [metadataMap, setMetadataMap] = useState<Record<string, Record<string, MetadataConfig>>>(buildMetadataMap);
-  const [metaLocale, setMetaLocale] = useState<string>(() => {
-    const locales = getProductLocales(PRODUCTS[0]);
-    return locales[0].code;
+  const [locale, setLocale] = useState<string>(() => {
+    return getProductLocales(PRODUCTS[0])[0].code;
   });
 
   const product = PRODUCTS.find((p) => p.id === productId)!;
@@ -130,10 +128,10 @@ export default function ScreenshotsPage() {
     setReady(false);
     preloadImages(getImagePathsForProduct(product)).then(() => setReady(true));
 
-    // Reset metadata locale if current locale isn't available for this product
+    // Reset locale if not available for the new product
     const locales = getProductLocales(product);
-    if (!locales.find((l) => l.code === metaLocale)) {
-      setMetaLocale(locales[0].code);
+    if (!locales.find((l) => l.code === locale)) {
+      setLocale(locales[0].code);
     }
   }, [productId]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -163,9 +161,14 @@ export default function ScreenshotsPage() {
       ? [...sizes]
       : [sizes[selectedSize]];
 
+    const resolvedSlides = slides.map((s) => ({
+      ...s,
+      copy: s.copyByLocale?.[locale] ?? s.copy,
+    }));
+
     await exportAllToZip({
       container: ssOffscreenRef.current,
-      slides: slides.map((s) => ({ label: s.copy.label || s.id })),
+      slides: resolvedSlides.map((s) => ({ label: s.copy.label || s.id })),
       sizes: exportSizes,
       productId: product.id,
       multiProduct: PRODUCTS.length > 1,
@@ -175,7 +178,7 @@ export default function ScreenshotsPage() {
 
     setExporting(false);
     setProgress(null);
-  }, [selectedSize, exporting, slides, product.id, activeDevice, sizes]);
+  }, [selectedSize, exporting, slides, locale, product.id, activeDevice, sizes]);
 
   if (!ready) {
     return (
@@ -305,6 +308,35 @@ export default function ScreenshotsPage() {
           </div>
         )}
 
+        {/* Center-right: language picker (when product has multiple locales) */}
+        {getProductLocales(product).length > 1 && (
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ fontSize: 11, fontWeight: 600, color: T.fgMuted, letterSpacing: "0.06em", textTransform: "uppercase" }}>
+              Language
+            </span>
+            <div style={{ display: "flex", gap: 4, background: "rgba(255,255,255,0.04)", padding: 4, borderRadius: 8 }}>
+              {getProductLocales(product).map((loc) => (
+                <button
+                  key={loc.code}
+                  onClick={() => setLocale(loc.code)}
+                  style={{
+                    background: locale === loc.code ? T.accent : "rgba(255,255,255,0.06)",
+                    color: locale === loc.code ? "#fff" : T.fgMuted,
+                    border: "none", borderRadius: 6,
+                    padding: "5px 11px",
+                    fontSize: 12, fontWeight: 600, cursor: "pointer", transition: "all 0.15s",
+                    display: "flex", alignItems: "center", gap: 5,
+                    boxShadow: locale === loc.code ? `0 2px 10px ${T.accentGlow}` : "none",
+                  }}
+                >
+                  {loc.flag && <span style={{ fontSize: 13 }}>{loc.flag}</span>}
+                  {loc.code.toUpperCase()}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Right: size picker + export */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <select
@@ -367,33 +399,39 @@ export default function ScreenshotsPage() {
           maxWidth: 1600, margin: "0 auto",
         }}
       >
-        {slides.map((slide, i) => (
-          <ScreenshotPreview
-            key={`${product.id}-${activeDevice}-${slide.id}`}
-            index={i}
-            label={slide.copy.label || slide.id}
-            exportRef={ssOffscreenRef}
-            theme={T}
-            productId={product.id}
-            multiProduct={PRODUCTS.length > 1}
-            device={activeDevice}
-            selectedSize={selectedSize}
-          >
-            <slide.Component theme={T} base={product.screenshotBase} copy={slide.copy} />
-          </ScreenshotPreview>
-        ))}
+        {slides.map((slide, i) => {
+          const copy = slide.copyByLocale?.[locale] ?? slide.copy;
+          return (
+            <ScreenshotPreview
+              key={`${product.id}-${activeDevice}-${slide.id}-${locale}`}
+              index={i}
+              label={copy.label || slide.id}
+              exportRef={ssOffscreenRef}
+              theme={T}
+              productId={product.id}
+              multiProduct={PRODUCTS.length > 1}
+              device={activeDevice}
+              selectedSize={selectedSize}
+            >
+              <slide.Component theme={T} base={product.screenshotBase} copy={copy} />
+            </ScreenshotPreview>
+          );
+        })}
       </div>
 
       {/* Offscreen export container for screenshots */}
       <div ref={ssOffscreenRef} style={{ position: "absolute", left: -9999, top: 0, fontFamily: "inherit" }}>
-        {slides.map((slide) => (
-          <div
-            key={`export-${product.id}-${activeDevice}-${slide.id}`}
-            style={{ width: canvasW, height: canvasH, position: "absolute", left: -9999, fontFamily: "inherit" }}
-          >
-            <slide.Component theme={T} base={product.screenshotBase} copy={slide.copy} />
-          </div>
-        ))}
+        {slides.map((slide) => {
+          const copy = slide.copyByLocale?.[locale] ?? slide.copy;
+          return (
+            <div
+              key={`export-${product.id}-${activeDevice}-${slide.id}-${locale}`}
+              style={{ width: canvasW, height: canvasH, position: "absolute", left: -9999, fontFamily: "inherit" }}
+            >
+              <slide.Component theme={T} base={product.screenshotBase} copy={copy} />
+            </div>
+          );
+        })}
       </div>
 
       <SectionDivider />
@@ -534,13 +572,17 @@ export default function ScreenshotsPage() {
       <MetadataPanel
         theme={T}
         locales={getProductLocales(product)}
-        activeLocale={metaLocale}
-        onLocaleChange={(code) => setMetaLocale(code)}
-        metadata={metadataMap[product.id]?.[metaLocale] ?? metadataMap[product.id]?.[getProductLocales(product)[0].code] ?? { name: product.name, subtitle: "", promoText: "", shortDescription: "", description: "", keywords: "" }}
+        activeLocale={locale}
+        onLocaleChange={setLocale}
+        metadata={
+          metadataMap[product.id]?.[locale] ??
+          metadataMap[product.id]?.[getProductLocales(product)[0].code] ??
+          { name: product.name, subtitle: "", promoText: "", shortDescription: "", description: "", keywords: "" }
+        }
         onUpdate={(updated) =>
           setMetadataMap((prev) => ({
             ...prev,
-            [product.id]: { ...prev[product.id], [metaLocale]: updated },
+            [product.id]: { ...prev[product.id], [locale]: updated },
           }))
         }
         allLocaleData={metadataMap[product.id] ?? {}}
