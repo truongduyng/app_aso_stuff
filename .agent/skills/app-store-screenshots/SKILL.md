@@ -10,16 +10,16 @@ description: Use when building App Store or Google Play screenshot pages, genera
 Build a Next.js page that renders App Store **and** Google Play screenshots as **advertisements** (not UI showcases) and exports them via `html-to-image` at Apple's and Google's required resolutions. Screenshots are the single most important conversion asset on both stores.
 
 Supported devices out of the box:
-- **iPhone** (portrait) — Apple App Store
-- **iPad** (portrait) — Apple App Store
-- **Android Phone** (portrait) — Google Play
-- **Android Tablet 7"** (portrait + landscape) — Google Play
-- **Android Tablet 10"** (portrait + landscape) — Google Play
-- **Feature Graphic** (landscape banner, 1024×500) — Google Play store listing header
+- **iPhone** (portrait) - Apple App Store
+- **iPad** (portrait) - Apple App Store
+- **Android Phone** (portrait) - Google Play
+- **Android Tablet 7"** (portrait + landscape) - Google Play
+- **Android Tablet 10"** (portrait + landscape) - Google Play
+- **Feature Graphic** (landscape banner, 1024×500) - Google Play store listing header
 
 ## Core Principle
 
-**Screenshots are advertisements, not documentation.** Every screenshot sells one idea. If you're showing UI, you're doing it wrong — you're selling a *feeling*, an *outcome*, or killing a *pain point*.
+**Screenshots are advertisements, not documentation.** Every screenshot sells one idea. If you're showing UI, you're doing it wrong - you're selling a *feeling*, an *outcome*, or killing a *pain point*.
 
 ## Step 1: Ask the User These Questions
 
@@ -27,44 +27,44 @@ Before writing ANY code, ask the user all of these. Do not proceed until you hav
 
 ### Required
 
-1. **App screenshots** — "Where are your app screenshots? (PNG files of actual device captures)"
-2. **App icon** — "Where is your app icon PNG?"
-3. **Brand colors** — "What are your brand colors? (accent color, text color, background preference)"
-4. **Font** — "What font does your app use? (or what font do you want for the screenshots?)"
-5. **Feature list** — "List your app's features in priority order. What's the #1 thing your app does?"
-6. **Number of slides** — "How many screenshots do you want? (Apple allows up to 10, Google Play up to 8)"
-7. **Style direction** — "What style do you want? Examples: warm/organic, dark/moody, clean/minimal, bold/colorful, gradient-heavy, flat. Share App Store screenshot references if you have any."
-8. **Multi-product** — "Is this a new product in an existing multi-product generator, or a standalone single-product project?" (If the user's workspace already has a multi-product generator, always add to it rather than creating a new project.)
+1. **App screenshots** - "Where are your app screenshots? (PNG files of actual device captures)"
+2. **App icon** - "Where is your app icon PNG?"
+3. **Brand colors** - "What are your brand colors? (accent color, text color, background preference)"
+4. **Font** - "What font does your app use? (or what font do you want for the screenshots?)"
+5. **Feature list** - "List your app's features in priority order. What's the #1 thing your app does?"
+6. **Number of slides** - "How many screenshots do you want? (Apple allows up to 10, Google Play up to 8)"
+7. **Style direction** - "What style do you want? Examples: warm/organic, dark/moody, clean/minimal, bold/colorful, gradient-heavy, flat. Share App Store screenshot references if you have any."
+8. **Multi-product** - "Is this a new product in an existing multi-product generator, or a standalone single-product project?" (If the user's workspace already has a multi-product generator, always add to it rather than creating a new project.)
 
 ### Optional
 
-9. **Target stores** — "Are you targeting Apple App Store only, Google Play only, or both? This determines which devices we generate screenshots for."
-10. **iPad screenshots** — "Do you also have iPad screenshots? If so, we'll generate iPad App Store screenshots too (recommended for universal apps)."
-11. **Android tablet screenshots** — "Do you have Android tablet screenshots? If yes, what tablet sizes — 7" and/or 10"? Do you have them in portrait, landscape, or both orientations?"
-12. **Feature Graphic** — "Do you want a Google Play Feature Graphic (1024×500 banner shown at the top of your Play Store listing)? This is separate from phone screenshots."
-13. **Component assets** — "Do you have any UI element PNGs (cards, widgets, etc.) you want as floating decorations? If not, that's fine — we'll skip them."
-14. **Localized screenshots** — "Do you want screenshots in multiple languages? This helps your listing rank in regional App Stores even if your app is English-only. If yes: which languages? (e.g. en, de, es, pt, ja, ar, he)"
-15. **Theme preset system** — "Do you want one art direction, or reusable visual themes (for example: clean-light, dark-bold, warm-editorial) so you can swap screenshot looks quickly?"
-16. **Additional instructions** — "Any specific requirements, constraints, or preferences?"
+9. **Target stores** - "Are you targeting Apple App Store only, Google Play only, or both? This determines which devices we generate screenshots for."
+10. **iPad screenshots** - "Do you also have iPad screenshots? If so, we'll generate iPad App Store screenshots too (recommended for universal apps)."
+11. **Android tablet screenshots** - "Do you have Android tablet screenshots? If yes, what tablet sizes - 7" and/or 10"? Do you have them in portrait, landscape, or both orientations?"
+12. **Feature Graphic** - "Do you want a Google Play Feature Graphic (1024×500 banner shown at the top of your Play Store listing)? This is separate from phone screenshots."
+13. **Component assets** - "Do you have any UI element PNGs (cards, widgets, etc.) you want as floating decorations? If not, that's fine - we'll skip them."
+14. **Localized screenshots** - "Do you want screenshots in multiple languages? This helps your listing rank in regional App Stores even if your app is English-only. If yes: which languages? (e.g. en, de, es, pt, ja, ar, he)"
+15. **Theme preset system** - "Do you want one art direction, or reusable visual themes (for example: clean-light, dark-bold, warm-editorial) so you can swap screenshot looks quickly?"
+16. **Additional instructions** - "Any specific requirements, constraints, or preferences?"
 
-### Derived from answers (do NOT ask — decide yourself)
+### Derived from answers (do NOT ask - decide yourself)
 
 Based on the user's style direction, brand colors, and app aesthetic, decide:
 - **Background style**: gradient direction, colors, whether light or dark base
-- **Decorative elements**: blobs, glows, geometric shapes, or none — match the style
+- **Decorative elements**: blobs, glows, geometric shapes, or none - match the style
 - **Dark vs light slides**: how many of each, which features suit dark treatment
-- **Typography treatment**: weight, tracking, line height — match the brand personality
+- **Typography treatment**: weight, tracking, line height - match the brand personality
 - **Color palette**: derive text colors, secondary colors, shadow tints from the brand colors
 - **Theme preset names**: turn vague style requests into reusable theme ids the user can switch between
 - **RTL behavior**: if any locale is RTL (`ar`, `he`, `fa`, `ur`), mirror layout intentionally instead of just translating the text
-- **Landscape slide layouts**: for tablet landscape slides, use caption-left + device-right composition (never try to fit two tablets side-by-side in landscape — there's not enough horizontal room)
+- **Landscape slide layouts**: for tablet landscape slides, use caption-left + device-right composition (never try to fit two tablets side-by-side in landscape - there's not enough horizontal room)
 - **Single vs multi-product**: if the user mentions multiple apps or is adding a product to an existing generator, use the multi-product architecture (see below). Otherwise default to single-product.
 
 **IMPORTANT:** If the user gives additional instructions at any point during the process, follow them. User instructions always override skill defaults.
 
 ### Multi-Product Architecture
 
-When generating screenshots for **multiple apps** in one project, use this architecture. Default to single-product (backward compatible) — only activate multi-product when the user explicitly has multiple apps or is adding a product to an existing generator.
+When generating screenshots for **multiple apps** in one project, use this architecture. Default to single-product (backward compatible) - only activate multi-product when the user explicitly has multiple apps or is adding a product to an existing generator.
 
 #### Product Config Type
 
@@ -84,7 +84,7 @@ type ThemeTokens = {
 type ProductConfig = {
   id: string;                        // slug: "hone", "lichta", "futkui"
   name: string;                      // display: "Hone", "Lịch Ta"
-  iconPath: string;                  // "/products/hone/app-icon.png"
+  iconPath: string;                  // "/products/hone/icon.png"
   screenshotBase: string;            // "/products/hone/screenshots"
   mockupPath?: string;               // override default "/mockup.png" if needed
   themes: Record<string, ThemeTokens>;
@@ -110,7 +110,7 @@ const PRODUCTS: ProductConfig[] = [
   {
     id: "hone",
     name: "Hone",
-    iconPath: "/products/hone/app-icon.png",
+    iconPath: "/products/hone/icon.png",
     screenshotBase: "/products/hone/screenshots",
     themes: {
       "dark-warm": { bg: "#0A0A0C", fg: "#F8F8F2", accent: "#F97316", /* ... */ },
@@ -123,7 +123,7 @@ const PRODUCTS: ProductConfig[] = [
   {
     id: "lichta",
     name: "Lịch Ta",
-    iconPath: "/products/lichta/app-icon.png",
+    iconPath: "/products/lichta/icon.png",
     screenshotBase: "/products/lichta/screenshots",
     themes: {
       "warm-red": { bg: "#1A0A0A", fg: "#FFF5F0", accent: "#DC2626", /* ... */ },
@@ -197,7 +197,7 @@ When the user asks to add a new app to an existing multi-product generator:
 If the existing generator is single-product and needs to become multi-product:
 
 1. Move existing assets from `public/screenshots/` → `public/products/{existing-id}/screenshots/`
-2. Move `public/app-icon.png` → `public/products/{existing-id}/app-icon.png`
+2. Move `public/icon.png` → `public/products/{existing-id}/icon.png`
 3. Wrap existing config into a `ProductConfig` object
 4. Create the `PRODUCTS` array with the existing product + the new one
 5. Add the product selector to the toolbar
@@ -235,17 +235,17 @@ npm install html-to-image
 
 ### Copy the Phone Mockup
 
-The skill includes a pre-measured iPhone mockup at `mockup.png` (co-located with this SKILL.md). Copy it to the project's `public/` directory. All other device frames (Android Phone, Android Tablets, iPad) are rendered with CSS — no additional mockup PNGs needed.
+The skill includes a pre-measured iPhone mockup at `mockup.png` (co-located with this SKILL.md). Copy it to the project's `public/` directory. All other device frames (Android Phone, Android Tablets, iPad) are rendered with CSS - no additional mockup PNGs needed.
 
 ### File Structure
 
-#### iPhone-only app (default — single product)
+#### iPhone-only app (default - single product)
 
 ```
 project/
 ├── public/
 │   ├── mockup.png              # iPhone frame (included with skill)
-│   ├── app-icon.png            # User's app icon
+│   ├── icon.png            # User's app icon
 │   └── screenshots/
 │       ├── en/
 │       │   ├── home.png
@@ -268,7 +268,7 @@ If iPad screenshots are localized too, mirror the same locale structure:
     └── {locale}/
 ```
 
-Single-language apps can omit the locale folder entirely — paths become `screenshots/home.png`.
+Single-language apps can omit the locale folder entirely - paths become `screenshots/home.png`.
 
 #### Multi-platform app (iOS + Android, single product)
 
@@ -309,18 +309,18 @@ project/
 │   ├── mockup.png              # Shared iPhone frame
 │   └── products/
 │       ├── hone/
-│       │   ├── app-icon.png
+│       │   ├── icon.png
 │       │   └── screenshots/
 │       │       ├── home.png
 │       │       ├── feature-1.png
 │       │       └── ...
 │       ├── lichta/
-│       │   ├── app-icon.png
+│       │   ├── icon.png
 │       │   └── screenshots/
 │       │       ├── home.png
 │       │       └── ...
 │       └── {product-id}/
-│           ├── app-icon.png
+│           ├── icon.png
 │           └── screenshots/
 │               └── ...
 ├── src/app/
@@ -334,7 +334,7 @@ For multi-product + multi-platform + multi-locale, combine the patterns:
 ```
 └── products/
     └── hone/
-        ├── app-icon.png
+        ├── icon.png
         └── screenshots/
             ├── apple/
             │   ├── iphone/
@@ -355,7 +355,7 @@ For multi-product + multi-platform + multi-locale, combine the patterns:
 
 ### Multi-language: Locale Select
 
-Add a `LOCALES` array and a `<select>` locale picker to the toolbar. Every slide src uses a `base` variable — no hardcoded locale paths:
+Add a `LOCALES` array and a `<select>` locale picker to the toolbar. Every slide src uses a `base` variable - no hardcoded locale paths:
 
 ```tsx
 const LOCALES = ["en", "de", "es", "tr"] as const; // use whatever langs were defined
@@ -371,11 +371,11 @@ const base = (platform: string) => `/screenshots/${platform}/${locale}`;
   {LOCALES.map(l => <option key={l} value={l}>{l.toUpperCase()}</option>)}
 </select>
 
-// In every slide — unchanged between single and multi-language:
+// In every slide - unchanged between single and multi-language:
 <Phone src={`${base("apple/iphone")}/home.png`} alt="Home" />
 ```
 
-Use a `<select>` rather than inline tabs for locale — it scales cleanly to many languages without overflowing the toolbar.
+Use a `<select>` rather than inline tabs for locale - it scales cleanly to many languages without overflowing the toolbar.
 
 ### Theme Presets
 
@@ -409,22 +409,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 ### Screenshot Framework (Narrative Arc)
 
-Adapt this framework to the user's requested slide count. Not all slots are required — pick what fits:
+Adapt this framework to the user's requested slide count. Not all slots are required - pick what fits:
 
 | Slot | Purpose | Notes |
 |------|---------|-------|
 | #1 | **Hero / Main Benefit** | App icon + tagline + home screen. This is the ONLY one most people see. |
 | #2 | **Differentiator** | What makes this app unique vs competitors |
-| #3 | **Ecosystem** | Widgets, extensions, watch — beyond the main app. Skip if N/A. |
+| #3 | **Ecosystem** | Widgets, extensions, watch - beyond the main app. Skip if N/A. |
 | #4+ | **Core Features** | One feature per slide, most important first |
-| 2nd to last | **Trust Signal** | Identity/craft — "made for people who [X]" |
+| 2nd to last | **Trust Signal** | Identity/craft - "made for people who [X]" |
 | Last | **More Features** | Pills listing extras + coming soon. Skip if few features. |
 
 **Rules:**
 - Each slide sells ONE idea. Never two features on one slide.
-- Vary layouts across slides — never repeat the same template structure.
+- Vary layouts across slides - never repeat the same template structure.
 - Include 1-2 contrast slides (inverted bg) for visual rhythm.
-- **Landscape tablets**: use caption-left + device-right layout. The wide canvas rewards asymmetric composition. Never try two devices side-by-side in landscape — there's not enough room.
+- **Landscape tablets**: use caption-left + device-right layout. The wide canvas rewards asymmetric composition. Never try two devices side-by-side in landscape - there's not enough room.
 
 ## Step 4: Write Copy FIRST
 
@@ -464,7 +464,7 @@ Get all headlines approved before building layouts. Bad copy ruins good design.
 ### Copy Process
 
 1. Write 3 options per slide using the three approaches
-2. Read each at arm's length — if you can't parse it in 1 second, it's too complex
+2. Read each at arm's length - if you can't parse it in 1 second, it's too complex
 3. Check: does each line have 3-5 words? If not, adjust line breaks
 4. Present options to the user with reasoning for each
 
@@ -499,15 +499,15 @@ The pattern is:
 
 ### Localization Rules
 
-- Do not literally translate headlines if the result becomes long or awkward — re-write for the target market.
+- Do not literally translate headlines if the result becomes long or awkward - re-write for the target market.
 - Re-check line breaks per locale; German, French, and Portuguese often need shorter claims.
 - For RTL languages (`ar`, `he`, `fa`, `ur`), set `dir="rtl"` on the canvas and mirror asymmetric layouts intentionally.
 
 ### Reference Apps for Copy Style
 
-- **Raycast** — specific, descriptive, one concrete value per slide
-- **Turf** — ultra-simple action verbs, conversational
-- **Mela / Notion** — warm, minimal, elegant
+- **Raycast** - specific, descriptive, one concrete value per slide
+- **Turf** - ultra-simple action verbs, conversational
+- **Mela / Notion** - warm, minimal, elegant
 
 ## Step 5: Build the Page
 
@@ -522,19 +522,19 @@ page.tsx
 ├── LOCALES / RTL_LOCALES / THEMES / COPY_BY_LOCALE
 ├── Image preload cache (preloadAllImages + img() helper)
 ├── Device frame components:
-│   ├── Phone          — iPhone (mockup.png + pre-measured overlay)
-│   ├── AndroidPhone   — Android phone (CSS-only)
-│   ├── AndroidTabletP — Android tablet portrait (CSS-only)
-│   ├── AndroidTabletL — Android tablet landscape (CSS-only)
-│   └── IPad           — iPad (CSS-only)
+│   ├── Phone          - iPhone (mockup.png + pre-measured overlay)
+│   ├── AndroidPhone   - Android phone (CSS-only)
+│   ├── AndroidTabletP - Android tablet portrait (CSS-only)
+│   ├── AndroidTabletL - Android tablet landscape (CSS-only)
+│   └── IPad           - iPad (CSS-only)
 ├── Caption component (label + headline, scales from canvasW)
-├── Decorative components (blobs, glows — based on style direction)
+├── Decorative components (blobs, glows - based on style direction)
 ├── Slide components (makeSlide1..N factories for portrait,
 │                     makeTabLSlide1..N factories for landscape)
 ├── Slide registries (IPHONE_SLIDES, ANDROID_SLIDES, ANDROID_7P_SLIDES,
 │   ANDROID_7L_SLIDES, ANDROID_10P_SLIDES, ANDROID_10L_SLIDES, IPAD_SLIDES)
-├── ScreenshotPreview  — ResizeObserver scaling + hover export
-└── ScreenshotsPage    — grid + toolbar + export logic
+├── ScreenshotPreview  - ResizeObserver scaling + hover export
+└── ScreenshotsPage    - grid + toolbar + export logic
 ```
 
 #### Multi-product (when PRODUCTS array has > 1 entry)
@@ -555,9 +555,9 @@ page.tsx
 │   ├── Phone, AndroidPhone, AndroidTabletP, AndroidTabletL, IPad
 ├── Caption component (uses current product's theme tokens)
 ├── Decorative components (parameterized by theme tokens)
-├── Slide factory functions (shared — accept basePath + theme)
-├── ScreenshotPreview  — ResizeObserver scaling + hover export
-└── ScreenshotsPage    — product selector + grid + toolbar + export logic
+├── Slide factory functions (shared - accept basePath + theme)
+├── ScreenshotPreview  - ResizeObserver scaling + hover export
+└── ScreenshotsPage    - product selector + grid + toolbar + export logic
 ```
 
 **Key difference:** In multi-product mode, design tokens (`T`), slide registries, image paths, and locales are all derived from the currently selected `ProductConfig` instead of being top-level constants.
@@ -568,17 +568,17 @@ Design at the **largest** required resolution for each device category. Smaller 
 
 ```typescript
 // Apple
-const W      = 1320;  const H      = 2868; // iPhone (6.9" — largest required)
-const IPAD_W = 2064;  const IPAD_H = 2752; // iPad 13" — largest required
+const W      = 1320;  const H      = 2868; // iPhone (6.9" - largest required)
+const IPAD_W = 2064;  const IPAD_H = 2752; // iPad 13" - largest required
 
 // Android phone
 const AW     = 1080;  const AH     = 1920; // Android phone
 
-// Android tablet — portrait
+// Android tablet - portrait
 const AT7P_W  = 1200; const AT7P_H  = 1920; // 7" portrait
 const AT10P_W = 1600; const AT10P_H = 2560; // 10" portrait
 
-// Android tablet — landscape
+// Android tablet - landscape
 const AT7L_W  = 1920; const AT7L_H  = 1200; // 7" landscape
 const AT10L_W = 2560; const AT10L_H = 1600; // 10" landscape
 
@@ -745,7 +745,7 @@ function AndroidPhone({ src, alt, style }: { src: string; alt: string; style?: R
 }
 ```
 
-#### Android Tablet — Portrait (CSS-only)
+#### Android Tablet - Portrait (CSS-only)
 
 ```tsx
 function AndroidTabletP({ src, alt, style }: { src: string; alt: string; style?: React.CSSProperties }) {
@@ -784,7 +784,7 @@ function AndroidTabletP({ src, alt, style }: { src: string; alt: string; style?:
 }
 ```
 
-#### Android Tablet — Landscape (CSS-only)
+#### Android Tablet - Landscape (CSS-only)
 
 Same as portrait but with a rotated aspect ratio and camera on the left side:
 
@@ -799,7 +799,7 @@ function AndroidTabletL({ src, alt, style }: { src: string; alt: string; style?:
         boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 48px rgba(0,0,0,0.6)",
         position: "relative", overflow: "hidden",
       }}>
-        {/* Camera dot — left side in landscape */}
+        {/* Camera dot - left side in landscape */}
         <div style={{
           position: "absolute", left: "1.2%", top: "50%",
           transform: "translateY(-50%)", width: "0.88%", height: "1.4%",
@@ -924,7 +924,7 @@ const IPAD_SLIDES        = [makeSlide1(IPad, ipadW, "screenshots/apple/ipad", IP
 
 ### Landscape Slide Layout
 
-Landscape tablet canvases are wide (e.g. 2560×1600). Use a **caption-left + device-right** layout. Never try two devices side-by-side — there isn't enough room.
+Landscape tablet canvases are wide (e.g. 2560×1600). Use a **caption-left + device-right** layout. Never try two devices side-by-side - there isn't enough room.
 
 ```tsx
 function makeTabLSlide1(PhoneComp: PhoneComp, widthFn: WidthFn, basePath: string): SlideDef {
@@ -934,11 +934,11 @@ function makeTabLSlide1(PhoneComp: PhoneComp, widthFn: WidthFn, basePath: string
       const fw = widthFn(cW, cH) * 100;
       return (
         <div style={{ width: "100%", height: "100%", position: "relative", background: "...", overflow: "hidden" }}>
-          {/* Caption — left 34% of canvas */}
+          {/* Caption - left 34% of canvas */}
           <div style={{ position: "absolute", top: "50%", left: "5%", width: "34%", transform: "translateY(-50%)" }}>
             <Caption cW={cW} label="FEATURE" headline={<>"One idea<br />per slide."</>} />
           </div>
-          {/* Device — right side */}
+          {/* Device - right side */}
           <PhoneComp
             src={img(`/${basePath}/home.png`)}
             alt="Home"
@@ -959,7 +959,7 @@ function makeTabLSlide1(PhoneComp: PhoneComp, widthFn: WidthFn, basePath: string
 
 ### Feature Graphic Component
 
-The Feature Graphic is a **1024×500 landscape banner** shown at the top of the Google Play store listing. It has no device frame — it's a pure graphic with the app name, tagline, icon, and decorative elements.
+The Feature Graphic is a **1024×500 landscape banner** shown at the top of the Google Play store listing. It has no device frame - it's a pure graphic with the app name, tagline, icon, and decorative elements.
 
 ```tsx
 function FeatureGraphicSlide({ cW, cH }: { cW: number; cH: number }) {
@@ -972,7 +972,7 @@ function FeatureGraphicSlide({ cW, cH }: { cW: number; cH: number }) {
     }}>
       {/* Left: app icon + name + tagline */}
       <div style={{ display: "flex", alignItems: "center", gap: cW * 0.03 }}>
-        <img src={img("/app-icon.png")} alt="App Icon"
+        <img src={img("/icon.png")} alt="App Icon"
           style={{ width: cW * 0.12, height: cW * 0.12, borderRadius: cW * 0.022 }}
           draggable={false} />
         <div>
@@ -1011,7 +1011,7 @@ const { cW, cH, currentSizes, slides } = (() => {
 
 ### Toolbar Layout
 
-The toolbar has two sections: a **scrollable controls area** (left, `flex: 1`) and a **fixed export button** (right, always visible). Never wrap them in a single scrollable row — the button must always be reachable.
+The toolbar has two sections: a **scrollable controls area** (left, `flex: 1`) and a **fixed export button** (right, always visible). Never wrap them in a single scrollable row - the button must always be reachable.
 
 In multi-product mode, add a **product selector** as the first control in the toolbar (before locale and device selectors). The toolbar title updates to show the current product name.
 
@@ -1022,7 +1022,7 @@ In multi-product mode, add a **product selector** as the first control in the to
   {/* Scrollable controls */}
   <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 10, padding: "10px 16px", overflowX: "auto", minWidth: 0 }}>
 
-    {/* Product selector — only shown when PRODUCTS.length > 1 */}
+    {/* Product selector - only shown when PRODUCTS.length > 1 */}
     {PRODUCTS.length > 1 && (
       <select
         value={productId}
@@ -1049,7 +1049,7 @@ In multi-product mode, add a **product selector** as the first control in the to
           {d === "iphone" ? "iPhone" : d === "android" ? "Android" : d === "ipad" ? "iPad" : "Feature Graphic"}
         </button>
       ))}
-      {/* Android tablet dropdown — inside the device tab group */}
+      {/* Android tablet dropdown - inside the device tab group */}
       <select
         value={isTablet ? device : ""}
         onChange={e => { if (e.target.value) { setDevice(e.target.value as Device); setSizeIdx(0); } }}
@@ -1060,7 +1060,7 @@ In multi-product mode, add a **product selector** as the first control in the to
       </select>
     </div>
 
-    {/* Orientation — tablets only */}
+    {/* Orientation - tablets only */}
     {isTablet && (
       <div style={{ display: "flex", gap: 4, background: "#f3f4f6", borderRadius: 8, padding: 4, flexShrink: 0 }}>
         {(["portrait", "landscape"] as Orientation[]).map(o => (
@@ -1075,12 +1075,12 @@ In multi-product mode, add a **product selector** as the first control in the to
     {/* Export size */}
     {device !== "feature-graphic" && (
       <select value={sizeIdx} onChange={e => setSizeIdx(Number(e.target.value))} style={{ fontSize: 12, border: "1px solid #e5e7eb", borderRadius: 6, padding: "4px 10px" }}>
-        {currentSizes.map((s, i) => <option key={i} value={i}>{s.label} — {s.w}×{s.h}</option>)}
+        {currentSizes.map((s, i) => <option key={i} value={i}>{s.label} - {s.w}×{s.h}</option>)}
       </select>
     )}
   </div>
 
-  {/* Export button — always at right edge, never scrolls away */}
+  {/* Export button - always at right edge, never scrolls away */}
   <div style={{ flexShrink: 0, padding: "10px 16px", borderLeft: "1px solid #e5e7eb" }}>
     <button onClick={exportAll} disabled={!!exporting}
       style={{ padding: "7px 20px", background: exporting ? "#93c5fd" : "#2563eb", color: "white", border: "none", borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: exporting ? "default" : "pointer", whiteSpace: "nowrap" }}>
@@ -1109,7 +1109,7 @@ All sizing relative to canvas width `cW`:
 
 ### Phone Placement Patterns (Portrait)
 
-Vary across slides — NEVER use the same layout twice in a row:
+Vary across slides - NEVER use the same layout twice in a row:
 
 **Centered device** (hero, single-feature):
 ```
@@ -1137,18 +1137,18 @@ Dark/contrast background with app icon, headline ("And so much more."), and feat
 
 ### Why html-to-image, NOT html2canvas
 
-`html2canvas` breaks on CSS filters, gradients, drop-shadow, backdrop-filter, and complex clipping. `html-to-image` uses native browser SVG serialization — handles all CSS faithfully.
+`html2canvas` breaks on CSS filters, gradients, drop-shadow, backdrop-filter, and complex clipping. `html-to-image` uses native browser SVG serialization - handles all CSS faithfully.
 
 ### Pre-load Images as Data URIs (CRITICAL)
 
-`html-to-image` clones the DOM into an SVG `<foreignObject>`. During cloning it re-fetches every `<img>` src. These re-fetches are non-deterministic — some hit the browser cache, some silently fail, causing transparent/black rectangles in exports.
+`html-to-image` clones the DOM into an SVG `<foreignObject>`. During cloning it re-fetches every `<img>` src. These re-fetches are non-deterministic - some hit the browser cache, some silently fail, causing transparent/black rectangles in exports.
 
 **Fix:** Convert all images to base64 data URIs at page load. Use those as `src` everywhere.
 
 ```typescript
 const IMAGE_PATHS = [
   "/mockup.png",
-  "/app-icon.png",
+  "/icon.png",
   "/screenshots/apple/iphone/en/home.png",
   // ... all images used in any slide across all devices/locales
 ];
@@ -1194,7 +1194,7 @@ async function captureSlide(el: HTMLElement, w: number, h: number): Promise<stri
 
   const opts = { width: w, height: h, pixelRatio: 1, cacheBust: true };
 
-  // CRITICAL: Double-call — first warms up fonts/images, second produces clean output
+  // CRITICAL: Double-call - first warms up fonts/images, second produces clean output
   await toPng(el, opts);
   const dataUrl = await toPng(el, opts);
 
@@ -1231,9 +1231,9 @@ async function exportAll() {
 ### Key Export Rules
 
 - **Double-call trick**: First `toPng()` loads fonts/images lazily. Second produces clean output. Without this, exports are blank.
-- **On-screen for capture**: Temporarily move to `left: 0` before `toPng` — offscreen elements don't render.
+- **On-screen for capture**: Temporarily move to `left: 0` before `toPng` - offscreen elements don't render.
 - **Offscreen container**: Use `position: absolute; left: -9999px` (not `fixed`) inside a `overflowX: hidden` wrapper.
-- **300ms delay** between sequential exports — prevents browser throttling.
+- **300ms delay** between sequential exports - prevents browser throttling.
 - **Numbered filenames**: Zero-padded prefix so files sort correctly: `01-hero-en-1320x2868.png`. In multi-product mode, product id is prepended: `hone-01-hero-en-1320x2868.png`.
 - **Pre-loaded data URIs**: Always use `img()` helper. Never use raw file paths in slide components.
 - **RGB source images**: Ensure source screenshots are RGB (not RGBA). RGBA PNGs can produce transparent/black regions in exports.
@@ -1273,18 +1273,18 @@ When you present the finished work:
 | Mistake | Fix |
 |---------|-----|
 | All slides look the same | Vary device position (center, left, right, two-device, no-device) |
-| Landscape slides look broken | Use caption-left + single device-right — never two devices side-by-side |
+| Landscape slides look broken | Use caption-left + single device-right - never two devices side-by-side |
 | Copy is too complex | "One second at arm's length" test |
 | Floating elements block the phone | Move off-screen edges or above the device |
-| Plain white/black background | Use gradients — even subtle ones add depth |
+| Plain white/black background | Use gradients - even subtle ones add depth |
 | Headlines use "and" | Split into two slides or pick one idea |
 | Export is blank | Use double-call trick; move element on-screen before capture |
-| Phone screens black in export | Images not inlined — use `preloadAllImages()` + `img()` helper |
-| Some slides missing images | Non-deterministic fetch race — same fix as above |
+| Phone screens black in export | Images not inlined - use `preloadAllImages()` + `img()` helper |
+| Some slides missing images | Non-deterministic fetch race - same fix as above |
 | Export button scrolls off toolbar | Split toolbar: scrollable controls left (`flex: 1`), fixed button right (`flex-shrink: 0`) |
 | Page has horizontal scroll | Add `overflowX: "hidden"` on the outermost wrapper div |
-| Screenshots rejected by App Store | Source PNGs have alpha channel — flatten to RGB (composite onto black) |
+| Screenshots rejected by App Store | Source PNGs have alpha channel - flatten to RGB (composite onto black) |
 | Android tablet orientation ignored | Derive `cW/cH/slides` from `device + orientation` combo, not just `device` |
-| Product assets leak into wrong product | Derive all paths from `product.screenshotBase` and `product.iconPath` — never hardcode paths |
-| Product switch shows stale images | Re-run `preloadImages()` in a `useEffect` keyed on `productId` — gate rendering on `ready` state |
-| Single-product projects break after update | `PRODUCTS.length === 1` hides the product selector and skips filename prefix — fully backward compatible |
+| Product assets leak into wrong product | Derive all paths from `product.screenshotBase` and `product.iconPath` - never hardcode paths |
+| Product switch shows stale images | Re-run `preloadImages()` in a `useEffect` keyed on `productId` - gate rendering on `ready` state |
+| Single-product projects break after update | `PRODUCTS.length === 1` hides the product selector and skips filename prefix - fully backward compatible |

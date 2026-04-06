@@ -13,20 +13,20 @@ type DeviceType = "iphone" | "android" | "feature-graphic" | "social-og";
 /** Get canvas dimensions for a given device type */
 export function getCanvasDims(device: DeviceType) {
   switch (device) {
-    case "android":        return { w: ANDROID_W, h: ANDROID_H };
-    case "feature-graphic": return { w: FG_W,      h: FG_H };
-    case "social-og":       return { w: OG_W,      h: OG_H };
-    default:               return { w: IPHONE_W,  h: IPHONE_H };
+    case "android": return { w: ANDROID_W, h: ANDROID_H };
+    case "feature-graphic": return { w: FG_W, h: FG_H };
+    case "social-og": return { w: OG_W, h: OG_H };
+    default: return { w: IPHONE_W, h: IPHONE_H };
   }
 }
 
 /** Get export sizes for a given device type */
 export function getExportSizes(device: DeviceType): readonly AnySize[] {
   switch (device) {
-    case "android":        return ANDROID_SIZES;
+    case "android": return ANDROID_SIZES;
     case "feature-graphic": return FG_SIZES;
-    case "social-og":       return OG_SIZES;
-    default:               return IPHONE_SIZES;
+    case "social-og": return OG_SIZES;
+    default: return IPHONE_SIZES;
   }
 }
 
@@ -53,7 +53,7 @@ export async function exportSingle(
 
   const opts = { width: canvasW, height: canvasH, pixelRatio: 1, cacheBust: true };
 
-  // Double-call trick — first warms up fonts/images, second produces clean output
+  // Double-call trick - first warms up fonts/images, second produces clean output
   await toPng(el, opts);
   const dataUrl = await toPng(el, opts);
 

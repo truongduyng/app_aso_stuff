@@ -14,7 +14,7 @@ import {
 } from "@/components/slide-layouts";
 
 /* ─────────────────────────────────────────────────────────────────
-   LỊCH TA SLIDES — layout/visual only, all copy comes from props.copy
+   LỊCH TA SLIDES - layout/visual only, all copy comes from props.copy
 ───────────────────────────────────────────────────────────────── */
 
 /* ── Slide 1: Hero ────────────────────────────────────────── */
@@ -149,7 +149,7 @@ function Slide5({ theme: T, base, copy, platform }: SlideProps & { platform: Pla
 export const LichtaSlide5 = (p: SlideProps) => <Slide5 {...p} platform="iphone" />;
 export const LichtaAndroid5 = (p: SlideProps) => <Slide5 {...p} platform="android" />;
 
-/* ── Slide 6: Tử Vi — Phong Thủy ─────────────────────────── */
+/* ── Slide 6: Tử Vi - Phong Thủy ─────────────────────────── */
 function Slide6({ theme: T, base, copy, platform }: SlideProps & { platform: Platform }) {
   const isIP = platform === "iphone";
   const { W } = dims(platform);

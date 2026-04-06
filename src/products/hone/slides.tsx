@@ -13,7 +13,7 @@ import {
 import { GridPattern, DiagonalLine } from "@/components/ui";
 
 /* ─────────────────────────────────────────────────────────────────
-   HONE SLIDES — layout/visual only, all copy comes from props.copy
+   HONE SLIDES - layout/visual only, all copy comes from props.copy
 ───────────────────────────────────────────────────────────────── */
 
 /* ── Slide 1: Hero ──────────────────────────────────────── */

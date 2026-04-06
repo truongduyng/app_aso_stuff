@@ -315,7 +315,7 @@ export function ScreenshotPreview({
             fontWeight: 500,
           }}
         >
-          {String(index + 1).padStart(2, "0")} — {label}
+          {String(index + 1).padStart(2, "0")} - {label}
         </div>
         <button
           onClick={async () => {

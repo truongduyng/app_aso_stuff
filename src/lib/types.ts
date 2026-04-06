@@ -25,7 +25,7 @@ export type SlideCopy = {
 
 export type SlideDef = {
   id: string;
-  /** Default (en) copy — required */
+  /** Default (en) copy - required */
   copy: SlideCopy;
   /** Optional per-locale overrides, e.g. { vi: { label: "…", headline: … } } */
   copyByLocale?: Record<string, SlideCopy>;
@@ -48,12 +48,12 @@ export type MetadataField = {
 
 /** Product-level metadata defaults */
 export type MetadataConfig = {
-  name: string;               // Both — 30 chars
-  subtitle: string;           // Apple — 30 chars
-  promoText: string;          // Apple — 170 chars
-  shortDescription: string;   // Google — 80 chars
-  description: string;        // Both — 4000 chars
-  keywords: string;           // Apple — 100 chars
+  name: string;               // Both - 30 chars
+  subtitle: string;           // Apple - 30 chars
+  promoText: string;          // Apple - 170 chars
+  shortDescription: string;   // Google - 80 chars
+  description: string;        // Both - 4000 chars
+  keywords: string;           // Apple - 100 chars
 };
 
 export type ProductConfig = {

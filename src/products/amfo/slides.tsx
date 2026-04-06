@@ -14,10 +14,10 @@ import {
 import { GridPattern } from "@/components/ui";
 
 /* ─────────────────────────────────────────────────────────────────
-   AMFO SLIDES — layout/visual only, all copy comes from props.copy
+   AMFO SLIDES - layout/visual only, all copy comes from props.copy
 ───────────────────────────────────────────────────────────────── */
 
-/* ── Slide 1: Hero — Sound Library ─────────────────────── */
+/* ── Slide 1: Hero - Sound Library ─────────────────────── */
 export function AmfoSlide1({ theme: T, base, copy }: SlideProps) {
   return (
     <CenteredSlide
@@ -38,7 +38,7 @@ export function AmfoSlide1({ theme: T, base, copy }: SlideProps) {
   );
 }
 
-/* ── Slide 2: Mix — Layer Sounds ────────────────────────── */
+/* ── Slide 2: Mix - Layer Sounds ────────────────────────── */
 export function AmfoSlide2({ theme: T, base, copy }: SlideProps) {
   return (
     <SideSlide

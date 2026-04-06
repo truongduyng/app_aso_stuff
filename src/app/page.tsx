@@ -287,7 +287,7 @@ export default function ScreenshotsPage() {
             style={{ background: "rgba(255,255,255,0.06)", color: T.fg, border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, padding: "8px 12px", fontSize: 13, fontWeight: 500, cursor: exporting ? "wait" : "pointer", outline: "none", opacity: exporting ? 0.5 : 1 }}
           >
             {sizes.map((s, i) => (
-              <option key={i} value={i}>{activeDevice === "iphone" ? "iPhone" : "Android"} {s.label} — {s.w}×{s.h}</option>
+              <option key={i} value={i}>{activeDevice === "iphone" ? "iPhone" : "Android"} {s.label} - {s.w}×{s.h}</option>
             ))}
             {sizes.length > 1 && (
               <option value={-1}>All sizes</option>

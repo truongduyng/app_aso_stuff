@@ -16,7 +16,7 @@ export async function preloadImages(paths: string[]) {
         });
         imageCache[path] = dataUrl;
       } catch {
-        // Image not found — skip
+        // Image not found - skip
       }
     })
   );

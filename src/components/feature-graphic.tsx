@@ -7,7 +7,7 @@ import { OrbGlow } from "@/components/ui";
 import type { ThemeTokens } from "@/lib/types";
 
 /**
- * Feature Graphic — Google Play Store header banner (1024×500).
+ * Feature Graphic - Google Play Store header banner (1024×500).
  * Renders a branded landscape canvas with app icon, tagline, and gradient.
  */
 export function FeatureGraphic({

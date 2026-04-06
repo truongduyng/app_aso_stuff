@@ -1,4 +1,4 @@
-/* Canvas dimensions — design at the largest required resolution */
+/* Canvas dimensions - design at the largest required resolution */
 export const IPHONE_W = 1320;
 export const IPHONE_H = 2868;
 
@@ -17,7 +17,7 @@ export const ANDROID_SIZES = [
   { label: 'Android Phone', w: 1080, h: 1920 },
 ] as const;
 
-/* Feature Graphic — Google Play (1024×500) */
+/* Feature Graphic - Google Play (1024×500) */
 export const FG_W = 1024;
 export const FG_H = 500;
 
@@ -25,7 +25,7 @@ export const FG_SIZES = [
   { label: "Feature Graphic", w: 1024, h: 500 },
 ] as const;
 
-/* Social / OG Preview — Open Graph & Twitter Cards */
+/* Social / OG Preview - Open Graph & Twitter Cards */
 export const OG_W = 1200;
 export const OG_H = 630;
 

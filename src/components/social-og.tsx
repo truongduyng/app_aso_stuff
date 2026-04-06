@@ -7,7 +7,7 @@ import { OrbGlow } from "@/components/ui";
 import type { ThemeTokens } from "@/lib/types";
 
 /**
- * Social OG Image — Open Graph / Twitter Card (1200×630).
+ * Social OG Image - Open Graph / Twitter Card (1200×630).
  * Used as preview image when sharing links on social media.
  */
 export function SocialOgImage({

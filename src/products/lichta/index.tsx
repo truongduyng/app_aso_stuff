@@ -30,7 +30,7 @@ const T = LICHTA_THEME;
 export const LICHTA: ProductConfig = {
   id: "lichta",
   name: "Lịch Ta",
-  iconPath: "/products/lichta/app-icon.png",
+  iconPath: "/products/lichta/icon.png",
   screenshotBase: "/products/lichta",
   theme: LICHTA_THEME,
   slides: {
@@ -40,7 +40,7 @@ export const LICHTA: ProductConfig = {
         copy: {
           label: "LỊCH ÂM VIỆT NAM",
           headline: <>Ngày hôm nay<br /><span style={{ color: T.accent }}>trong tầm tay.</span></>,
-          subtitle: <>Âm lịch, Can Chi, Tiết Khí,<br />Hoàng Đạo — tất cả ở một chỗ.</>,
+          subtitle: <>Âm lịch, Can Chi, Tiết Khí,<br />Hoàng Đạo - tất cả ở một chỗ.</>,
         },
         Component: LichtaSlide1,
       },
@@ -49,7 +49,7 @@ export const LICHTA: ProductConfig = {
         copy: {
           label: "SỰ KIỆN ÂM LỊCH",
           headline: <>Không bao giờ<br /><span style={{ color: T.accent }}>bỏ lỡ giỗ.</span></>,
-          subtitle: <>Giỗ chạp, sinh nhật, ngày cưới<br />theo âm lịch — nhắc tự động.</>,
+          subtitle: <>Giỗ chạp, sinh nhật, ngày cưới<br />theo âm lịch - nhắc tự động.</>,
         },
         Component: LichtaSlide2,
       },
@@ -67,7 +67,7 @@ export const LICHTA: ProductConfig = {
         copy: {
           label: "THẦY LỊCH TA AI",
           headline: <>Hỏi Thầy<br /><span style={{ color: T.accent }}>bất cứ lúc nào.</span></>,
-          subtitle: <>Tử vi, phong thủy, phong tục<br />Việt Nam — AI trả lời ngay.</>,
+          subtitle: <>Tử vi, phong thủy, phong tục<br />Việt Nam - AI trả lời ngay.</>,
         },
         Component: LichtaSlide4,
       },
@@ -83,9 +83,9 @@ export const LICHTA: ProductConfig = {
       {
         id: "wisdom",
         copy: {
-          label: "TỬ VI — PHONG THỦY",
+          label: "TỬ VI - PHONG THỦY",
           headline: <>Vận mệnh.<br /><span style={{ color: T.accent }}>Rõ từng ngày.</span></>,
-          subtitle: <>Chat với AI về tình duyên, công việc,<br />sức khỏe — theo lá số của bạn.</>,
+          subtitle: <>Chat với AI về tình duyên, công việc,<br />sức khỏe - theo lá số của bạn.</>,
         },
         Component: LichtaSlide6,
       },
@@ -105,7 +105,7 @@ export const LICHTA: ProductConfig = {
         copy: {
           label: "LỊCH ÂM VIỆT NAM",
           headline: <>Ngày hôm nay<br /><span style={{ color: T.accent }}>trong tầm tay.</span></>,
-          subtitle: <>Âm lịch, Can Chi, Tiết Khí,<br />Hoàng Đạo — tất cả ở một chỗ.</>,
+          subtitle: <>Âm lịch, Can Chi, Tiết Khí,<br />Hoàng Đạo - tất cả ở một chỗ.</>,
         },
         Component: LichtaAndroid1,
       },
@@ -114,7 +114,7 @@ export const LICHTA: ProductConfig = {
         copy: {
           label: "SỰ KIỆN ÂM LỊCH",
           headline: <>Không bao giờ<br /><span style={{ color: T.accent }}>bỏ lỡ giỗ.</span></>,
-          subtitle: <>Giỗ chạp, sinh nhật, ngày cưới<br />theo âm lịch — nhắc tự động.</>,
+          subtitle: <>Giỗ chạp, sinh nhật, ngày cưới<br />theo âm lịch - nhắc tự động.</>,
         },
         Component: LichtaAndroid2,
       },
@@ -132,7 +132,7 @@ export const LICHTA: ProductConfig = {
         copy: {
           label: "THẦY LỊCH TA AI",
           headline: <>Hỏi Thầy<br /><span style={{ color: T.accent }}>bất cứ lúc nào.</span></>,
-          subtitle: <>Tử vi, phong thủy, phong tục<br />Việt Nam — AI trả lời ngay.</>,
+          subtitle: <>Tử vi, phong thủy, phong tục<br />Việt Nam - AI trả lời ngay.</>,
         },
         Component: LichtaAndroid4,
       },
@@ -148,9 +148,9 @@ export const LICHTA: ProductConfig = {
       {
         id: "wisdom",
         copy: {
-          label: "TỬ VI — PHONG THỦY",
+          label: "TỬ VI - PHONG THỦY",
           headline: <>Vận mệnh.<br /><span style={{ color: T.accent }}>Rõ từng ngày.</span></>,
-          subtitle: <>Chat với AI về tình duyên, công việc,<br />sức khỏe — theo lá số của bạn.</>,
+          subtitle: <>Chat với AI về tình duyên, công việc,<br />sức khỏe - theo lá số của bạn.</>,
         },
         Component: LichtaAndroid6,
       },
@@ -167,18 +167,69 @@ export const LICHTA: ProductConfig = {
   },
   featureGraphic: {
     tagline: "Lịch Ta",
-    subtitle: "Lịch âm, Can Chi, Tiết Khí — tất cả ở một chỗ.",
+    subtitle: "Lịch âm, Can Chi, Tiết Khí - tất cả ở một chỗ.",
   },
   socialOg: {
-    tagline: "Lịch Ta — Lịch Âm Việt Nam",
+    tagline: "Lịch Ta - Lịch Âm Việt Nam",
     subtitle: "Âm lịch, Can Chi, Hoàng Đạo, Tử Vi AI và hơn thế nữa.",
   },
   metadata: {
     name: "Lịch Ta",
     subtitle: "Lịch Âm · Can Chi · Hoàng Đạo",
-    promoText: "Hỏi Thầy AI về tử vi, phong thủy, phong tục Việt Nam — trả lời ngay trong app!",
+    promoText: "Hỏi Thầy AI về tử vi, phong thủy, phong tục Việt Nam - trả lời ngay trong app!",
     shortDescription: "Lịch âm Việt Nam với Can Chi, Tiết Khí, Hoàng Đạo và Thầy AI tử vi.",
     keywords: "lịch âm,lịch ta,can chi,tiết khí,hoàng đạo,tử vi,phong thủy,âm lịch,lịch việt nam",
-    description: "Lịch Ta — ứng dụng lịch âm Việt Nam đẹp nhất, với đầy đủ thông tin Can Chi, Tiết Khí, giờ Hoàng Đạo và Thầy AI tử vi.\n\nXem ngày hôm nay: Âm lịch, Can Chi, Tiết Khí, Thần Sát — tất cả hiển thị rõ ràng.\n\nSự kiện âm lịch: Không bao giờ bỏ lỡ giỗ chạp, sinh nhật, ngày cưới theo âm lịch. Nhắc nhở tự động.\n\nThầy AI: Hỏi bất cứ điều gì về tử vi, phong thủy, phong tục Việt Nam — AI trả lời ngay.\n\nGiao diện đẹp: Hình nền thành phố Việt Nam, màu chủ đạo tùy chỉnh.\n\nWidget: Thêm widget vào màn hình chính, xem lịch âm ngay không cần mở app.",
+    description: `Lịch Ta - Ứng dụng lịch âm duy nhất tích hợp Trợ lý Tử Vi AI. Xem ngày tốt xấu, giờ hoàng đạo, phong thủy - hoàn toàn không quảng cáo.
+50.000+ người Việt tin dùng 4.8/5 sao
+
+TÍNH NĂNG CHÍNH:
+
+- Lịch Việt Chuẩn Xác
+
+Tra cứu lịch âm, lịch dương nhanh chóng theo múi giờ Việt Nam
+Hiển thị Can Chi, Nạp Âm cho từng ngày
+Xem Giờ Hoàng Đạo chi tiết
+Gợi ý việc nên làm và nên tránh mỗi ngày
+
+- Lịch Ngày Lễ & Sự Kiện
+
+Tự động nhắc nhở các ngày lễ âm lịch: Tết Nguyên Đán, Rằm tháng Giêng, Giỗ Tổ Hùng Vương, Tết Trung Thu, Vu Lan...
+Đếm ngược đến ngày Rằm, Mồng 1 và các lễ lớn
+Tạo sự kiện cá nhân theo âm lịch (giỗ, sinh nhật âm...)
+Chia sẻ sự kiện với người thân
+
+- Tử Vi Mệnh lý AI
+
+Hỏi đáp về phong thủy, ngày tốt xấu, tuổi hợp
+Tư vấn ngày cưới hỏi, động thổ, khai trương
+Giải đáp thắc mắc về lịch âm, Can Chi, Nạp Âm
+Trả lời theo phong cách dân gian Việt Nam
+
+- Widget Tiện Lợi
+
+Widget nhỏ: Xem nhanh ngày âm lịch trên màn hình chính
+Widget vừa: Ngày âm + đếm ngược sự kiện sắp tới
+Widget lịch tuần: Xem cả tuần với ngày âm dương
+
+- Thông Báo Thông Minh
+
+Nhắc nhở trước ngày lễ âm lịch
+Thông báo sự kiện cá nhân tùy chỉnh
+Chọn số ngày nhắc trước sự kiện
+
+- Giao Diện Đẹp Mắt
+
+Chế độ sáng/tối tự động theo hệ thống
+6 màu chủ đề tùy chọn
+Hình nền thành phố đẹp mắt
+Thiết kế hiện đại, thuần Việt
+
+TẠI SAO CHỌN LỊCH TA?
+- Tính toán âm lịch chuẩn xác
+- Không quảng cáo làm phiền
+- AI thông minh, hiểu văn hóa Việt
+- Nhẹ máy, mượt mà
+
+Tải ngay Lịch Ta để đón năm mới bình an, may mắn!`,
   },
 };

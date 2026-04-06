@@ -15,14 +15,14 @@ type FieldDef = {
 const FIELDS: FieldDef[] = [
   { id: "name",             label: "App Name",                       platform: "Both",   maxLength: 30,   multiline: false, placeholder: "e.g. Lịch Ta" },
   { id: "subtitle",         label: "App Store Subtitle",             platform: "Apple",  maxLength: 30,   multiline: false, placeholder: "e.g. Vietnamese Lunar Calendar" },
-  { id: "promoText",        label: "Promotional Text",               platform: "Apple",  maxLength: 170,  multiline: true,  placeholder: "Current promo or highlight — can be updated without new release" },
+  { id: "promoText",        label: "Promotional Text",               platform: "Apple",  maxLength: 170,  multiline: true,  placeholder: "Current promo or highlight - can be updated without new release" },
   { id: "shortDescription", label: "Short Description",              platform: "Google", maxLength: 80,   multiline: false, placeholder: "One-line summary shown in search results" },
   { id: "keywords",         label: "Keywords",                       platform: "Apple",  maxLength: 100,  multiline: false, placeholder: "comma,separated,keywords" },
   { id: "description",      label: "Full Description",               platform: "Both",   maxLength: 4000, multiline: true,  placeholder: "Full app description for store listing..." },
 ];
 
 /**
- * Metadata editor panel — editable text fields with character counters,
+ * Metadata editor panel - editable text fields with character counters,
  * copy-to-clipboard, and platform badges.
  */
 export function MetadataPanel({
