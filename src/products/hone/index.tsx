@@ -1,6 +1,6 @@
 import React from "react";
 import type { ProductConfig, ThemeTokens } from "@/lib/types";
-import { HoneSlide1, HoneSlide2, HoneSlide3, HoneSlide4, HoneSlide5 } from "./slides";
+import { HoneSlide1, HoneSlide2, HoneSlide3, HoneSlide4, HoneSlide5, HoneSlide6, HoneSlide7 } from "./slides";
 
 export const HONE_THEME: ThemeTokens = {
   bg: "#0A0A0C",
@@ -58,6 +58,15 @@ export const HONE: ProductConfig = {
         Component: HoneSlide3,
       },
       {
+        id: "reward",
+        copy: {
+          label: "BUILD THE HABIT",
+          headline: <>Celebrate<br /><span style={{ color: T.accent }}>The Reps</span></>,
+          subtitle: <>Every iteration logged is a win.<br />Never break the compounding chain.</>,
+        },
+        Component: HoneSlide7,
+      },
+      {
         id: "progress",
         copy: {
           label: "PROGRESS",
@@ -67,13 +76,22 @@ export const HONE: ProductConfig = {
         Component: HoneSlide4,
       },
       {
-        id: "journey",
+        id: "goals",
         copy: {
-          label: "THE JOURNEY",
-          headline: <>10,000 Reps<br /><span style={{ color: T.accent }}>To Mastery</span></>,
-          subtitle: <>1% better every single day.<br />Watch your effect compound over time.</>,
+          label: "WIN THE DAY",
+          headline: <>Process Over<br /><span style={{ color: T.accent }}>Outcomes</span></>,
+          subtitle: <>Focus on the systems.<br />Break down ambitious outcomes into daily habits.</>,
         },
         Component: HoneSlide5,
+      },
+      {
+        id: "proof",
+        copy: {
+          label: "PROOF OF WORK",
+          headline: <>Share Your<br /><span style={{ color: T.accent }}>Journey</span></>,
+          subtitle: <>Export your consistency and proudly<br />share your 10,000 rep journey.</>,
+        },
+        Component: HoneSlide6,
       },
     ],
   },

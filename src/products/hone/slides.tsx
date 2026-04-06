@@ -34,7 +34,7 @@ export function HoneSlide1({ theme: T, base, copy }: SlideProps) {
       label={copy.label}
       headline={copy.headline}
       subtitle={copy.subtitle}
-      screenshot="sc1.png" alt="Journal"
+      screenshot="sc_hone7.png" alt="Journal"
       captionMt={0.04}
     />
   );
@@ -54,7 +54,7 @@ export function HoneSlide2({ theme: T, base, copy }: SlideProps) {
       label={copy.label}
       headline={copy.headline}
       subtitle={copy.subtitle}
-      screenshot="sc1.png" alt="Journal"
+      screenshot="sc_hone2.png" alt="Journal"
       captionMt={0.05}
       subtitleMaxW={0.78}
       phoneWidth="86%" phoneTy="12%"
@@ -69,7 +69,7 @@ export function HoneSlide2({ theme: T, base, copy }: SlideProps) {
 /* ── Slide 3: Daily Protocol ────────────────────────────── */
 export function HoneSlide3({ theme: T, base, copy }: SlideProps) {
   return (
-    <SideSlide
+    <CenteredSlide
       theme={T} base={base}
       gradient={T.gradients.accent}
       orbs={[
@@ -79,16 +79,10 @@ export function HoneSlide3({ theme: T, base, copy }: SlideProps) {
       label={copy.label}
       headline={copy.headline}
       subtitle={copy.subtitle}
+      screenshot="sc_hone3.png" alt="Daily Protocol"
       captionMt={0.05}
       subtitleMaxW={0.7}
-      phones={<>
-        <div style={{ position: "absolute", bottom: 0, left: "-4%", transform: "translateY(0%) rotate(-3deg)", width: "78%", zIndex: 2, opacity: 0.45, filter: "brightness(0.7)" }}>
-          <PhoneFrame platform="iphone" src={`${base}/sc2.png`} alt="Act background" />
-        </div>
-        <div style={{ position: "absolute", bottom: 0, right: "-4%", transform: "translateY(10%)", width: "84%", zIndex: 3 }}>
-          <PhoneFrame platform="iphone" src={`${base}/sc2.png`} alt="Daily Protocol" />
-        </div>
-      </>}
+      phoneTy="5%"
     />
   );
 }
@@ -107,7 +101,7 @@ export function HoneSlide4({ theme: T, base, copy }: SlideProps) {
       label={copy.label}
       headline={copy.headline}
       subtitle={copy.subtitle}
-      screenshot="sc3.png" alt="Track"
+      screenshot="sc_hone5.png" alt="Track"
       captionMt={0.05}
       subtitleMaxW={0.78}
       phoneTy="5%"
@@ -133,7 +127,7 @@ export function HoneSlide5({ theme: T, base, copy }: SlideProps) {
       label={copy.label}
       headline={copy.headline}
       subtitle={copy.subtitle}
-      screenshot="sc4.png" alt="Profile"
+      screenshot="sc_hone1.png" alt="Profile"
       captionMt={0.05}
       subtitleMaxW={0.78}
       phoneWidth="82%" phoneTy="0%"
@@ -142,3 +136,49 @@ export function HoneSlide5({ theme: T, base, copy }: SlideProps) {
     />
   );
 }
+
+/* ── Slide 6: Mood Flow (Added) ─────────────────────────── */
+export function HoneSlide6({ theme: T, base, copy }: SlideProps) {
+  const { W } = dims("iphone");
+  return (
+    <CenteredSlide
+      theme={T} base={base}
+      gradient={T.gradients.deep}
+      orbs={[
+        { size: 700, top: "40%", left: "-10%", color: "rgba(249,115,22,0.15)" },
+        { size: 600, top: "-20%", right: "-10%", color: "rgba(249,115,22,0.1)" },
+      ]}
+      decoration={<GridPattern opacity={0.025} />}
+      label={copy.label}
+      headline={copy.headline}
+      subtitle={copy.subtitle}
+      screenshot="sc_hone6.png" alt="Mood Flow"
+      captionMt={0.05}
+      subtitleMaxW={0.8}
+      phoneWidth="86%" phoneTy="6%"
+      fadeH="10%"
+    />
+  );
+}
+
+/* ── Slide 7: Reward (Added) ────────────────────────────── */
+export function HoneSlide7({ theme: T, base, copy }: SlideProps) {
+  return (
+    <CenteredSlide
+      theme={T} base={base}
+      gradient={T.gradients.warm}
+      orbs={[
+        { size: 800, bottom: "-10%", left: "10%", color: "rgba(249,115,22,0.15)" },
+      ]}
+      decoration={<DotGrid color="rgba(249,115,22,0.06)" gap="40px" />}
+      label={copy.label}
+      headline={copy.headline}
+      subtitle={copy.subtitle}
+      screenshot="sc_hone4.png" alt="Reward"
+      captionMt={0.05}
+      subtitleMaxW={0.78}
+      phoneTy="8%"
+    />
+  );
+}
+
