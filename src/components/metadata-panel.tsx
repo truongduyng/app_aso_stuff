@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
-import type { ThemeTokens, MetadataConfig } from "@/lib/types";
+import React, { useState, useCallback, useMemo } from "react";
+import type { ThemeTokens, MetadataConfig, LocaleDef } from "@/lib/types";
 
 type FieldDef = {
   id: keyof MetadataConfig;
@@ -21,18 +21,30 @@ const FIELDS: FieldDef[] = [
   { id: "description",      label: "Full Description",               platform: "Both",   maxLength: 4000, multiline: true,  placeholder: "Full app description for store listing..." },
 ];
 
+/** Default primary locale when none configured */
+const DEFAULT_PRIMARY: LocaleDef = { code: "en", label: "English", flag: "🇺🇸" };
+
 /**
- * Metadata editor panel - editable text fields with character counters,
- * copy-to-clipboard, and platform badges.
+ * Metadata editor panel with locale selector.
+ * Supports multiple languages per product via tabs.
  */
 export function MetadataPanel({
   theme: T,
+  locales,
+  activeLocale,
+  onLocaleChange,
   metadata,
   onUpdate,
+  allLocaleData,
 }: {
   theme: ThemeTokens;
+  locales: LocaleDef[];
+  activeLocale: string;
+  onLocaleChange: (code: string) => void;
   metadata: MetadataConfig;
   onUpdate: (updated: MetadataConfig) => void;
+  /** All locale data for JSON export - { [locale]: MetadataConfig } */
+  allLocaleData: Record<string, MetadataConfig>;
 }) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -49,8 +61,20 @@ export function MetadataPanel({
     [metadata, onUpdate]
   );
 
+  const handleCopyAll = useCallback(async () => {
+    const text = FIELDS.map((f) => `${f.label}:\n${metadata[f.id]}`).join("\n\n---\n\n");
+    await navigator.clipboard.writeText(text);
+    setCopiedId("__all__");
+    setTimeout(() => setCopiedId(null), 1500);
+  }, [metadata]);
+
   const handleExportJson = useCallback(async () => {
-    const json = JSON.stringify(metadata, null, 2);
+    // Export all locales, not just the active one
+    const exportData = Object.keys(allLocaleData).length > 1
+      ? allLocaleData
+      : { [activeLocale]: metadata };
+
+    const json = JSON.stringify(exportData, null, 2);
     const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -60,7 +84,9 @@ export function MetadataPanel({
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  }, [metadata]);
+  }, [metadata, allLocaleData, activeLocale]);
+
+  const showLocaleTabs = locales.length > 1;
 
   return (
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px" }}>
@@ -68,9 +94,11 @@ export function MetadataPanel({
       <div
         style={{
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start",
           justifyContent: "space-between",
-          marginBottom: 28,
+          marginBottom: 24,
+          gap: 16,
+          flexWrap: "wrap",
         }}
       >
         <div>
@@ -81,24 +109,113 @@ export function MetadataPanel({
             Edit your app listing text. Changes are saved per session.
           </div>
         </div>
-        <button
-          onClick={handleExportJson}
+        <div style={{ display: "flex", gap: 8 }}>
+          <button
+            onClick={handleCopyAll}
+            style={{
+              background: "rgba(255,255,255,0.06)",
+              color: copiedId === "__all__" ? T.accent : T.fgMuted,
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: 8,
+              padding: "8px 16px",
+              fontSize: 13,
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "all 0.15s",
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+            }}
+          >
+            {copiedId === "__all__" ? (
+              <>
+                <svg width={13} height={13} viewBox="0 0 12 12" fill="none">
+                  <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                Copied All
+              </>
+            ) : (
+              <>
+                <svg width={13} height={13} viewBox="0 0 12 12" fill="none">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth={1.2} />
+                  <path d="M9 3V2.5A1.5 1.5 0 0 0 7.5 1H2.5A1.5 1.5 0 0 0 1 2.5V7.5A1.5 1.5 0 0 0 2.5 9H3" stroke="currentColor" strokeWidth={1.2} />
+                </svg>
+                Copy All
+              </>
+            )}
+          </button>
+          <button
+            onClick={handleExportJson}
+            style={{
+              background: `linear-gradient(135deg, ${T.accent}, ${T.accent}dd)`,
+              color: "#fff",
+              border: "none",
+              borderRadius: 8,
+              padding: "8px 18px",
+              fontSize: 13,
+              fontWeight: 600,
+              cursor: "pointer",
+              boxShadow: `0 4px 16px ${T.accentGlow}`,
+              transition: "all 0.15s",
+            }}
+          >
+            Export JSON
+          </button>
+        </div>
+      </div>
+
+      {/* Locale tabs */}
+      {showLocaleTabs && (
+        <div
           style={{
-            background: `linear-gradient(135deg, ${T.accent}, ${T.accent}dd)`,
-            color: "#fff",
-            border: "none",
-            borderRadius: 8,
-            padding: "8px 18px",
-            fontSize: 13,
-            fontWeight: 600,
-            cursor: "pointer",
-            boxShadow: `0 4px 16px ${T.accentGlow}`,
-            transition: "all 0.15s",
+            display: "flex",
+            gap: 4,
+            marginBottom: 24,
+            padding: 4,
+            background: "rgba(255,255,255,0.03)",
+            borderRadius: 10,
+            border: "1px solid rgba(255,255,255,0.06)",
+            flexWrap: "wrap",
           }}
         >
-          Export JSON
-        </button>
-      </div>
+          {locales.map((loc) => {
+            const isActive = loc.code === activeLocale;
+            return (
+              <button
+                key={loc.code}
+                onClick={() => onLocaleChange(loc.code)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  background: isActive ? T.accentSoft : "transparent",
+                  border: isActive ? `1px solid ${T.accent}44` : "1px solid transparent",
+                  borderRadius: 7,
+                  padding: "7px 14px",
+                  fontSize: 13,
+                  fontWeight: isActive ? 700 : 500,
+                  color: isActive ? T.fg : T.fgMuted,
+                  cursor: "pointer",
+                  transition: "all 0.15s",
+                  whiteSpace: "nowrap",
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.05)";
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                }}
+              >
+                {loc.flag && <span style={{ fontSize: 15 }}>{loc.flag}</span>}
+                <span>{loc.label}</span>
+                <span style={{ fontSize: 11, color: T.fgMuted, fontWeight: 400, textTransform: "uppercase" }}>
+                  {loc.code}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {/* Field cards */}
       <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -155,6 +272,23 @@ export function MetadataPanel({
                   >
                     {field.platform}
                   </span>
+                  {/* Locale badge */}
+                  {showLocaleTabs && (
+                    <span
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 600,
+                        padding: "2px 6px",
+                        borderRadius: 4,
+                        background: "rgba(255,255,255,0.05)",
+                        color: T.fgMuted,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
+                      }}
+                    >
+                      {activeLocale}
+                    </span>
+                  )}
                 </div>
 
                 {/* Copy button */}

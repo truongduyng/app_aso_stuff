@@ -56,6 +56,13 @@ export type MetadataConfig = {
   keywords: string;           // Apple - 100 chars
 };
 
+/** Locale definition for the metadata locale picker */
+export type LocaleDef = {
+  code: string;               // e.g. "en", "vi", "de"
+  label: string;              // e.g. "English", "Tiếng Việt"
+  flag?: string;              // e.g. "🇺🇸", "🇻🇳"
+};
+
 export type ProductConfig = {
   id: string;
   name: string;
@@ -77,6 +84,10 @@ export type ProductConfig = {
     tagline: string;
     subtitle?: string;
   };
-  /** Store metadata defaults */
+  /** Store metadata defaults (primary locale) */
   metadata?: MetadataConfig;
+  /** Per-locale metadata overrides. Key is locale code (e.g. "vi", "de") */
+  metadataByLocale?: Record<string, MetadataConfig>;
+  /** Available locales for this product's metadata */
+  metadataLocales?: LocaleDef[];
 };

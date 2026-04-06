@@ -173,6 +173,10 @@ export const LICHTA: ProductConfig = {
     tagline: "Lịch Ta - Lịch Âm & Tử Vi AI",
     subtitle: "Âm lịch, Can Chi, Hoàng Đạo, Tử Vi AI và hơn thế nữa.",
   },
+  metadataLocales: [
+    { code: "vi", label: "Tiếng Việt", flag: "🇻🇳" },
+    { code: "en", label: "English", flag: "🇺🇸" },
+  ],
   metadata: {
     name: "Lịch Ta - Lịch Âm & Tử Vi AI",
     subtitle: "Lịch Âm · Can Chi · Hoàng Đạo",
@@ -231,5 +235,67 @@ TẠI SAO CHỌN LỊCH TA?
 - Nhẹ máy, mượt mà
 
 Tải ngay Lịch Ta để đón năm mới bình an, may mắn!`,
+  },
+  metadataByLocale: {
+    en: {
+      name: "Lich Ta - Lunar Calendar & AI",
+      subtitle: "Lunar Calendar · Feng Shui",
+      promoText: "Ask the AI Master about horoscopes, feng shui, and Vietnamese customs - instant answers!",
+      shortDescription: "Vietnamese lunar calendar with AI astrology, auspicious hours & event reminders.",
+      keywords: "lunar calendar,vietnamese calendar,feng shui,horoscope,astrology,zodiac,lunar new year",
+      description: `Lich Ta - The only lunar calendar app with a built-in AI Astrology Master. Check auspicious days, lucky hours, and feng shui guidance - completely ad-free.
+
+50,000+ Vietnamese users trust Lich Ta · 4.8/5 stars
+
+KEY FEATURES:
+
+- Accurate Vietnamese Calendar
+
+Quickly look up lunar and solar dates in Vietnam timezone
+Display Can Chi (Heavenly Stems & Earthly Branches) for each day
+View detailed Auspicious Hours
+Daily suggestions for what to do and what to avoid
+
+- Lunar Events & Holidays
+
+Auto-reminders for lunar holidays: Lunar New Year, Mid-Autumn Festival, Ancestors' Day, and more
+Countdown to Full Moon, New Moon, and major festivals
+Create personal events by lunar date (death anniversaries, lunar birthdays)
+Share events with family
+
+- AI Astrology Master
+
+Ask about feng shui, auspicious dates, compatible zodiac signs
+Wedding date consultation, groundbreaking, grand opening guidance
+Answers about lunar calendar, Can Chi, and Vietnamese traditions
+Culturally-aware AI responses
+
+- Convenient Widgets
+
+Small widget: Quick lunar date on home screen
+Medium widget: Lunar date + upcoming event countdown
+Weekly calendar widget: Full week with lunar/solar dates
+
+- Smart Notifications
+
+Reminders before lunar holidays
+Custom personal event alerts
+Choose how many days before to be reminded
+
+- Beautiful Interface
+
+Auto light/dark mode
+6 customizable theme colors
+Beautiful Vietnamese city wallpapers
+Modern design, authentically Vietnamese
+
+WHY CHOOSE LICH TA?
+- Precise lunar calendar calculations
+- No ads whatsoever
+- Smart AI that understands Vietnamese culture
+- Lightweight and smooth
+
+Download Lich Ta now for a peaceful, lucky new year!`,
+    },
   },
 };

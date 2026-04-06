@@ -14,7 +14,37 @@ import { FeatureGraphic } from "@/components/feature-graphic";
 import { SocialOgImage } from "@/components/social-og";
 import { MetadataPanel } from "@/components/metadata-panel";
 import { PRODUCTS } from "@/products";
-import type { MetadataConfig } from "@/lib/types";
+import type { MetadataConfig, LocaleDef } from "@/lib/types";
+
+/** Build the initial per-product, per-locale metadata map */
+function buildMetadataMap(): Record<string, Record<string, MetadataConfig>> {
+  const map: Record<string, Record<string, MetadataConfig>> = {};
+  const empty: MetadataConfig = { name: "", subtitle: "", promoText: "", shortDescription: "", description: "", keywords: "" };
+
+  for (const p of PRODUCTS) {
+    const localeMap: Record<string, MetadataConfig> = {};
+    const locales = p.metadataLocales ?? [{ code: "en", label: "English", flag: "🇺🇸" }];
+
+    for (const loc of locales) {
+      if (p.metadataByLocale?.[loc.code]) {
+        localeMap[loc.code] = p.metadataByLocale[loc.code];
+      } else if (loc.code === locales[0].code && p.metadata) {
+        // First locale gets the primary metadata
+        localeMap[loc.code] = p.metadata;
+      } else {
+        localeMap[loc.code] = { ...empty, name: p.name };
+      }
+    }
+
+    map[p.id] = localeMap;
+  }
+  return map;
+}
+
+/** Get locale defs for a product, defaulting to [en] */
+function getProductLocales(product: typeof PRODUCTS[number]): LocaleDef[] {
+  return product.metadataLocales ?? [{ code: "en", label: "English", flag: "🇺🇸" }];
+}
 
 /* ── Section header ────────────────────────────────────────── */
 function SectionHeader({
@@ -78,20 +108,11 @@ export default function ScreenshotsPage() {
   const [productMenuOpen, setProductMenuOpen] = useState(false);
   const productMenuRef = useRef<HTMLDivElement>(null);
 
-  // Per-product metadata state
-  const [metadataMap, setMetadataMap] = useState<Record<string, MetadataConfig>>(() => {
-    const map: Record<string, MetadataConfig> = {};
-    for (const p of PRODUCTS) {
-      map[p.id] = p.metadata ?? {
-        name: p.name,
-        subtitle: "",
-        promoText: "",
-        shortDescription: "",
-        description: "",
-        keywords: "",
-      };
-    }
-    return map;
+  // Per-product, per-locale metadata state
+  const [metadataMap, setMetadataMap] = useState<Record<string, Record<string, MetadataConfig>>>(buildMetadataMap);
+  const [metaLocale, setMetaLocale] = useState<string>(() => {
+    const locales = getProductLocales(PRODUCTS[0]);
+    return locales[0].code;
   });
 
   const product = PRODUCTS.find((p) => p.id === productId)!;
@@ -108,6 +129,12 @@ export default function ScreenshotsPage() {
   useEffect(() => {
     setReady(false);
     preloadImages(getImagePathsForProduct(product)).then(() => setReady(true));
+
+    // Reset metadata locale if current locale isn't available for this product
+    const locales = getProductLocales(product);
+    if (!locales.find((l) => l.code === metaLocale)) {
+      setMetaLocale(locales[0].code);
+    }
   }, [productId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Close product menu when clicking outside
@@ -506,10 +533,17 @@ export default function ScreenshotsPage() {
          ══════════════════════════════════════════════════════ */}
       <MetadataPanel
         theme={T}
-        metadata={metadataMap[product.id]}
+        locales={getProductLocales(product)}
+        activeLocale={metaLocale}
+        onLocaleChange={(code) => setMetaLocale(code)}
+        metadata={metadataMap[product.id]?.[metaLocale] ?? metadataMap[product.id]?.[getProductLocales(product)[0].code] ?? { name: product.name, subtitle: "", promoText: "", shortDescription: "", description: "", keywords: "" }}
         onUpdate={(updated) =>
-          setMetadataMap((prev) => ({ ...prev, [product.id]: updated }))
+          setMetadataMap((prev) => ({
+            ...prev,
+            [product.id]: { ...prev[product.id], [metaLocale]: updated },
+          }))
         }
+        allLocaleData={metadataMap[product.id] ?? {}}
       />
 
     </div>
