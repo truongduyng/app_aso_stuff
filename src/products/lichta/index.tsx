@@ -29,9 +29,9 @@ const T = LICHTA_THEME;
 
 export const LICHTA: ProductConfig = {
   id: "lichta",
-  name: "Lịch Ta",
+  name: "Lịch Ta - Lịch Âm & Tử Vi AI",
   iconPath: "/products/lichta/icon.png",
-  screenshotBase: "/products/lichta",
+  screenshotBase: "/products/lichta/screenshots",
   theme: LICHTA_THEME,
   slides: {
     iphone: [
@@ -66,7 +66,7 @@ export const LICHTA: ProductConfig = {
         id: "ai",
         copy: {
           label: "THẦY LỊCH TA AI",
-          headline: <>Hỏi Thầy<br /><span style={{ color: T.accent }}>bất cứ lúc nào.</span></>,
+          headline: <>Thầy Tử Vi AI<br /><span style={{ color: T.accent }}>bất cứ lúc nào.</span></>,
           subtitle: <>Tử vi, phong thủy, phong tục<br />Việt Nam - AI trả lời ngay.</>,
         },
         Component: LichtaSlide4,
@@ -131,7 +131,7 @@ export const LICHTA: ProductConfig = {
         id: "ai",
         copy: {
           label: "THẦY LỊCH TA AI",
-          headline: <>Hỏi Thầy<br /><span style={{ color: T.accent }}>bất cứ lúc nào.</span></>,
+          headline: <>Thầy Tử Vi AI<br /><span style={{ color: T.accent }}>bất cứ lúc nào.</span></>,
           subtitle: <>Tử vi, phong thủy, phong tục<br />Việt Nam - AI trả lời ngay.</>,
         },
         Component: LichtaAndroid4,
@@ -170,11 +170,11 @@ export const LICHTA: ProductConfig = {
     subtitle: "Lịch âm, Can Chi, Tiết Khí - tất cả ở một chỗ.",
   },
   socialOg: {
-    tagline: "Lịch Ta - Lịch Âm Việt Nam",
+    tagline: "Lịch Ta - Lịch Âm & Tử Vi AI",
     subtitle: "Âm lịch, Can Chi, Hoàng Đạo, Tử Vi AI và hơn thế nữa.",
   },
   metadata: {
-    name: "Lịch Ta",
+    name: "Lịch Ta - Lịch Âm & Tử Vi AI",
     subtitle: "Lịch Âm · Can Chi · Hoàng Đạo",
     promoText: "Hỏi Thầy AI về tử vi, phong thủy, phong tục Việt Nam - trả lời ngay trong app!",
     shortDescription: "Lịch âm Việt Nam với Can Chi, Tiết Khí, Hoàng Đạo và Thầy AI tử vi.",

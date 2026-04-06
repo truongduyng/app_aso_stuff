@@ -116,7 +116,7 @@ export function Caption({
           fontSize: canvasW * 0.088,
           fontWeight: 700,
           color: theme.fg,
-          lineHeight: 1.05,
+          lineHeight: 1.2,
           letterSpacing: "-0.02em",
         }}
       >

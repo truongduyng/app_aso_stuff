@@ -24,7 +24,7 @@ const T = HONE_THEME;
 
 export const HONE: ProductConfig = {
   id: "hone",
-  name: "Hone",
+  name: "Hone AI: Journal & Habit Log",
   iconPath: "/products/hone/icon.png",
   screenshotBase: "/products/hone/screenshots",
   theme: HONE_THEME,
@@ -78,15 +78,15 @@ export const HONE: ProductConfig = {
     ],
   },
   featureGraphic: {
-    tagline: "Hone",
+    tagline: "Hone AI: Journal & Habit Log",
     subtitle: "Sharpen your edge. Every day.",
   },
   socialOg: {
-    tagline: "Hone - Sharpen Your Edge",
+    tagline: "Hone AI: Journal & Habit Log",
     subtitle: "Daily protocols, AI coaching, and progress tracking for peak performance.",
   },
   metadata: {
-    name: "Hone",
+    name: "Hone AI: Journal & Habit Log",
     subtitle: "Daily Protocols · AI Coach",
     promoText: "Meet your AI Sensei - personalized daily protocols to sharpen body, mind, and spirit.",
     shortDescription: "Daily protocols and AI coaching for peak performance and personal growth.",

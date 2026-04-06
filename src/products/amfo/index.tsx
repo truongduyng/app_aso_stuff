@@ -24,7 +24,7 @@ const T = AMFO_THEME;
 
 export const AMFO: ProductConfig = {
   id: "amfo",
-  name: "Amfo",
+  name: "Amfo: Ambient Focus Sounds",
   iconPath: "/products/amfo/icon.png",
   screenshotBase: "/products/amfo/screenshots",
   theme: AMFO_THEME,
@@ -69,15 +69,15 @@ export const AMFO: ProductConfig = {
     ],
   },
   featureGraphic: {
-    tagline: "Amfo",
+    tagline: "Amfo: Ambient Focus Sounds",
     subtitle: "50+ ambient sounds for focus, sleep, and flow.",
   },
   socialOg: {
-    tagline: "Amfo - Find Your Calm",
+    tagline: "Amfo: Ambient Focus Sounds",
     subtitle: "Curated ambient sounds and custom mixes for deep focus and restful sleep.",
   },
   metadata: {
-    name: "Amfo",
+    name: "Amfo: Ambient Focus Sounds",
     subtitle: "Ambient Sounds, Focus, Sleep",
     promoText: "50+ curated ambient sounds - mix rain, café, and nature for your perfect focus session.",
     shortDescription: "Ambient sounds and custom mixes for focus, sleep, and relaxation.",
