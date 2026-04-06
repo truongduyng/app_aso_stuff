@@ -1,6 +1,6 @@
 import React from "react";
 import type { ProductConfig, ThemeTokens } from "@/lib/types";
-import { AmfoSlide1, AmfoSlide2, AmfoSlide3, AmfoSlide4 } from "./slides";
+import { AmfoSlide1, AmfoSlide2, AmfoSlide3, AmfoSlide4, AmfoSlide5, AmfoSlide6 } from "./slides";
 
 export const AMFO_THEME: ThemeTokens = {
   bg: "#09090F",
@@ -43,8 +43,8 @@ export const AMFO: ProductConfig = {
         id: "mix",
         copy: {
           label: "SOUND MIXER",
-          headline: <>Layer sounds.<br /><span style={{ color: T.accent }}>Enter flow.</span></>,
-          subtitle: <>Mix rain, café, and nature.<br />Every session, uniquely yours.</>,
+          headline: <>Layer sounds.<br /><span style={{ color: T.accent }}>Save presets.</span></>,
+          subtitle: <>Mix rain, café, and nature.<br />Save your perfect combinations.</>,
         },
         Component: AmfoSlide2,
       },
@@ -53,18 +53,27 @@ export const AMFO: ProductConfig = {
         copy: {
           label: "FOCUS TIMER",
           headline: <>Set a timer.<br /><span style={{ color: T.accent }}>Disappear.</span></>,
-          subtitle: <>Built-in timer fades the UI<br />so nothing breaks your focus.</>,
+          subtitle: <>Custom durations to perfectly<br />match your workflow or sleep.</>,
         },
         Component: AmfoSlide3,
       },
       {
         id: "focus",
         copy: {
-          label: "FOCUS MODE",
+          label: "DEEP FOCUS",
           headline: <>Silence<br /><span style={{ color: T.accent }}>the noise.</span></>,
-          subtitle: <>Auto-hide controls during sessions.<br />Only the sound remains.</>,
+          subtitle: <>A beautiful, distraction-free<br />timer keeps you locked in.</>,
         },
         Component: AmfoSlide4,
+      },
+      {
+        id: "settings",
+        copy: {
+          label: "CUSTOMIZE",
+          headline: <>Your perfect<br /><span style={{ color: T.accent }}>environment</span></>,
+          subtitle: <>Auto-hide controls. Sleep fade out.<br />Make the app work for you.</>,
+        },
+        Component: AmfoSlide5,
       },
     ],
   },

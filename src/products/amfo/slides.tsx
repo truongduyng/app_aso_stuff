@@ -32,7 +32,7 @@ export function AmfoSlide1({ theme: T, base, copy }: SlideProps) {
       label={copy.label}
       headline={copy.headline}
       subtitle={copy.subtitle}
-      screenshot="sc1.png" alt="Sound library"
+      screenshot="sc_amfo2.png" alt="Sound library"
       phoneWidth="83%"
     />
   );
@@ -41,7 +41,7 @@ export function AmfoSlide1({ theme: T, base, copy }: SlideProps) {
 /* ── Slide 2: Mix - Layer Sounds ────────────────────────── */
 export function AmfoSlide2({ theme: T, base, copy }: SlideProps) {
   return (
-    <SideSlide
+    <CenteredSlide
       theme={T} base={base}
       gradient={T.gradients.accent}
       orbs={[
@@ -51,14 +51,8 @@ export function AmfoSlide2({ theme: T, base, copy }: SlideProps) {
       label={copy.label}
       headline={copy.headline}
       subtitle={copy.subtitle}
-      phones={<>
-        <div style={{ position: "absolute", bottom: 0, left: "-4%", transform: "translateY(10%) rotate(-3deg)", width: "76%", zIndex: 2, opacity: 0.4, filter: "brightness(0.65)" }}>
-          <PhoneFrame platform="iphone" src={`${base}/sc1.png`} alt="Sound list background" />
-        </div>
-        <div style={{ position: "absolute", bottom: 0, right: "-4%", transform: "translateY(8%)", width: "83%", zIndex: 3 }}>
-          <PhoneFrame platform="iphone" src={`${base}/sc1.png`} alt="Active mix" />
-        </div>
-      </>}
+      screenshot="sc_amfo3.png" alt="Saved Presets"
+      phoneWidth="83%" phoneTy="3%"
     />
   );
 }
@@ -77,7 +71,7 @@ export function AmfoSlide3({ theme: T, base, copy }: SlideProps) {
       label={copy.label}
       headline={copy.headline}
       subtitle={copy.subtitle}
-      screenshot="sc2.png" alt="Focus timer"
+      screenshot="sc_amfo4.png" alt="Focus timer"
       captionMt={0.08}
       phoneWidth="83%" phoneTy="3%"
     />
@@ -100,10 +94,53 @@ export function AmfoSlide4({ theme: T, base, copy }: SlideProps) {
       label={copy.label}
       headline={copy.headline}
       subtitle={copy.subtitle}
-      screenshot="sc3.png" alt="Focus mode settings"
+      screenshot="sc_amfo5.png" alt="Focus mode"
       phoneWidth="82%" phoneTy="3%"
       fadeH="6%"
       extras={<AccentLine canvasW={W} accentColor={T.accent} opacity={0.5} />}
+    />
+  );
+}
+
+/* ── Slide 5: Customize Settings (Added) ────────────────── */
+export function AmfoSlide5({ theme: T, base, copy }: SlideProps) {
+  return (
+    <CenteredSlide
+      theme={T} base={base}
+      gradient={T.gradients.hero}
+      orbs={[
+        { size: 900, top: "-10%", right: "-20%", color: "rgba(139,92,246,0.15)" },
+        { size: 400, bottom: "10%", left: "-10%", color: "rgba(99,102,241,0.08)" },
+      ]}
+      decoration={<DotGrid color="rgba(139,92,246,0.05)" gap="48px" />}
+      label={copy.label}
+      headline={copy.headline}
+      subtitle={copy.subtitle}
+      screenshot="sc_amfo6.png" alt="Settings"
+      phoneWidth="83%" phoneTy="3%"
+    />
+  );
+}
+
+/* ── Slide 6: Amfo Pro (Added) ──────────────────────────── */
+export function AmfoSlide6({ theme: T, base, copy }: SlideProps) {
+  const { W } = dims("iphone");
+  return (
+    <CenteredSlide
+      theme={T} base={base}
+      gradient={T.gradients.deep}
+      orbs={[
+        { size: 1000, top: "20%", left: "10%", color: "rgba(167,139,250,0.15)" },
+        { size: 600, top: "-5%", right: "-15%", color: "rgba(139,92,246,0.1)" },
+      ]}
+      decoration={<Rings sizes={[500, 700, 900]} color="rgba(167,139,250,0.05)" fadeStep={0.02} />}
+      label={copy.label}
+      headline={copy.headline}
+      subtitle={copy.subtitle}
+      screenshot="sc_amfo1.png" alt="Premium"
+      phoneWidth="83%" phoneTy="3%"
+      fadeH="8%"
+      extras={<AccentLine canvasW={W} accentColor={T.accent} opacity={0.6} />}
     />
   );
 }
