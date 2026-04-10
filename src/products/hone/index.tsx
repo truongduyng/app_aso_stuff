@@ -24,7 +24,7 @@ const T = HONE_THEME;
 
 export const HONE: ProductConfig = {
   id: "hone",
-  name: "Hone AI: Journal & Habit Log",
+  name: "Hone Daily",
   iconPath: "/products/hone/icon.png",
   screenshotBase: "/products/hone/screenshots",
   theme: HONE_THEME,
@@ -33,140 +33,108 @@ export const HONE: ProductConfig = {
       {
         id: "hero",
         copy: {
-          label: "THE 10K ITERATION PROTOCOL",
-          headline: <>Track Repetitions.<br /><span style={{ color: T.accent }}>Not Results.</span></>,
-          subtitle: "Master any skill, one rep at a time.",
+          label: "THE POWER OF SMALL HABITS",
+          headline: <>Lasting Change.<br /><span style={{ color: T.accent }}>Starts Today.</span></>,
+          subtitle: "Focus on daily, sustainable actions for a better you.",
         },
         Component: HoneSlide1,
       },
       {
         id: "journal",
         copy: {
-          label: "AI SENSEI",
-          headline: <>Reflect. Refine.<br /><span style={{ color: T.accent }}>Repeat.</span></>,
-          subtitle: <>Journal every rep. Your AI coach analyzes<br />each iteration and delivers tactical micro-adjustments.</>,
+          label: "MINDFUL REFLECTION",
+          headline: <>Reflect. Align.<br /><span style={{ color: T.accent }}>Thrive.</span></>,
+          subtitle: <>Journal your daily thoughts. Let AI guide your emotional well-being and mental clarity.</>,
         },
         Component: HoneSlide2,
       },
       {
         id: "protocol",
         copy: {
-          label: "DAILY PROTOCOL",
-          headline: <>Execute.<br />Log. <span style={{ color: T.accent }}>Repeat.</span></>,
-          subtitle: <>Define concrete daily actions.<br />Check them off. Build the streak.</>,
+          label: "DAILY WELL-BEING",
+          headline: <>Micro-Habits.<br /><span style={{ color: T.accent }}>Macro Growth.</span></>,
+          subtitle: <>Focus on sustainable actions that improve your life over time.</>,
         },
         Component: HoneSlide3,
       },
       {
         id: "reward",
         copy: {
-          label: "BUILD THE HABIT",
-          headline: <>Celebrate<br /><span style={{ color: T.accent }}>The Reps</span></>,
-          subtitle: <>Every iteration logged is a win.<br />Never break the compounding chain.</>,
+          label: "STAY CONSISTENT",
+          headline: <>Celebrate<br /><span style={{ color: T.accent }}>Every Win</span></>,
+          subtitle: <>Every small step counts. Build the momentum that makes change inevitable.</>,
         },
         Component: HoneSlide7,
       },
       {
         id: "progress",
         copy: {
-          label: "PROGRESS",
-          headline: <>Consistency<br /><span style={{ color: T.accent }}>Compounds</span></>,
-          subtitle: <>Mood flow. Streaks. Consistency heatmap.<br />See every dimension of your progress.</>,
+          label: "HOLISTIC PROGRESS",
+          headline: <>Visualize<br /><span style={{ color: T.accent }}>Your Evolution</span></>,
+          subtitle: <>Track mood patterns, energy levels, and habit consistency in one unified view.</>,
         },
         Component: HoneSlide4,
       },
       {
         id: "goals",
         copy: {
-          label: "WIN THE DAY",
-          headline: <>Process Over<br /><span style={{ color: T.accent }}>Outcomes</span></>,
-          subtitle: <>Focus on the systems.<br />Break down ambitious outcomes into daily habits.</>,
+          label: "SYSTEMS FOR LIFE",
+          headline: <>Daily Actions<br /><span style={{ color: T.accent }}>Not Overhauls</span></>,
+          subtitle: <>Ditch the overnight pressure. Build systems that integrate into your lifestyle.</>,
         },
         Component: HoneSlide5,
       },
       {
         id: "proof",
         copy: {
-          label: "PROOF OF WORK",
-          headline: <>Share Your<br /><span style={{ color: T.accent }}>Journey</span></>,
-          subtitle: <>Export your consistency and proudly<br />share your 10,000 rep journey.</>,
+          label: "YOUR JOURNEY",
+          headline: <>Document<br /><span style={{ color: T.accent }}>The Best You</span></>,
+          subtitle: <>Share your path to well-being and celebrate the compounding power of daily habits.</>,
         },
         Component: HoneSlide6,
       },
     ],
   },
   featureGraphic: {
-    tagline: "Hone AI: Journal & Habit Log",
+    tagline: "Refine your life daily with HONE",
     subtitle: "Sharpen your edge. Every day.",
   },
   socialOg: {
-    tagline: "Hone AI: Journal & Habit Log",
+    tagline: "Refine your life daily with HONE",
     subtitle: "Daily protocols, AI coaching, and progress tracking for peak performance.",
   },
   metadata: {
-    name: "Hone AI: Journal & Habit Log",
-    subtitle: "Daily Protocols · AI Coach",
-    promoText: "Meet your AI Sensei - personalized daily protocols to sharpen body, mind, and spirit.",
-    shortDescription: "Daily protocols and AI coaching for peak performance and personal growth.",
-    keywords: "daily protocol,ai coach,habit tracker,self improvement,biohacking,wellness,journal",
-    description: `Stop obsessing over goals. Start winning your daily process.
+    name: "Hone Daily",
+    subtitle: "Refine your life daily with AI",
+    promoText: "Focus on the daily, sustainable actions that improve your physical, mental, and emotional well-being.",
+    shortDescription: "Cultivate lasting change through small, consistent habits and AI-guided reflection.",
+    keywords: "daily habits,well-being,mindfulness,habit tracker,self improvement,reflection,wellness,journal",
+    description: `Stop chasing overnight overhauls. Start cultivating lasting change with the power of small, consistent habits.
 
-Hone AI is your personal AI coach that turns journaling into action -
-automatically extracting todos, tracking your mood, and building the
-daily discipline that makes greatness inevitable.
+Hone is your personal AI companion designed to help you focus on the daily, sustainable actions that improve your physical, mental, and emotional well-being over time. By shifting the focus from massive results to daily repetitions, Hone makes personal growth inevitable and burnout impossible.
 
-THE 1.37 EFFECT - SCIENCE-BACKED PERSONAL GROWTH
+THE COMPOUNDING EFFECT OF MICRO-HABITS
 
-A 2022 meta-analysis proved it: focusing on Process Goals (d=1.37) is 15x
-more effective than chasing Outcome Goals (d=0.09). Hone is the first app
-built entirely on this principle.
+Science shows that small, consistent actions are significantly more effective for lasting change than ambitious, one-time efforts. Hone is built entirely on this principle: winning the day, one habit at a time.
 
 HOW HONE WORKS
 
-1. JOURNAL - Talk to your AI coach like a friend. Write, speak, or share
-   photos. The AI understands your context, detects your mood, and responds
-   with empathy.
+1. REFLECT - Journal your thoughts, feelings, and actions. Our AI companion listens with empathy, helping you identify patterns and find clarity in your daily life.
 
-2. EXECUTE - Hone automatically extracts actionable todos from your journal
-   entries. No manual task creation needed. Just tell the AI what's on your
-   mind, and it organizes your next steps.
+2. CULTIVATE - Hone automatically transforms your reflections into small, actionable habits. No more complex planning—just focus on the next sustainable step.
 
-3. TRACK - Watch your consistency compound. A GitHub-style heatmap, mood flow
-   chart, and streak counter show you the proof that the process is working.
+3. EVOLVE - Watch your progress compound. With visual heatmaps, mood flow tracking, and consistency streaks, you can see the tangible results of your daily commitment to well-being.
 
 KEY FEATURES
 
-- AI-Powered Journaling - Natural conversation with an AI that remembers
-  your context and responds with real insight
-- Smart Todo Extraction - AI identifies tasks from your journal and creates
-  confirmable action items
-- Mood Detection - Automatic mood tracking from your writing patterns
-- Voice Journaling - Record your thoughts; AI transcribes instantly
-- Photo Journaling - Attach images to your journal entries
-- Weekly Calendar - See and manage todos in a clean weekly view
-- Consistency Heatmap - GitHub-style daily activity visualization
-- Mood Flow Chart - 14-day emotional trend with emoji markers
-- Streak Tracking - Current and best consecutive-day streaks
-- Goal Progress - Visual milestone tracking with progress bars
+- AI-Powered Mindful Journaling - A reflective space to clear your mind and gain insight.
+- Smart Habit Extraction - AI turns your reflections into manageable, daily actions.
+- Holistic Well-being Tracking - Monitor your mood, energy, and consistency in one place.
+- Voice & Photo Journaling - Capture your journey in whatever way feels most natural.
+- Consistency Heatmap - Visualize the momentum you're building every single day.
+- Privacy-First - Your journey is for your eyes only. Local encryption, no cloud, no ads.
 
-PRIVACY-FIRST
-
-Your journal is sacred. Hone uses a local-first architecture:
-- All data stored on-device in encrypted SQLite
--  No cloud sync, no accounts, no data mining
-- Full export/import for data portability
-- No ads - ever
-
-HONE PRO
-
-Start free with 100 AI interactions. Go Pro for unlimited:
-- Unlimited AI conversations
-- Voice-to-text journaling
-- Photo journal attachments
-- Advanced mood analytics
-- Priority AI processing
-
-Weekly ($7.99) · Monthly ($12.99) · Yearly (best value)
+Hone isn't about being perfect. It's about being consistent. Sharpen your life, one day at a time.
 
 Questions? support@thehoneapp.com
 Privacy: https://thehoneapp.com/privacy
