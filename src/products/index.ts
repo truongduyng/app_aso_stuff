@@ -2,6 +2,7 @@ import { HONE } from "./hone";
 import { AMFO } from "./amfo";
 import { LICHTA } from "./lichta";
 import { TINYSTEPS } from "./tinysteps";
+import { FITFO } from "./fitfo";
 import type { ProductConfig } from "@/lib/types";
 
 /**
@@ -9,4 +10,4 @@ import type { ProductConfig } from "@/lib/types";
  * To add a new app: create src/products/{id}/index.ts and import it here.
  * The toolbar product selector appears automatically when length > 1.
  */
-export const PRODUCTS: ProductConfig[] = [HONE, AMFO, LICHTA, TINYSTEPS];
+export const PRODUCTS: ProductConfig[] = [HONE, AMFO, LICHTA, TINYSTEPS, FITFO];
