@@ -29,7 +29,7 @@ export const FITFO: ProductConfig = {
   id: "fitfo",
   name: "FitFo",
   iconPath: "/products/fitfo/icon.png",
-  screenshotBase: "/products/fitfo",
+  screenshotBase: "/products/fitfo/screenshots",
   theme: FITFO_THEME,
   locales: [
     { code: "en", label: "English", flag: "🇺🇸" },
@@ -111,16 +111,16 @@ export const FITFO: ProductConfig = {
     ],
   },
   featureGraphic: {
-    tagline: "FitFo: AI Fitness Tracker",
+    tagline: "FitFo Workout AI Planner & Log",
     subtitle: "Workouts, nutrition, progress photos, and a personal Fit Score — all in one place.",
   },
   socialOg: {
-    tagline: "FitFo: AI Fitness Tracker",
+    tagline: "FitFo Workout AI Planner & Log",
     subtitle: "AI workout plans, macro tracking, progress photos, and a personal Fit Score.",
   },
   metadata: {
-    name: "FitFo: AI Fitness Tracker",
-    subtitle: "Personalized workout plans",
+    name: "FitFo Workout AI Planner & Log",
+    subtitle: "Gym & Nutrition with AI coach",
     promoText: "AI-generated workout plans and macro tracking built around your body type and goals.",
     shortDescription: "AI fitness tracker with workouts, nutrition, progress photos, and Fit Score.",
     keywords: "fitness tracker,workout planner,macro tracker,AI workout,calorie tracker,strength training",
