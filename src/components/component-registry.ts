@@ -44,8 +44,8 @@ function GenericCenteredSlide({ theme: T, imagePath, copy }: SlideProps) {
     label: copy.label,
     headline: copy.headline,
     alt: copy.label,
-    phoneWidth: "80%",
-    phoneTy: "-5%",
+    phoneWidth: "90%",
+    phoneTy: "8%",
   });
 }
 
@@ -63,8 +63,8 @@ function GenericAndroidCenteredSlide({ theme: T, imagePath, copy }: SlideProps) 
     label: copy.label,
     headline: copy.headline,
     alt: copy.label,
-    phoneWidth: "56%",
-    phoneTy: "-7%",
+    phoneWidth: "64%",
+    phoneTy: "8%",
   });
 }
 

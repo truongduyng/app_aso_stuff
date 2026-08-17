@@ -110,7 +110,7 @@ export function Caption({
   theme: ThemeTokens;
 }) {
   return (
-    <div style={{ textAlign: align, ...style }}>
+    <div style={{ textAlign: align, padding: `0 ${canvasW * 0.02}px`, boxSizing: "border-box", ...style }}>
       <div
         style={{
           fontSize: canvasW * 0.1,
