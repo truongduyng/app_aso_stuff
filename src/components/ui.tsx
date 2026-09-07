@@ -4,12 +4,13 @@ import React, { useRef, useEffect, useState } from "react";
 import {
   MK_W, MK_H, SC_L, SC_T, SC_W, SC_H, SC_RX, SC_RY,
   IPHONE_W, IPHONE_H, ANDROID_W, ANDROID_H,
+  IPAD_W, IPAD_H,
   FG_W, FG_H, OG_W, OG_H,
 } from "@/lib/constants";
 import { img } from "@/lib/images";
 import type { ThemeTokens } from "@/lib/types";
 
-type DeviceType = "iphone" | "android" | "feature-graphic" | "social-og";
+type DeviceType = "iphone" | "ipad" | "android" | "feature-graphic" | "social-og";
 
 /* ── Phone ──────────────────────────────────────────────── */
 export function Phone({
@@ -85,6 +86,34 @@ export function AndroidPhone({ src, alt, style }: { src: string; alt: string; st
           position: "absolute", left: "3.5%", top: "2%",
           width: "93%", height: "96%",
           borderRadius: "5.5% / 2.6%", overflow: "hidden", background: "#000",
+        }}>
+          {src && <img src={img(src)} alt={alt} style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} draggable={false} />}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── iPad (CSS-only tablet mockup) ───────────────────────── */
+export function IPad({ src, alt, style }: { src: string; alt: string; style?: React.CSSProperties }) {
+  return (
+    <div style={{ position: "relative", aspectRatio: `${IPAD_W}/${IPAD_H}`, ...style }}>
+      <div style={{
+        width: "100%", height: "100%", position: "relative", overflow: "hidden",
+        borderRadius: "5.2% / 3.8%",
+        background: "linear-gradient(145deg, #3f4248 0%, #202227 45%, #111216 100%)",
+        boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.16), inset 0 0 0 7px rgba(0,0,0,0.22), 0 18px 55px rgba(0,0,0,0.48)",
+      }}>
+        {/* Front camera */}
+        <div style={{
+          position: "absolute", top: "1.25%", left: "50%", transform: "translateX(-50%)",
+          width: "1.2%", aspectRatio: "1", borderRadius: "50%", zIndex: 20,
+          background: "#090a0d", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.12)",
+        }} />
+        {/* Full-bleed tablet screen inside the bezel */}
+        <div style={{
+          position: "absolute", left: "2.7%", top: "2.25%", width: "94.6%", height: "95.5%",
+          overflow: "hidden", borderRadius: "3.1% / 2.4%", background: "#000",
         }}>
           {src && <img src={img(src)} alt={alt} style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} draggable={false} />}
         </div>
@@ -219,6 +248,7 @@ export function DiagonalLine({
 /* ── Helper to get canvas dimensions by device type ────── */
 function getCanvasDimsForDevice(device: DeviceType) {
   switch (device) {
+    case "ipad":             return { cW: IPAD_W,       cH: IPAD_H };
     case "android":         return { cW: ANDROID_W, cH: ANDROID_H };
     case "feature-graphic": return { cW: FG_W,      cH: FG_H };
     case "social-og":       return { cW: OG_W,      cH: OG_H };

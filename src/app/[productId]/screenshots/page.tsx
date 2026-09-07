@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useProduct } from "@/components/ProductContext";
 import {
   IPHONE_SIZES, IPHONE_W, IPHONE_H,
+  IPAD_SIZES, IPAD_W, IPAD_H,
   ANDROID_W, ANDROID_H, ANDROID_SIZES,
 } from "@/lib/constants";
 import { exportAllToZip, captureAllAsBase64 } from "@/lib/export";
@@ -158,7 +159,7 @@ export default function ScreenshotsPage() {
   }, [product.name, locale, newLabel, newHeadline, newImagePreview, copyEdits]);
 
   const activeSlides = product.slidesByLocale?.[locale] ?? product.slides;
-  const activeDevice = platform === "android" && activeSlides.android?.length ? "android" : "iphone";
+  const activeDevice = platform === "android" && activeSlides.android?.length ? "android" : platform === "ipad" ? "ipad" : "iphone";
   const slides       = (activeDevice === "android" ? activeSlides.android : activeSlides.iphone) ?? [];
   const [orderOverride, setOrderOverride] = useState<number[] | null>(null);
   const orderedSlides = useMemo(() => {
@@ -170,9 +171,10 @@ export default function ScreenshotsPage() {
     const seen = new Set(ordered.map((slide) => slide.dbId));
     return [...ordered, ...slides.filter((slide) => !seen.has(slide.dbId))];
   }, [slides, orderOverride]);
-  const sizes        = activeDevice === "android" ? ANDROID_SIZES : IPHONE_SIZES;
-  const canvasW      = activeDevice === "android" ? ANDROID_W : IPHONE_W;
-  const canvasH      = activeDevice === "android" ? ANDROID_H : IPHONE_H;
+  const sizes        = activeDevice === "android" ? ANDROID_SIZES : activeDevice === "ipad" ? IPAD_SIZES : IPHONE_SIZES;
+  const canvasW      = activeDevice === "android" ? ANDROID_W : activeDevice === "ipad" ? IPAD_W : IPHONE_W;
+  const canvasH      = activeDevice === "android" ? ANDROID_H : activeDevice === "ipad" ? IPAD_H : IPHONE_H;
+  const storageDevice = activeDevice === "ipad" ? "iphone" : activeDevice;
 
   const getSlidesForLocale = useCallback((localeCode: string) => {
     const localizedSlides = product.slidesByLocale?.[localeCode] ?? product.slides;
@@ -298,7 +300,7 @@ export default function ScreenshotsPage() {
         const res = await fetch("/api/publish/apple/screenshots", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ productId: product.id, locale: localeCode, slides: captured }),
+          body: JSON.stringify({ productId: product.id, locale: localeCode, device: activeDevice, slides: captured }),
         });
         const data = await res.json();
         if (!res.ok || !data.ok) {
@@ -374,7 +376,7 @@ export default function ScreenshotsPage() {
       const res = await fetch("/api/slides/reorder", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: product.id, device: activeDevice, slideIds: nextOrder }),
+        body: JSON.stringify({ productId: product.id, device: storageDevice, slideIds: nextOrder }),
       });
       const data = await res.json() as { ok?: boolean; error?: string };
       if (!res.ok || !data.ok) throw new Error(data.error ?? "Reorder failed");
@@ -427,7 +429,7 @@ export default function ScreenshotsPage() {
     const form = new FormData();
     form.append("productId",    product.id);
     form.append("componentKey", newStyleKey || defaultSlideStyleKey(activeDevice));
-    form.append("device",       activeDevice);
+    form.append("device",       storageDevice);
     form.append("slideKey",     autoSlideKey);
     form.append("label",        newLabel);
     form.append("headline",     newHeadline);
@@ -528,11 +530,11 @@ export default function ScreenshotsPage() {
         <select value={selectedSize} onChange={(e) => setSelectedSize(Number(e.target.value))} disabled={exporting}
           style={{ appearance: "none", WebkitAppearance: "none", backgroundColor: ctrlBg, color: ctrlColor, border: `1px solid ${ctrlBorder}`, borderRadius: 7, padding: "7px 10px", fontSize: 12, fontWeight: 500, cursor: exporting ? "wait" : "pointer", outline: "none", opacity: exporting ? 0.5 : 1, boxShadow: chrome.light ? "0 1px 3px rgba(15,23,42,0.1)" : "none" }}>
           {sizes.map((s, i) => (
-            <option key={i} value={i}>{activeDevice === "iphone" ? "iPhone" : "Android"} {s.label} · {s.w}×{s.h}</option>
+            <option key={i} value={i}>{activeDevice === "iphone" ? "iPhone" : activeDevice === "ipad" ? "13-inch iPad" : "Android"} {s.label} · {s.w}×{s.h}</option>
           ))}
           {sizes.length > 1 && <option value={-1}>All sizes</option>}
         </select>
-        {activeDevice === "iphone" && product.bundleId && (
+        {(activeDevice === "iphone" || activeDevice === "ipad") && product.bundleId && (
           <button
             onClick={() => handlePublishScreenshots()}
             disabled={publishState !== "idle" || publishAllState !== "idle" || exporting}
@@ -558,7 +560,7 @@ export default function ScreenshotsPage() {
               : "Publish Screenshots"}
           </button>
         )}
-        {activeDevice === "iphone" && product.bundleId && productLocales.length > 1 && (
+        {(activeDevice === "iphone" || activeDevice === "ipad") && product.bundleId && productLocales.length > 1 && (
           <button
             onClick={() => handlePublishScreenshots(true)}
             disabled={publishState !== "idle" || publishAllState !== "idle" || exporting}
@@ -696,7 +698,7 @@ export default function ScreenshotsPage() {
                   device={activeDevice}
                   onUpload={slide.dbId ? (file) => handleUpload(slide.dbId, file) : undefined}
                 >
-                  <slide.Component theme={T} imagePath={imagePath} copy={copy} />
+                  <slide.Component theme={T} imagePath={imagePath} copy={copy} device={activeDevice} />
                 </ScreenshotPreview>
               </div>
               {slide.dbId && (
@@ -772,7 +774,7 @@ export default function ScreenshotsPage() {
         >
           <div style={{
             width: "100%",
-            aspectRatio: `${activeDevice === "android" ? ANDROID_W : IPHONE_W}/${activeDevice === "android" ? ANDROID_H : IPHONE_H}`,
+            aspectRatio: `${canvasW}/${canvasH}`,
             borderRadius: 12,
             border: "1.5px dashed rgba(255,255,255,0.15)",
             background: "rgba(255,255,255,0.02)",
@@ -1033,7 +1035,7 @@ export default function ScreenshotsPage() {
           return (
             <div key={`export-${product.id}-${activeDevice}-${slide.id}-${locale}`}
               style={{ width: canvasW, height: canvasH, position: "absolute", left: -9999, fontFamily: "inherit" }}>
-              <slide.Component theme={T} imagePath={getImagePath(slide)} copy={copy} />
+              <slide.Component theme={T} imagePath={getImagePath(slide)} copy={copy} device={activeDevice} />
             </div>
           );
         })}
@@ -1052,7 +1054,7 @@ export default function ScreenshotsPage() {
                 return (
                   <div key={`publish-all-slide-${product.id}-${activeDevice}-${loc.code}-${slide.id}`}
                     style={{ width: canvasW, height: canvasH, position: "absolute", left: -9999, fontFamily: "inherit" }}>
-                    <slide.Component theme={T} imagePath={getImagePath(slide)} copy={copy} />
+                    <slide.Component theme={T} imagePath={getImagePath(slide)} copy={copy} device={activeDevice} />
                   </div>
                 );
               })}
@@ -1071,7 +1073,7 @@ function BulkGenerateModal({ theme: T, productId, productName, productDescriptio
   productId: string;
   productName: string;
   productDescription?: string;
-  device: "iphone" | "android";
+  device: "iphone" | "ipad" | "android";
   locale: string;
   styleKey: string;
   onClose: () => void;

@@ -32,7 +32,7 @@ export type SlideDef = {
   copyByLocale?: Record<string, SlideCopy>;
   /** Full public path to the screenshot image, e.g. /products/amfo/screenshots/sc1.png */
   imagePath?: string;
-  Component: React.FC<{ theme: ThemeTokens; imagePath: string; copy: SlideCopy }>;
+  Component: React.FC<{ theme: ThemeTokens; imagePath: string; copy: SlideCopy; device?: AppPlatform }>;
 };
 
 /**
@@ -47,7 +47,7 @@ export type SlideDef = {
  */
 export type SlideCopyMap = Record<string, Record<string, SlideCopy>>;
 
-export type AppPlatform = "iphone" | "android";
+export type AppPlatform = "iphone" | "ipad" | "android";
 
 /** Asset categories the generator produces */
 export type AssetCategory = "screenshots" | "feature-graphic" | "social-og" | "metadata";

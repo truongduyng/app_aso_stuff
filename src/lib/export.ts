@@ -2,17 +2,19 @@ import { toPng } from "html-to-image";
 import JSZip from "jszip";
 import {
   IPHONE_W, IPHONE_H, IPHONE_SIZES,
+  IPAD_W, IPAD_H, IPAD_SIZES,
   ANDROID_W, ANDROID_H, ANDROID_SIZES,
   FG_W, FG_H, FG_SIZES,
   OG_W, OG_H, OG_SIZES,
 } from "./constants";
 
 type AnySize = { label: string; w: number; h: number };
-type DeviceType = "iphone" | "android" | "feature-graphic" | "social-og";
+type DeviceType = "iphone" | "ipad" | "android" | "feature-graphic" | "social-og";
 
 /** Get canvas dimensions for a given device type */
 export function getCanvasDims(device: DeviceType) {
   switch (device) {
+    case "ipad": return { w: IPAD_W, h: IPAD_H };
     case "android": return { w: ANDROID_W, h: ANDROID_H };
     case "feature-graphic": return { w: FG_W, h: FG_H };
     case "social-og": return { w: OG_W, h: OG_H };
@@ -23,6 +25,7 @@ export function getCanvasDims(device: DeviceType) {
 /** Get export sizes for a given device type */
 export function getExportSizes(device: DeviceType): readonly AnySize[] {
   switch (device) {
+    case "ipad": return IPAD_SIZES;
     case "android": return ANDROID_SIZES;
     case "feature-graphic": return FG_SIZES;
     case "social-og": return OG_SIZES;

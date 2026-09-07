@@ -184,7 +184,7 @@ export function ProductProvider({
     const savedPlatform = localStorage.getItem(`selectedPlatform_${productId}`);
     const currentProduct = PRODUCTS.find((p) => p.id === productId);
     const hasAndroid = Boolean(currentProduct?.slides.android?.length);
-    setPlatformState(savedPlatform === "android" && hasAndroid ? "android" : "iphone");
+    setPlatformState(savedPlatform === "android" && hasAndroid ? "android" : savedPlatform === "ipad" ? "ipad" : "iphone");
   }, [productId, PRODUCTS]);
 
   useEffect(() => {

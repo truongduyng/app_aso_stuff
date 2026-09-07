@@ -9,31 +9,33 @@ import {
   DotGrid,
   type SlideProps,
 } from "@/components/slide-layouts";
+import type { Platform } from "@/components/slide-layouts";
 
-export type SlideComponent = React.FC<{ theme: ThemeTokens; imagePath: string; copy: SlideCopy }>;
+export type SlideComponent = React.FC<{ theme: ThemeTokens; imagePath: string; copy: SlideCopy; device?: Platform }>;
 
 export type SlideStyleOption = {
   key: string;
   label: string;
   description: string;
-  platforms?: Array<"iphone" | "android">;
+  platforms?: Array<"iphone" | "ipad" | "android">;
 };
 
 export const SLIDE_STYLE_OPTIONS: SlideStyleOption[] = [
-  { key: "GenericCenteredSlide", label: "Centered phone", description: "Caption at top, one phone centered.", platforms: ["iphone"] },
-  { key: "GenericSideSlide", label: "Side phone", description: "Left caption with layered phone preview.", platforms: ["iphone"] },
+  { key: "GenericCenteredSlide", label: "Centered phone", description: "Caption at top, one phone centered.", platforms: ["iphone", "ipad"] },
+  { key: "GenericSideSlide", label: "Side phone", description: "Left caption with layered phone preview.", platforms: ["iphone", "ipad"] },
   { key: "GenericAndroidCenteredSlide", label: "Android centered", description: "Caption at top, Android phone centered.", platforms: ["android"] },
   { key: "GenericAndroidSideSlide", label: "Android side", description: "Left caption with layered Android preview.", platforms: ["android"] },
 ];
 
-export function defaultSlideStyleKey(device: "iphone" | "android") {
+export function defaultSlideStyleKey(device: "iphone" | "ipad" | "android") {
   return device === "android" ? "GenericAndroidCenteredSlide" : "GenericCenteredSlide";
 }
 
 
-function GenericCenteredSlide({ theme: T, imagePath, copy }: SlideProps) {
+function GenericCenteredSlide({ theme: T, imagePath, copy, device = "iphone" }: SlideProps) {
   return React.createElement(CenteredSlide, {
     theme: T,
+    platform: device,
     imagePath,
     gradient: T.gradients.hero,
     orbs: [
@@ -44,8 +46,8 @@ function GenericCenteredSlide({ theme: T, imagePath, copy }: SlideProps) {
     label: copy.label,
     headline: copy.headline,
     alt: copy.label,
-    phoneWidth: "90%",
-    phoneTy: "8%",
+    phoneWidth: device === "ipad" ? "86%" : "90%",
+    phoneTy: device === "ipad" ? "3%" : "8%",
   });
 }
 
@@ -68,9 +70,10 @@ function GenericAndroidCenteredSlide({ theme: T, imagePath, copy }: SlideProps) 
   });
 }
 
-function GenericSideSlide({ theme: T, imagePath, copy }: SlideProps) {
+function GenericSideSlide({ theme: T, imagePath, copy, device = "iphone" }: SlideProps) {
   return React.createElement(SideSlide, {
     theme: T,
+    platform: device,
     imagePath,
     gradient: T.gradients.warm,
     orbs: [
@@ -91,7 +94,7 @@ function GenericSideSlide({ theme: T, imagePath, copy }: SlideProps) {
           opacity: 0.35,
           filter: "brightness(0.65)",
         },
-      }, React.createElement(PhoneFrame, { platform: "iphone", src: imagePath, alt: "" })),
+      }, React.createElement(PhoneFrame, { platform: device, src: imagePath, alt: "" })),
       React.createElement("div", {
         style: {
           position: "absolute",
@@ -100,7 +103,7 @@ function GenericSideSlide({ theme: T, imagePath, copy }: SlideProps) {
           width: "80%",
           zIndex: 3,
         },
-      }, React.createElement(PhoneFrame, { platform: "iphone", src: imagePath, alt: copy.label })),
+      }, React.createElement(PhoneFrame, { platform: device, src: imagePath, alt: copy.label })),
     ),
   });
 }

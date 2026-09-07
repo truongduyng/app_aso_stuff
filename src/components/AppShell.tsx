@@ -188,7 +188,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           className="flex items-center rounded-[9px] border p-0.75"
           style={{ background: chrome.controlBg, borderColor: chrome.border }}
         >
-          {(["iphone", "android"] as const).map((device) => {
+          {(["iphone", "ipad", "android"] as const).map((device) => {
             const active = platform === device;
             const disabled = device === "android" && !hasAndroidSlides;
             return (
@@ -197,7 +197,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 type="button"
                 onClick={() => { if (!disabled) setPlatform(device); }}
                 disabled={disabled}
-                title={disabled ? "No Android screenshots for this product/language" : `Switch to ${device === "iphone" ? "iPhone" : "Android"}`}
+                title={disabled ? "No Android screenshots for this product/language" : `Switch to ${device === "iphone" ? "iPhone" : device === "ipad" ? "13-inch iPad" : "Android"}`}
                 className="rounded-[7px] border-none px-2.5 py-1.25 text-[12px] font-semibold transition-all duration-150 disabled:cursor-not-allowed"
                 style={{
                   background: active ? T.accentSoft : "transparent",
@@ -206,7 +206,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   opacity: disabled ? 0.55 : 1,
                 }}
               >
-                {device === "iphone" ? "iPhone" : "Android"}
+                {device === "iphone" ? "iPhone" : device === "ipad" ? "13-inch iPad" : "Android"}
               </button>
             );
           })}

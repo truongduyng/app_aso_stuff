@@ -7,8 +7,11 @@ import { toAppleLocale } from "@/lib/store-locales";
 import crypto from "crypto";
 
 const BASE = "https://api.appstoreconnect.apple.com/v1";
-// ASC uses APP_IPHONE_67 for the 6.7"/6.9" Pro Max size class
-const DISPLAY_TYPE = "APP_IPHONE_67";
+// Display type is selected from the requested screenshot target.
+const DISPLAY_TYPES = {
+  iphone: "APP_IPHONE_67",
+  ipad: "APP_IPAD_PRO_129",
+} as const;
 
 const EDITABLE_STATES = [
   "PREPARE_FOR_SUBMISSION",
@@ -28,6 +31,7 @@ type SlidePayload = {
 type Payload = {
   productId: string;
   locale: string;
+  device?: "iphone" | "ipad";
   slides: SlidePayload[];
 };
 
@@ -38,7 +42,8 @@ async function asc(url: string, headers: AscHeaders, options?: RequestInit) {
 }
 
 export async function POST(req: NextRequest) {
-  const { productId, locale, slides } = await req.json() as Payload;
+  const { productId, locale, device = "iphone", slides } = await req.json() as Payload;
+  const displayType = DISPLAY_TYPES[device];
 
   const [product] = await db.select().from(products).where(eq(products.id, productId));
   if (!product?.bundleId) {
@@ -88,15 +93,15 @@ export async function POST(req: NextRequest) {
   const setsRes = await asc(`${BASE}/appStoreVersionLocalizations/${versionLocId}/appScreenshotSets`, headers);
   const sets: Array<{ id: string; attributes: { screenshotDisplayType: string } }> = setsRes.ok ? (await setsRes.json()).data ?? [] : [];
 
-  // Find or create the 6.9" screenshot set
-  let setId = sets.find((s) => s.attributes.screenshotDisplayType === DISPLAY_TYPE)?.id;
+  // Find or create the screenshot set for the selected display target.
+  let setId = sets.find((s) => s.attributes.screenshotDisplayType === displayType)?.id;
   if (!setId) {
     const createSetRes = await asc(`${BASE}/appScreenshotSets`, headers, {
       method: "POST",
       body: JSON.stringify({
         data: {
           type: "appScreenshotSets",
-          attributes: { screenshotDisplayType: DISPLAY_TYPE },
+          attributes: { screenshotDisplayType: displayType },
           relationships: { appStoreVersionLocalization: { data: { type: "appStoreVersionLocalizations", id: versionLocId } } },
         },
       }),

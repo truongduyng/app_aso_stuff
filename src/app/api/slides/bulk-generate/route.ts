@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
       productId: string;
       productName: string;
       productDescription?: string;
-      device: "iphone" | "android";
+      device: "iphone" | "ipad" | "android";
       locale: string;
       styleKey: string;
       count: number;
@@ -21,6 +21,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
+  // iPad uses the existing iPhone slide definitions and renderer; only the
+  // export/publish target differs.
+  const storageDevice = device === "ipad" ? "iphone" : device;
   const language = LOCALE_NAMES[locale] ?? locale;
 
   const prompt = `You are a mobile app screenshot copywriter. Generate exactly ${count} App Store screenshot slides for the following app.
@@ -79,7 +82,7 @@ Respond with only the JSON object.`;
   const [{ maxOrder }] = await db
     .select({ maxOrder: max(productSlides.sortOrder) })
     .from(productSlides)
-    .where(and(eq(productSlides.groupId, group.id), eq(productSlides.device, device)));
+    .where(and(eq(productSlides.groupId, group.id), eq(productSlides.device, storageDevice)));
 
   let nextOrder = (maxOrder ?? -1) + 1;
 
@@ -97,7 +100,7 @@ Respond with only the JSON object.`;
 
     const [row] = await db
       .insert(productSlides)
-      .values({ groupId: group.id, device, slideKey, componentKey: styleKey, sortOrder: nextOrder++ })
+      .values({ groupId: group.id, device: storageDevice, slideKey, componentKey: styleKey, sortOrder: nextOrder++ })
       .returning();
 
     const headlineSegs = slide.headline ? [{ t: "text", v: slide.headline }] : [];

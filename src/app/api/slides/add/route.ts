@@ -19,6 +19,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
+  const storageDevice = device === "ipad" ? "iphone" : device;
+
   // Find or create the default slide group for this product
   let [group] = await db
     .select()
@@ -37,7 +39,7 @@ export async function POST(req: NextRequest) {
   const [{ maxOrder }] = await db
     .select({ maxOrder: max(productSlides.sortOrder) })
     .from(productSlides)
-    .where(and(eq(productSlides.groupId, group.id), eq(productSlides.device, device)));
+    .where(and(eq(productSlides.groupId, group.id), eq(productSlides.device, storageDevice)));
 
   const sortOrder = (maxOrder ?? -1) + 1;
 
@@ -55,7 +57,7 @@ export async function POST(req: NextRequest) {
   // Insert the slide row
   const [slide] = await db
     .insert(productSlides)
-    .values({ groupId: group.id, device, slideKey, componentKey, imagePath, sortOrder })
+    .values({ groupId: group.id, device: storageDevice, slideKey, componentKey, imagePath, sortOrder })
     .returning();
 
   // Rename image to use slide id now that we have it

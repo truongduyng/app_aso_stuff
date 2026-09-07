@@ -9,6 +9,14 @@ export const IPHONE_SIZES = [
   { label: '6.1"', w: 1125, h: 2436 },
 ] as const;
 
+/* iPad Pro / iPad Air 13-inch display (App Store Connect) */
+export const IPAD_W = 2064;
+export const IPAD_H = 2752;
+
+export const IPAD_SIZES = [
+  { label: '13" iPad', w: IPAD_W, h: IPAD_H },
+] as const;
+
 /* Android phone canvas dimensions */
 export const ANDROID_W = 1080;
 export const ANDROID_H = 1920;

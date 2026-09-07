@@ -1,16 +1,17 @@
 "use client";
 
 import React, { type ReactNode } from "react";
-import { IPHONE_W, IPHONE_H, ANDROID_W, ANDROID_H } from "@/lib/constants";
-import { Phone, AndroidPhone, Caption, OrbGlow } from "@/components/ui";
+import { IPHONE_W, IPHONE_H, IPAD_W, IPAD_H, ANDROID_W, ANDROID_H } from "@/lib/constants";
+import { Phone, IPad, AndroidPhone, Caption, OrbGlow } from "@/components/ui";
 import type { ThemeTokens } from "@/lib/types";
 
 /* ── Shared types ─────────────────────────────────────────── */
-export type Platform = "iphone" | "android";
+export type Platform = "iphone" | "ipad" | "android";
 export type SlideProps = {
   theme: ThemeTokens;
   imagePath: string;
   copy: import("@/lib/types").SlideCopy;
+  device?: Platform;
 };
 export type OrbDef = {
   size: number;
@@ -25,6 +26,8 @@ export type OrbDef = {
 export function dims(p: Platform) {
   return p === "iphone"
     ? { W: IPHONE_W, H: IPHONE_H }
+    : p === "ipad"
+    ? { W: IPAD_W, H: IPAD_H }
     : { W: ANDROID_W, H: ANDROID_H };
 }
 
@@ -37,16 +40,18 @@ export function PhoneFrame({
   alt: string;
   style?: React.CSSProperties;
 }) {
-  return platform === "iphone" ? (
-    <Phone {...rest} />
-  ) : (
+  return platform === "android" ? (
     <AndroidPhone {...rest} />
+  ) : platform === "ipad" ? (
+    <IPad {...rest} />
+  ) : (
+    <Phone {...rest} />
   );
 }
 
 /** Scale orb sizes for the smaller Android canvas */
 export function scaleOrbs(orbs: OrbDef[], platform: Platform): OrbDef[] {
-  if (platform === "iphone") return orbs;
+  if (platform !== "android") return orbs;
   return orbs.map((o) => ({ ...o, size: Math.round(o.size * 0.82) }));
 }
 
@@ -178,7 +183,7 @@ export function CenteredSlide({
   fadeH?: string;
 }) {
   const { W, H } = dims(platform);
-  const isIP = platform === "iphone";
+  const isIP = platform !== "android";
   const scaled = scaleOrbs(orbs, platform);
   const pw = phoneWidth ?? (isIP ? "82%" : "58%");
   const ty = phoneTy ?? (isIP ? "-5%" : "-7%");
@@ -269,7 +274,7 @@ export function SideSlide({
   fadeH?: string;
 }) {
   const { W, H } = dims(platform);
-  const isIP = platform === "iphone";
+  const isIP = platform !== "android";
   const scaled = scaleOrbs(orbs, platform);
   const px = W * (isIP ? 0.08 : 0.07);
 
