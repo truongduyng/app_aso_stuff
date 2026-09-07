@@ -130,6 +130,7 @@ export function Caption({
   align = "center",
   style,
   theme,
+  compact = false,
 }: {
   label: string;
   headline: React.ReactNode;
@@ -137,12 +138,13 @@ export function Caption({
   align?: "center" | "left";
   style?: React.CSSProperties;
   theme: ThemeTokens;
+  compact?: boolean;
 }) {
   return (
     <div style={{ textAlign: align, padding: `0 ${canvasW * 0.02}px`, boxSizing: "border-box", ...style }}>
       <div
         style={{
-          fontSize: canvasW * 0.1,
+          fontSize: canvasW * (compact ? 0.075 : 0.1),
           fontWeight: 700,
           color: theme.fg,
           lineHeight: 1.2,

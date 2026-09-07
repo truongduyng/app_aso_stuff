@@ -8,18 +8,36 @@ import type { LocaleDef, MetadataConfig } from "@/lib/types";
 import { COMMON_LOCALES } from "@/lib/locale-names";
 import { segmentsToMarkup } from "@/lib/rich-text";
 import type { RichTextSegment } from "@/lib/rich-text";
-import { Archive, ChevronDown, RefreshCw, Plus, Check, Smartphone, Image, Share2, MousePointerClick, AlignLeft, Settings, Moon, Sun } from "lucide-react";
+import {
+  Archive,
+  ChevronDown,
+  RefreshCw,
+  Plus,
+  Check,
+  Smartphone,
+  Image,
+  Share2,
+  MousePointerClick,
+  AlignLeft,
+  Settings,
+  Moon,
+  Sun,
+} from "lucide-react";
 import { toast } from "sonner";
 
-
-type Section = "screenshots" | "feature-graphic" | "social-og" | "cta" | "metadata";
+type Section =
+  | "screenshots"
+  | "feature-graphic"
+  | "social-og"
+  | "cta"
+  | "metadata";
 
 const SECTIONS: { id: Section; label: string }[] = [
-  { id: "screenshots",     label: "Screenshots" },
+  { id: "screenshots", label: "Screenshots" },
   { id: "feature-graphic", label: "Feature Graphic" },
-  { id: "social-og",       label: "Social OG" },
-  { id: "cta",             label: "CTA Image" },
-  { id: "metadata",        label: "Store Metadata" },
+  { id: "social-og", label: "Social OG" },
+  { id: "cta", label: "CTA Image" },
+  { id: "metadata", label: "Store Metadata" },
 ];
 
 function segmentsToPlain(segments: RichTextSegment[]): string {
@@ -28,13 +46,26 @@ function segmentsToPlain(segments: RichTextSegment[]): string {
 
 export function AppShell({ children }: { children: ReactNode }) {
   const {
-    PRODUCTS, rawProducts, product, productId, setProductId,
-    locale, setLocale, productLocales, extraLocales, setExtraLocales,
-    metadataMap, setMetadataMap, regenLocaleCode, handleRegenLocale,
+    PRODUCTS,
+    rawProducts,
+    product,
+    productId,
+    setProductId,
+    locale,
+    setLocale,
+    productLocales,
+    extraLocales,
+    setExtraLocales,
+    metadataMap,
+    setMetadataMap,
+    regenLocaleCode,
+    handleRegenLocale,
     removeLocale,
     ready,
-    platform, setPlatform,
-    uiMode, setUiMode,
+    platform,
+    setPlatform,
+    uiMode,
+    setUiMode,
   } = useProduct();
 
   const pathname = usePathname();
@@ -57,7 +88,9 @@ export function AppShell({ children }: { children: ReactNode }) {
     subtleBorder: isLight ? "rgba(15,23,42,0.08)" : "rgba(255,255,255,0.06)",
     controlBg: isLight ? "rgba(15,23,42,0.05)" : "rgba(255,255,255,0.06)",
     muted: isLight ? "#667085" : "#9999a8",
-    shadow: isLight ? "0 16px 48px rgba(15,23,42,0.12)" : "0 16px 60px rgba(0,0,0,0.6)",
+    shadow: isLight
+      ? "0 16px 48px rgba(15,23,42,0.12)"
+      : "0 16px 60px rgba(0,0,0,0.6)",
   };
 
   const activeSection = ((): Section => {
@@ -70,7 +103,10 @@ export function AppShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!productMenuOpen) return;
     const handler = (e: MouseEvent) => {
-      if (productMenuRef.current && !productMenuRef.current.contains(e.target as Node))
+      if (
+        productMenuRef.current &&
+        !productMenuRef.current.contains(e.target as Node)
+      )
         setProductMenuOpen(false);
     };
     document.addEventListener("mousedown", handler);
@@ -89,14 +125,15 @@ export function AppShell({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen" style={{ color: T.fg, background: chrome.appBg }}>
-
+    <div
+      className="min-h-screen"
+      style={{ color: T.fg, background: chrome.appBg }}
+    >
       {/* ── Top bar ── */}
       <div
         className="fixed top-0 left-0 right-0 z-100 h-14.25 backdrop-blur-md border-b px-4 flex items-center gap-3"
         style={{ background: chrome.topBg, borderColor: chrome.subtleBorder }}
       >
-
         {/* Product picker */}
         <div ref={productMenuRef} className="relative">
           <button
@@ -111,9 +148,16 @@ export function AppShell({ children }: { children: ReactNode }) {
               src={img(product.iconPath)}
               alt={product.name}
               className="w-7.5 h-7.5 rounded-lg shrink-0"
-              onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = "none";
+              }}
             />
-            <span className="font-bold text-[15px] whitespace-nowrap" style={{ color: T.fg }}>{product.name}</span>
+            <span
+              className="font-bold text-[15px] whitespace-nowrap"
+              style={{ color: T.fg }}
+            >
+              {product.name}
+            </span>
             <ChevronDown
               size={13}
               className={`ml-0.5 opacity-50 shrink-0 transition-transform duration-200 ${productMenuOpen ? "rotate-180" : ""}`}
@@ -123,14 +167,21 @@ export function AppShell({ children }: { children: ReactNode }) {
           {productMenuOpen && (
             <div
               className="absolute top-[calc(100%+8px)] left-0 z-200 backdrop-blur-xl border rounded-xl p-1.5 min-w-55 flex flex-col gap-0.5"
-              style={{ background: chrome.panelBg, borderColor: chrome.border, boxShadow: chrome.shadow }}
+              style={{
+                background: chrome.panelBg,
+                borderColor: chrome.border,
+                boxShadow: chrome.shadow,
+              }}
             >
               {PRODUCTS.map((p) => {
                 const active = p.id === productId;
                 return (
                   <div key={p.id} className="flex items-center gap-0.5">
                     <button
-                      onClick={() => { setProductId(p.id); setProductMenuOpen(false); }}
+                      onClick={() => {
+                        setProductId(p.id);
+                        setProductMenuOpen(false);
+                      }}
                       className={`flex items-center gap-2.5 border-none rounded-lg px-2.5 py-2 cursor-pointer transition-colors duration-120 flex-1 text-left hover:bg-white/5 ${
                         active ? "bg-white/8" : "bg-transparent"
                       }`}
@@ -139,15 +190,25 @@ export function AppShell({ children }: { children: ReactNode }) {
                         src={img(p.iconPath)}
                         alt={p.name}
                         className="w-7 h-7 rounded-md shrink-0"
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = "none";
+                        }}
                       />
-                      <span className={`text-sm flex-1 ${active ? "font-bold" : "font-medium"}`} style={{ color: active ? T.fg : chrome.muted }}>
+                      <span
+                        className={`text-sm flex-1 ${active ? "font-bold" : "font-medium"}`}
+                        style={{ color: active ? T.fg : chrome.muted }}
+                      >
                         {p.name}
                       </span>
                       {active && <Check size={14} color={T.accent} />}
                     </button>
                     <button
-                      onClick={(e) => { e.stopPropagation(); setProductId(p.id); setProductMenuOpen(false); setEditProductOpen(true); }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setProductId(p.id);
+                        setProductMenuOpen(false);
+                        setEditProductOpen(true);
+                      }}
                       title="Edit product"
                       className="flex items-center justify-center w-6 h-6 rounded-md border-none bg-transparent text-[#555] cursor-pointer transition-colors hover:bg-white/8 hover:text-[#999] shrink-0"
                     >
@@ -156,13 +217,25 @@ export function AppShell({ children }: { children: ReactNode }) {
                   </div>
                 );
               })}
-              <div className="border-t mt-0.5 pt-0.5" style={{ borderColor: chrome.subtleBorder }}>
+              <div
+                className="border-t mt-0.5 pt-0.5"
+                style={{ borderColor: chrome.subtleBorder }}
+              >
                 <button
-                  onClick={() => { setProductMenuOpen(false); setAddProductOpen(true); }}
+                  onClick={() => {
+                    setProductMenuOpen(false);
+                    setAddProductOpen(true);
+                  }}
                   className="flex items-center gap-2.5 border-none rounded-lg px-2.5 py-2 cursor-pointer transition-colors duration-120 w-full text-left hover:bg-white/5 bg-transparent"
                   style={{ color: chrome.muted }}
                 >
-                  <div className="w-7 h-7 rounded-md shrink-0 flex items-center justify-center border" style={{ background: chrome.controlBg, borderColor: chrome.border }}>
+                  <div
+                    className="w-7 h-7 rounded-md shrink-0 flex items-center justify-center border"
+                    style={{
+                      background: chrome.controlBg,
+                      borderColor: chrome.border,
+                    }}
+                  >
                     <Plus size={13} />
                   </div>
                   <span className="text-sm font-medium">Add product</span>
@@ -195,9 +268,15 @@ export function AppShell({ children }: { children: ReactNode }) {
               <button
                 key={device}
                 type="button"
-                onClick={() => { if (!disabled) setPlatform(device); }}
+                onClick={() => {
+                  if (!disabled) setPlatform(device);
+                }}
                 disabled={disabled}
-                title={disabled ? "No Android screenshots for this product/language" : `Switch to ${device === "iphone" ? "iPhone" : device === "ipad" ? "13-inch iPad" : "Android"}`}
+                title={
+                  disabled
+                    ? "No Android screenshots for this product/language"
+                    : `Switch to ${device === "iphone" ? "iPhone" : device === "ipad" ? "13-inch iPad" : "Android"}`
+                }
                 className="rounded-[7px] border-none px-2.5 py-1.25 text-[12px] font-semibold transition-all duration-150 disabled:cursor-not-allowed"
                 style={{
                   background: active ? T.accentSoft : "transparent",
@@ -206,7 +285,11 @@ export function AppShell({ children }: { children: ReactNode }) {
                   opacity: disabled ? 0.55 : 1,
                 }}
               >
-                {device === "iphone" ? "iPhone" : device === "ipad" ? "13-inch iPad" : "Android"}
+                {device === "iphone"
+                  ? "iPhone"
+                  : device === "ipad"
+                    ? "13-inch iPad"
+                    : "Android"}
               </button>
             );
           })}
@@ -215,7 +298,11 @@ export function AppShell({ children }: { children: ReactNode }) {
           onClick={() => setUiMode(isLight ? "dark" : "light")}
           title={isLight ? "Switch to dark mode" : "Switch to light mode"}
           className="flex items-center justify-center w-7 h-7 rounded-[7px] border cursor-pointer transition-all duration-150"
-          style={{ background: chrome.controlBg, borderColor: chrome.border, color: T.fgMuted }}
+          style={{
+            background: chrome.controlBg,
+            borderColor: chrome.border,
+            color: T.fgMuted,
+          }}
         >
           {isLight ? <Moon size={13} /> : <Sun size={13} />}
         </button>
@@ -223,13 +310,18 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       {/* ── Body: sidebar + main ── */}
       <div className="flex pt-14.25">
-
         {/* Left sidebar */}
         <aside
           className="fixed top-14.25 left-0 bottom-0 w-50 z-90 backdrop-blur-md border-r flex flex-col p-4 gap-0.5 overflow-y-auto"
-          style={{ background: chrome.sideBg, borderColor: chrome.subtleBorder }}
+          style={{
+            background: chrome.sideBg,
+            borderColor: chrome.subtleBorder,
+          }}
         >
-          <div className="text-[10px] font-bold tracking-widest uppercase px-2 pb-2" style={{ color: T.fgMuted }}>
+          <div
+            className="text-[10px] font-bold tracking-widest uppercase px-2 pb-2"
+            style={{ color: T.fgMuted }}
+          >
             Assets
           </div>
           {SECTIONS.map((s) => {
@@ -247,7 +339,11 @@ export function AppShell({ children }: { children: ReactNode }) {
                   color: active ? T.fg : T.fgMuted,
                 }}
               >
-                <SectionIcon id={s.id} active={active} color={active ? T.accent : T.fgMuted} />
+                <SectionIcon
+                  id={s.id}
+                  active={active}
+                  color={active ? T.accent : T.fgMuted}
+                />
                 {s.label}
               </button>
             );
@@ -255,9 +351,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </aside>
 
         {/* Main content */}
-        <main className="ml-50 flex-1 min-w-0">
-          {children}
-        </main>
+        <main className="ml-50 flex-1 min-w-0">{children}</main>
       </div>
 
       {editProductOpen && (
@@ -302,8 +396,14 @@ export function AppShell({ children }: { children: ReactNode }) {
           existingCodes={productLocales.map((l) => l.code)}
           sourceLoc={productLocales[0]}
           sourceMetadata={
-            metadataMap[product.id]?.[productLocales[0].code] ??
-            { name: product.name, subtitle: "", promoText: "", shortDescription: "", description: "", keywords: "" }
+            metadataMap[product.id]?.[productLocales[0].code] ?? {
+              name: product.name,
+              subtitle: "",
+              promoText: "",
+              shortDescription: "",
+              description: "",
+              keywords: "",
+            }
           }
           rawProduct={rawProducts.find((p) => p.id === product.id)!}
           onClose={() => setAddLocaleOpen(false)}
@@ -329,7 +429,17 @@ export function AppShell({ children }: { children: ReactNode }) {
 
 import type { HydratedProduct } from "@/components/ProductContext";
 
-function LocaleDropdown({ locales, locale, regenLocaleCode, theme: T, uiMode, onSelect, onRegen, onAdd, onRemove }: {
+function LocaleDropdown({
+  locales,
+  locale,
+  regenLocaleCode,
+  theme: T,
+  uiMode,
+  onSelect,
+  onRegen,
+  onAdd,
+  onRemove,
+}: {
   locales: LocaleDef[];
   locale: string;
   regenLocaleCode: string | null;
@@ -349,12 +459,17 @@ function LocaleDropdown({ locales, locale, regenLocaleCode, theme: T, uiMode, on
   const controlBg = isLight ? "rgba(15,23,42,0.05)" : "rgba(255,255,255,0.06)";
   const border = isLight ? "rgba(15,23,42,0.1)" : "rgba(255,255,255,0.1)";
   const panelBg = isLight ? "#FFFFFF" : "#111114";
-  const shadow = isLight ? "0 16px 48px rgba(15,23,42,0.14)" : "0 16px 48px rgba(0,0,0,0.7)";
+  const shadow = isLight
+    ? "0 16px 48px rgba(15,23,42,0.14)"
+    : "0 16px 48px rgba(0,0,0,0.7)";
 
   useEffect(() => {
     if (!open) return;
     const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) { setOpen(false); setConfirmDelete(null); }
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+        setConfirmDelete(null);
+      }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -377,7 +492,15 @@ function LocaleDropdown({ locales, locale, regenLocaleCode, theme: T, uiMode, on
         disabled={!!regenLocaleCode}
         title="Re-generate with AI"
         className="flex items-center justify-center w-7 h-7 rounded-[7px] border transition-all duration-150 disabled:cursor-not-allowed"
-        style={{ background: controlBg, borderColor: border, color: isRegen ? (isLight ? "rgba(15,23,42,0.3)" : "rgba(255,255,255,0.35)") : T.fgMuted }}
+        style={{
+          background: controlBg,
+          borderColor: border,
+          color: isRegen
+            ? isLight
+              ? "rgba(15,23,42,0.3)"
+              : "rgba(255,255,255,0.35)"
+            : T.fgMuted,
+        }}
       >
         <RefreshCw size={12} className={isRegen ? "animate-spin" : ""} />
       </button>
@@ -394,7 +517,11 @@ function LocaleDropdown({ locales, locale, regenLocaleCode, theme: T, uiMode, on
       {open && (
         <div
           className="absolute top-[calc(100%+6px)] right-0 z-300 border rounded-[10px] p-1 min-w-45"
-          style={{ background: panelBg, borderColor: border, boxShadow: shadow }}
+          style={{
+            background: panelBg,
+            borderColor: border,
+            boxShadow: shadow,
+          }}
         >
           {locales.map((loc) => {
             const isCurrent = loc.code === locale;
@@ -403,45 +530,79 @@ function LocaleDropdown({ locales, locale, regenLocaleCode, theme: T, uiMode, on
             return (
               <div key={loc.code} className="flex items-center gap-1">
                 <button
-                  onClick={() => { if (!isPendingDelete) { onSelect(loc.code); setOpen(false); } }}
+                  onClick={() => {
+                    if (!isPendingDelete) {
+                      onSelect(loc.code);
+                      setOpen(false);
+                    }
+                  }}
                   className={`flex items-center gap-2.5 flex-1 border rounded-[7px] px-2.5 py-1.75 text-left transition-colors duration-100 ${
                     isPendingDelete
                       ? "bg-red-500/10 border-red-500/30 cursor-default"
                       : isCurrent
-                      ? "border-transparent cursor-pointer hover:bg-white/5"
-                      : "bg-transparent border-transparent cursor-pointer hover:bg-white/5"
+                        ? "border-transparent cursor-pointer hover:bg-white/5"
+                        : "bg-transparent border-transparent cursor-pointer hover:bg-white/5"
                   }`}
-                  style={isCurrent && !isPendingDelete ? { background: T.accentSoft } : undefined}
+                  style={
+                    isCurrent && !isPendingDelete
+                      ? { background: T.accentSoft }
+                      : undefined
+                  }
                 >
                   <span className="text-base">{loc.flag}</span>
-                  {isPendingDelete
-                    ? <span className="text-xs text-red-400 flex-1">Delete {loc.label}?</span>
-                    : <span className={`text-[13px] flex-1 ${isCurrent ? "font-semibold" : "font-normal"}`} style={{ color: isCurrent ? T.fg : T.fgMuted }}>{loc.label}</span>
-                  }
-                  {isCurrent && !isPendingDelete && <Check size={13} color={T.accent} />}
+                  {isPendingDelete ? (
+                    <span className="text-xs text-red-400 flex-1">
+                      Delete {loc.label}?
+                    </span>
+                  ) : (
+                    <span
+                      className={`text-[13px] flex-1 ${isCurrent ? "font-semibold" : "font-normal"}`}
+                      style={{ color: isCurrent ? T.fg : T.fgMuted }}
+                    >
+                      {loc.label}
+                    </span>
+                  )}
+                  {isCurrent && !isPendingDelete && (
+                    <Check size={13} color={T.accent} />
+                  )}
                 </button>
-                {canRemove && (
-                  isPendingDelete ? (
+                {canRemove &&
+                  (isPendingDelete ? (
                     <div className="flex gap-0.5">
                       <button
-                        onClick={(e) => { e.stopPropagation(); onRemove(loc.code); setConfirmDelete(null); }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onRemove(loc.code);
+                          setConfirmDelete(null);
+                        }}
                         title="Confirm delete"
                         className="flex items-center justify-center w-5.5 h-5.5 rounded-[5px] shrink-0 bg-red-500/20 border-none text-red-400 cursor-pointer text-[13px]"
-                      >✓</button>
+                      >
+                        ✓
+                      </button>
                       <button
-                        onClick={(e) => { e.stopPropagation(); setConfirmDelete(null); }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setConfirmDelete(null);
+                        }}
                         title="Cancel"
                         className="flex items-center justify-center w-5.5 h-5.5 rounded-[5px] shrink-0 bg-transparent border-none text-[#555] cursor-pointer text-sm"
-                      >×</button>
+                      >
+                        ×
+                      </button>
                     </div>
                   ) : (
                     <button
-                      onClick={(e) => { e.stopPropagation(); setConfirmDelete(loc.code); }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setConfirmDelete(loc.code);
+                      }}
                       title="Remove language"
                       className="flex items-center justify-center w-5.5 h-5.5 rounded-[5px] shrink-0 bg-transparent border-none text-[#555] cursor-pointer text-sm transition-all duration-100 hover:bg-red-500/15 hover:text-red-400"
-                    >×</button>
-                  )
-                )}
+                    >
+                      ×
+                    </button>
+                  ))}
               </div>
             );
           })}
@@ -466,15 +627,30 @@ type AddLocaleModalProps = {
   onAdded: (locale: LocaleDef, metadata: MetadataConfig) => void;
 };
 
-function AddLocaleModal({ theme: T, productId, existingCodes, sourceLoc, sourceMetadata, rawProduct, onClose, onAdded }: AddLocaleModalProps) {
+function AddLocaleModal({
+  theme: T,
+  productId,
+  existingCodes,
+  sourceLoc,
+  sourceMetadata,
+  rawProduct,
+  onClose,
+  onAdded,
+}: AddLocaleModalProps) {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [generating, setGenerating] = useState(false);
-  const [progress, setProgress] = useState<{ done: number; total: number; current: string } | null>(null);
+  const [progress, setProgress] = useState<{
+    done: number;
+    total: number;
+    current: string;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const filtered = COMMON_LOCALES.filter(
-    (l) => l.label.toLowerCase().includes(search.toLowerCase()) || l.code.toLowerCase().includes(search.toLowerCase()),
+    (l) =>
+      l.label.toLowerCase().includes(search.toLowerCase()) ||
+      l.code.toLowerCase().includes(search.toLowerCase()),
   );
 
   function toggleLocale(loc: LocaleDef) {
@@ -492,7 +668,7 @@ function AddLocaleModal({ theme: T, productId, existingCodes, sourceLoc, sourceM
 
     const slides = rawProduct.slides.iphone.map((s) => ({
       slideKey: s.id,
-      label:    s.copy.label,
+      label: s.copy.label,
       headline: segmentsToPlain(s.copy.headline as RichTextSegment[]),
     }));
 
@@ -500,7 +676,11 @@ function AddLocaleModal({ theme: T, productId, existingCodes, sourceLoc, sourceM
     let done = 0;
 
     for (const loc of locales) {
-      setProgress({ done, total: locales.length, current: `${loc.flag ?? ""} ${loc.label}` });
+      setProgress({
+        done,
+        total: locales.length,
+        current: `${loc.flag ?? ""} ${loc.label}`,
+      });
       try {
         const res = await fetch("/api/generate-locale", {
           method: "POST",
@@ -508,16 +688,20 @@ function AddLocaleModal({ theme: T, productId, existingCodes, sourceLoc, sourceM
           body: JSON.stringify({
             productId,
             targetLocale: loc.code,
-            targetLabel:  loc.label,
-            targetFlag:   loc.flag,
+            targetLabel: loc.label,
+            targetFlag: loc.flag,
             sourceLocale: sourceLoc.code,
-            sourceLabel:  sourceLoc.label,
-            sourceFlag:   sourceLoc.flag,
+            sourceLabel: sourceLoc.label,
+            sourceFlag: sourceLoc.flag,
             sourceMetadata,
             sourceSlides: slides,
           }),
         });
-        const data = await res.json() as { ok?: boolean; error?: string; metadata?: MetadataConfig };
+        const data = (await res.json()) as {
+          ok?: boolean;
+          error?: string;
+          metadata?: MetadataConfig;
+        };
         if (res.ok && data.ok && data.metadata) {
           onAdded(loc, data.metadata);
         } else {
@@ -543,19 +727,25 @@ function AddLocaleModal({ theme: T, productId, existingCodes, sourceLoc, sourceM
   return (
     <div
       className="fixed inset-0 z-500 bg-black/70 backdrop-blur-md flex items-center justify-center"
-      onClick={(e) => { if (e.target === e.currentTarget && !generating) onClose(); }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget && !generating) onClose();
+      }}
     >
       <div className="bg-[#111114] border border-white/10 rounded-2xl w-95 max-h-[80vh] flex flex-col shadow-[0_32px_80px_rgba(0,0,0,0.8)]">
         <div className="px-5 pt-4.5 pb-3.5 border-b border-white/7 flex items-center justify-between">
           <div>
             <div className="font-bold text-[15px] text-white">Add language</div>
-            <div className="text-xs text-[#666] mt-0.5">AI generates ASO-optimised copy</div>
+            <div className="text-xs text-[#666] mt-0.5">
+              AI generates ASO-optimised copy
+            </div>
           </div>
           <button
             onClick={onClose}
             disabled={generating}
             className="bg-transparent border-none text-[#666] text-xl leading-none p-1 disabled:cursor-not-allowed cursor-pointer"
-          >×</button>
+          >
+            ×
+          </button>
         </div>
 
         <div className="px-4 pt-3 pb-2">
@@ -570,10 +760,12 @@ function AddLocaleModal({ theme: T, productId, existingCodes, sourceLoc, sourceM
 
         <div className="flex-1 overflow-y-auto px-2 pb-2">
           {filtered.length === 0 && (
-            <div className="text-[#555] text-[13px] text-center py-5">No languages found</div>
+            <div className="text-[#555] text-[13px] text-center py-5">
+              No languages found
+            </div>
           )}
           {filtered.map((loc) => {
-            const exists  = existingCodes.includes(loc.code);
+            const exists = existingCodes.includes(loc.code);
             const isActive = selected.has(loc.code);
             const blocked = generating || exists;
             return (
@@ -592,9 +784,19 @@ function AddLocaleModal({ theme: T, productId, existingCodes, sourceLoc, sourceM
                 }}
               >
                 <span className="text-lg leading-none">{loc.flag}</span>
-                <span className={`text-[13px] ${isActive ? "text-white font-semibold" : "text-[#ccc] font-normal"}`}>{loc.label}</span>
-                <span className="text-[11px] text-[#555] ml-auto">{loc.code}</span>
-                {exists && <span className="text-[10px] text-[#555] bg-white/6 rounded px-1.5 py-0.5">Added</span>}
+                <span
+                  className={`text-[13px] ${isActive ? "text-white font-semibold" : "text-[#ccc] font-normal"}`}
+                >
+                  {loc.label}
+                </span>
+                <span className="text-[11px] text-[#555] ml-auto">
+                  {loc.code}
+                </span>
+                {exists && (
+                  <span className="text-[10px] text-[#555] bg-white/6 rounded px-1.5 py-0.5">
+                    Added
+                  </span>
+                )}
                 {isActive && !exists && <Check size={14} color={T.accent} />}
               </button>
             );
@@ -605,7 +807,8 @@ function AddLocaleModal({ theme: T, productId, existingCodes, sourceLoc, sourceM
           {error && <div className="text-xs text-red-400 mb-2">{error}</div>}
           {progress && (
             <div className="text-xs text-[#999] mb-2">
-              Generating {progress.current} ({progress.done + 1}/{progress.total})…
+              Generating {progress.current} ({progress.done + 1}/
+              {progress.total})…
             </div>
           )}
           <button
@@ -613,16 +816,22 @@ function AddLocaleModal({ theme: T, productId, existingCodes, sourceLoc, sourceM
             disabled={!hasSelected || generating}
             className="w-full py-2.25 px-4 rounded-[9px] border-none font-bold text-[13px] transition-all duration-150 disabled:cursor-not-allowed"
             style={{
-              background: hasSelected && !generating ? T.accent : "rgba(255,255,255,0.08)",
+              background:
+                hasSelected && !generating
+                  ? T.accent
+                  : "rgba(255,255,255,0.08)",
               color: hasSelected && !generating ? "#fff" : "#555",
-              boxShadow: hasSelected && !generating ? `0 2px 14px ${T.accentGlow}` : "none",
+              boxShadow:
+                hasSelected && !generating
+                  ? `0 2px 14px ${T.accentGlow}`
+                  : "none",
             }}
           >
             {generating
               ? "Generating…"
               : hasSelected
-              ? `Generate ${selected.size} language${selected.size > 1 ? "s" : ""}`
-              : "Select languages"}
+                ? `Generate ${selected.size} language${selected.size > 1 ? "s" : ""}`
+                : "Select languages"}
           </button>
         </div>
       </div>
@@ -632,7 +841,11 @@ function AddLocaleModal({ theme: T, productId, existingCodes, sourceLoc, sourceM
 
 // ─── Add Product Modal ────────────────────────────────────────────────────────
 
-function AddProductModal({ theme: T, onClose, onCreated }: {
+function AddProductModal({
+  theme: T,
+  onClose,
+  onCreated,
+}: {
   theme: HydratedProduct["theme"];
   onClose: () => void;
   onCreated: (id: string) => void;
@@ -666,7 +879,11 @@ function AddProductModal({ theme: T, onClose, onCreated }: {
       form.append("name", name.trim());
       if (iconFile) form.append("icon", iconFile);
       const res = await fetch("/api/products", { method: "POST", body: form });
-      const data = await res.json() as { ok?: boolean; id?: string; error?: string };
+      const data = (await res.json()) as {
+        ok?: boolean;
+        id?: string;
+        error?: string;
+      };
       if (res.ok && data.ok && data.id) {
         onCreated(data.id);
       } else {
@@ -688,19 +905,25 @@ function AddProductModal({ theme: T, onClose, onCreated }: {
   return (
     <div
       className="fixed inset-0 z-500 bg-black/70 backdrop-blur-md flex items-center justify-center"
-      onClick={(e) => { if (e.target === e.currentTarget && !saving) onClose(); }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget && !saving) onClose();
+      }}
     >
       <div className="bg-[#111114] border border-white/10 rounded-2xl w-88 flex flex-col shadow-[0_32px_80px_rgba(0,0,0,0.8)]">
         <div className="px-5 pt-4.5 pb-3.5 border-b border-white/7 flex items-center justify-between">
           <div>
             <div className="font-bold text-[15px] text-white">Add product</div>
-            <div className="text-xs text-[#666] mt-0.5">Creates a new app with default slides</div>
+            <div className="text-xs text-[#666] mt-0.5">
+              Creates a new app with default slides
+            </div>
           </div>
           <button
             onClick={onClose}
             disabled={saving}
             className="bg-transparent border-none text-[#666] text-xl leading-none p-1 disabled:cursor-not-allowed cursor-pointer"
-          >×</button>
+          >
+            ×
+          </button>
         </div>
 
         <form onSubmit={handleSubmit} className="px-5 py-4 flex flex-col gap-4">
@@ -711,28 +934,49 @@ function AddProductModal({ theme: T, onClose, onCreated }: {
               onClick={() => fileRef.current?.click()}
               className="w-16 h-16 rounded-2xl border-2 border-dashed border-white/15 flex items-center justify-center shrink-0 cursor-pointer transition-colors hover:border-white/30 overflow-hidden bg-white/4"
             >
-              {iconPreview
-                ? <img src={iconPreview} alt="icon" className="w-full h-full object-cover" />
-                : <Plus size={20} color="#555" />
-              }
+              {iconPreview ? (
+                <img
+                  src={iconPreview}
+                  alt="icon"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <Plus size={20} color="#555" />
+              )}
             </button>
-            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleIconChange} />
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleIconChange}
+            />
             <div className="flex flex-col gap-1">
               <div className="text-[13px] text-white font-medium">App icon</div>
-              <div className="text-[11px] text-[#555]">Optional — PNG recommended</div>
+              <div className="text-[11px] text-[#555]">
+                Optional — PNG recommended
+              </div>
               {iconFile && (
                 <button
                   type="button"
-                  onClick={() => { setIconFile(null); setIconPreview(null); if (fileRef.current) fileRef.current.value = ""; }}
+                  onClick={() => {
+                    setIconFile(null);
+                    setIconPreview(null);
+                    if (fileRef.current) fileRef.current.value = "";
+                  }}
                   className="text-[11px] text-[#666] bg-transparent border-none cursor-pointer text-left hover:text-red-400 transition-colors"
-                >Remove</button>
+                >
+                  Remove
+                </button>
               )}
             </div>
           </div>
 
           {/* Name */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-[12px] font-medium text-[#999]">App name</label>
+            <label className="text-[12px] font-medium text-[#999]">
+              App name
+            </label>
             <input
               autoFocus
               value={name}
@@ -765,7 +1009,13 @@ function AddProductModal({ theme: T, onClose, onCreated }: {
 
 // ─── Edit Product Modal ───────────────────────────────────────────────────────
 
-function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
+function EditProductModal({
+  theme: T,
+  product,
+  onClose,
+  onSaved,
+  onArchived,
+}: {
   theme: HydratedProduct["theme"];
   product: HydratedProduct;
   onClose: () => void;
@@ -777,8 +1027,13 @@ function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
   const [accent, setAccent] = useState(T.accent);
   const [bundleId, setBundleId] = useState(product.bundleId ?? "");
   const [packageName, setPackageName] = useState(product.packageName ?? "");
-  const [privacyPolicyUrl, setPrivacyPolicyUrl] = useState(product.privacyPolicyUrl ?? "");
-  const [termsOfUseUrl, setTermsOfUseUrl] = useState(product.termsOfUseUrl ?? "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/");
+  const [privacyPolicyUrl, setPrivacyPolicyUrl] = useState(
+    product.privacyPolicyUrl ?? "",
+  );
+  const [termsOfUseUrl, setTermsOfUseUrl] = useState(
+    product.termsOfUseUrl ??
+      "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/",
+  );
   const [supportUrl, setSupportUrl] = useState(product.supportUrl ?? "");
   const [iconFile, setIconFile] = useState<File | null>(null);
   const [iconPreview, setIconPreview] = useState<string | null>(null);
@@ -813,12 +1068,19 @@ function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
       form.append("accent", accent);
       form.append("bundleId", bundleId);
       form.append("packageName", packageName);
-    form.append("privacyPolicyUrl", privacyPolicyUrl);
+      form.append("privacyPolicyUrl", privacyPolicyUrl);
       form.append("termsOfUseUrl", termsOfUseUrl);
       form.append("supportUrl", supportUrl);
       if (iconFile) form.append("icon", iconFile);
-      const res = await fetch("/api/product-settings", { method: "POST", body: form });
-      const data = await res.json() as { ok?: boolean; error?: string; productId?: string };
+      const res = await fetch("/api/product-settings", {
+        method: "POST",
+        body: form,
+      });
+      const data = (await res.json()) as {
+        ok?: boolean;
+        error?: string;
+        productId?: string;
+      };
       if (res.ok && data.ok) {
         onSaved(data.productId);
       } else {
@@ -844,7 +1106,7 @@ function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productId: product.id, archived: true }),
       });
-      const data = await res.json() as { ok?: boolean; error?: string };
+      const data = (await res.json()) as { ok?: boolean; error?: string };
       if (res.ok && data.ok) {
         onArchived();
       } else {
@@ -861,13 +1123,16 @@ function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
     }
   }
 
-  const inputCls = "w-full bg-white/6 border border-white/10 rounded-lg px-3 py-2 text-[13px] text-white outline-none focus:border-white/25 box-border transition-colors font-[inherit]";
+  const inputCls =
+    "w-full bg-white/6 border border-white/10 rounded-lg px-3 py-2 text-[13px] text-white outline-none focus:border-white/25 box-border transition-colors font-[inherit]";
   const labelCls = "text-[12px] font-medium text-[#999]";
 
   return (
     <div
       className="fixed inset-0 z-500 bg-black/70 backdrop-blur-md flex items-center justify-center"
-      onClick={(e) => { if (e.target === e.currentTarget && !saving && !archiving) onClose(); }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget && !saving && !archiving) onClose();
+      }}
     >
       <div className="bg-[#111114] border border-white/10 rounded-2xl w-110 max-h-[90vh] overflow-y-auto flex flex-col shadow-[0_32px_80px_rgba(0,0,0,0.8)]">
         {/* Header */}
@@ -881,7 +1146,9 @@ function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
             onClick={onClose}
             disabled={saving || archiving}
             className="bg-transparent border-none text-[#666] text-xl leading-none p-1 disabled:cursor-not-allowed cursor-pointer"
-          >×</button>
+          >
+            ×
+          </button>
         </div>
 
         <form onSubmit={handleSubmit} className="px-5 py-4 flex flex-col gap-4">
@@ -892,14 +1159,32 @@ function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
               onClick={() => fileRef.current?.click()}
               className="w-16 h-16 rounded-2xl border-2 border-dashed border-white/15 flex items-center justify-center shrink-0 cursor-pointer transition-colors hover:border-white/30 overflow-hidden bg-white/4"
             >
-              {iconPreview
-                ? <img src={iconPreview} alt="icon" className="w-full h-full object-cover" />
-                : product.iconPath
-                ? <img src={product.iconPath} alt="icon" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
-                : <Plus size={20} color="#555" />
-              }
+              {iconPreview ? (
+                <img
+                  src={iconPreview}
+                  alt="icon"
+                  className="w-full h-full object-cover"
+                />
+              ) : product.iconPath ? (
+                <img
+                  src={product.iconPath}
+                  alt="icon"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              ) : (
+                <Plus size={20} color="#555" />
+              )}
             </button>
-            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleIconChange} />
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleIconChange}
+            />
             <div className="flex flex-col gap-1.5 flex-1">
               <label className={labelCls}>App name</label>
               <input
@@ -941,14 +1226,19 @@ function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
             <label className={labelCls}>Product slug (URL id)</label>
             <input
               value={productSlug}
-              onChange={(e) => setProductSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""))}
+              onChange={(e) =>
+                setProductSlug(
+                  e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""),
+                )
+              }
               placeholder="my-app"
               maxLength={60}
               className={`${inputCls} font-mono`}
             />
             {productSlug.trim() !== product.id && (
               <div className="text-[11px] text-amber-400/90">
-                Renaming moves uploaded files and changes the URL for this product.
+                Renaming moves uploaded files and changes the URL for this
+                product.
               </div>
             )}
           </div>
@@ -958,14 +1248,26 @@ function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
 
           {/* Store IDs */}
           <div className="flex flex-col gap-3">
-            <div className="text-[11px] font-bold tracking-widest uppercase text-[#555]">Store Publishing</div>
+            <div className="text-[11px] font-bold tracking-widest uppercase text-[#555]">
+              Store Publishing
+            </div>
             <div className="flex flex-col gap-1.5">
               <label className={labelCls}>Apple Bundle ID</label>
-              <input value={bundleId} onChange={(e) => setBundleId(e.target.value)} placeholder="com.example.myapp" className={`${inputCls} font-mono`} />
+              <input
+                value={bundleId}
+                onChange={(e) => setBundleId(e.target.value)}
+                placeholder="com.example.myapp"
+                className={`${inputCls} font-mono`}
+              />
             </div>
             <div className="flex flex-col gap-1.5">
               <label className={labelCls}>Google Package Name</label>
-              <input value={packageName} onChange={(e) => setPackageName(e.target.value)} placeholder="com.example.myapp" className={`${inputCls} font-mono`} />
+              <input
+                value={packageName}
+                onChange={(e) => setPackageName(e.target.value)}
+                placeholder="com.example.myapp"
+                className={`${inputCls} font-mono`}
+              />
             </div>
           </div>
 
@@ -974,19 +1276,38 @@ function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
 
           {/* URLs */}
           <div className="flex flex-col gap-3">
-            <div className="text-[11px] font-bold tracking-widest uppercase text-[#555]">URLs</div>
+            <div className="text-[11px] font-bold tracking-widest uppercase text-[#555]">
+              URLs
+            </div>
             <div className="flex flex-col gap-1.5">
               <label className={labelCls}>Privacy Policy URL</label>
-              <input value={privacyPolicyUrl} onChange={(e) => setPrivacyPolicyUrl(e.target.value)} placeholder="https://example.com/privacy" className={inputCls} />
+              <input
+                value={privacyPolicyUrl}
+                onChange={(e) => setPrivacyPolicyUrl(e.target.value)}
+                placeholder="https://example.com/privacy"
+                className={inputCls}
+              />
             </div>
             <div className="flex flex-col gap-1.5">
               <label className={labelCls}>Terms of Use (EULA) URL</label>
-              <input value={termsOfUseUrl} onChange={(e) => setTermsOfUseUrl(e.target.value)} placeholder="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" className={inputCls} />
-              <div className="text-[11px] text-[#666]">Included in Apple descriptions for subscription compliance.</div>
+              <input
+                value={termsOfUseUrl}
+                onChange={(e) => setTermsOfUseUrl(e.target.value)}
+                placeholder="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+                className={inputCls}
+              />
+              <div className="text-[11px] text-[#666]">
+                Included in Apple descriptions for subscription compliance.
+              </div>
             </div>
             <div className="flex flex-col gap-1.5">
               <label className={labelCls}>Support URL</label>
-              <input value={supportUrl} onChange={(e) => setSupportUrl(e.target.value)} placeholder="https://example.com/support" className={inputCls} />
+              <input
+                value={supportUrl}
+                onChange={(e) => setSupportUrl(e.target.value)}
+                placeholder="https://example.com/support"
+                className={inputCls}
+              />
             </div>
           </div>
 
@@ -994,12 +1315,16 @@ function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
 
           <button
             type="submit"
-            disabled={!name.trim() || !productSlug.trim() || saving || archiving}
+            disabled={
+              !name.trim() || !productSlug.trim() || saving || archiving
+            }
             className="w-full py-2.25 px-4 rounded-[9px] border-none font-bold text-[13px] transition-all duration-150 disabled:cursor-not-allowed mt-1"
             style={{
-              background: name.trim() && !saving ? accent : "rgba(255,255,255,0.08)",
+              background:
+                name.trim() && !saving ? accent : "rgba(255,255,255,0.08)",
               color: name.trim() && !saving ? "#fff" : "#555",
-              boxShadow: name.trim() && !saving ? `0 2px 14px ${T.accentGlow}` : "none",
+              boxShadow:
+                name.trim() && !saving ? `0 2px 14px ${T.accentGlow}` : "none",
             }}
           >
             {saving ? "Saving…" : "Save changes"}
@@ -1044,14 +1369,27 @@ function EditProductModal({ theme: T, product, onClose, onSaved, onArchived }: {
   );
 }
 
-function SectionIcon({ id, color }: { id: string; active: boolean; color: string }) {
+function SectionIcon({
+  id,
+  color,
+}: {
+  id: string;
+  active: boolean;
+  color: string;
+}) {
   const props = { size: 15, color };
   switch (id) {
-    case "screenshots":     return <Smartphone {...props} />;
-    case "feature-graphic": return <Image {...props} />;
-    case "social-og":       return <Share2 {...props} />;
-    case "cta":             return <MousePointerClick {...props} />;
-    case "metadata":        return <AlignLeft {...props} />;
-    default:                return null;
+    case "screenshots":
+      return <Smartphone {...props} />;
+    case "feature-graphic":
+      return <Image {...props} />;
+    case "social-og":
+      return <Share2 {...props} />;
+    case "cta":
+      return <MousePointerClick {...props} />;
+    case "metadata":
+      return <AlignLeft {...props} />;
+    default:
+      return null;
   }
 }

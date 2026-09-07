@@ -209,7 +209,7 @@ export function CenteredSlide({
       {decoration}
 
       <div style={{ zIndex: 2, position: "relative", marginTop: H * mt }}>
-        <Caption label={label} headline={headline} canvasW={W} theme={T} />
+        <Caption label={label} headline={headline} canvasW={W} theme={T} compact={platform === "ipad"} />
       </div>
 
       <div
@@ -306,12 +306,13 @@ export function SideSlide({
           paddingRight: px,
         }}
       >
-        <Caption
-          label={label}
-          headline={headline}
-          canvasW={W}
-          align="left"
-          theme={T}
+          <Caption
+            label={label}
+            headline={headline}
+            canvasW={W}
+            align="left"
+            theme={T}
+            compact={platform === "ipad"}
         />
       </div>
       <div

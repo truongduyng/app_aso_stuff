@@ -46,8 +46,10 @@ function GenericCenteredSlide({ theme: T, imagePath, copy, device = "iphone" }: 
     label: copy.label,
     headline: copy.headline,
     alt: copy.label,
-    phoneWidth: device === "ipad" ? "86%" : "90%",
-    phoneTy: device === "ipad" ? "3%" : "8%",
+    // The portrait tablet is shorter than a phone at the same width. Keep
+    // extra breathing room below multi-line headlines in the single layout.
+    phoneWidth: device === "ipad" ? "80%" : "90%",
+    phoneTy: device === "ipad" ? "8%" : "8%",
   });
 }
 
@@ -86,10 +88,10 @@ function GenericSideSlide({ theme: T, imagePath, copy, device = "iphone" }: Slid
       React.createElement("div", {
         style: {
           position: "absolute",
-          bottom: "6%",
+          bottom: device === "ipad" ? "0%" : "6%",
           left: "-4%",
           transform: "rotate(-3deg)",
-          width: "74%",
+          width: device === "ipad" ? "70%" : "74%",
           zIndex: 2,
           opacity: 0.35,
           filter: "brightness(0.65)",
@@ -98,9 +100,9 @@ function GenericSideSlide({ theme: T, imagePath, copy, device = "iphone" }: Slid
       React.createElement("div", {
         style: {
           position: "absolute",
-          bottom: "6%",
+          bottom: device === "ipad" ? "0%" : "6%",
           right: "-4%",
-          width: "80%",
+          width: device === "ipad" ? "76%" : "80%",
           zIndex: 3,
         },
       }, React.createElement(PhoneFrame, { platform: device, src: imagePath, alt: copy.label })),
